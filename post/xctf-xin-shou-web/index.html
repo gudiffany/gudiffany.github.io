@@ -1,0 +1,287 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xctf新手web | gudiffany_blog</title>
+<link rel="shortcut icon" href="https://gudiffany.github.io//favicon.ico?v=1664035675532">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gudiffany.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="xctf新手web | gudiffany_blog - Atom Feed" href="https://gudiffany.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1.Training-WWW-Robots
+1.首先点击进入，看到一大串英文，翻译一下，发现是有关于robots.txt的。直接在网址后面加上/robots.txt，发现以下代码
+User-agent: *
+Disallow: /fl0g...." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gudiffany.github.io/">
+  <img class="avatar" src="https://gudiffany.github.io//images/avatar.png?v=1664035675532" alt="">
+  </a>
+  <h1 class="site-title">
+    gudiffany_blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+      
+        <a href="/find" class="menu">
+          find
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              xctf新手web
+            </h2>
+            <div class="post-info">
+              <span>
+                2022-08-14
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h2 id="1training-www-robots">1.Training-WWW-Robots</h2>
+<p>1.首先点击进入，看到一大串英文，翻译一下，发现是有关于robots.txt的。直接在网址后面加上/robots.txt，发现以下代码</p>
+<pre><code class="language-php">User-agent: *
+Disallow: /fl0g.php
+
+
+User-agent: Yandex
+Disallow: *
+</code></pre>
+<p>发现存在/fl0g.php，替换后缀</p>
+<p>flag：cyberpeace{a41a79b5062905697093c22094368a80}</p>
+<h2 id="2php2">2.PHP2</h2>
+<p>1.进入之后发现一串英文，然后看一下index.php，但是没有东西，然后发现题目是PHP2，找相关的php，发现有phps的源码文件，之后根据以下源码GET传参：</p>
+<pre><code class="language-php">&lt;?php
+if(&quot;admin&quot;===$_GET[id]) {
+  echo(&quot;&lt;p&gt;not allowed!&lt;/p&gt;&quot;);
+  exit();
+}
+
+$_GET[id] = urldecode($_GET[id]);
+if($_GET[id] == &quot;admin&quot;)
+{
+  echo &quot;&lt;p&gt;Access granted!&lt;/p&gt;&quot;;
+  echo &quot;&lt;p&gt;Key: xxxxxxx &lt;/p&gt;&quot;;
+}
+?&gt;
+
+Can you anthenticate to this website?
+</code></pre>
+<p>发现代码又一次对id进行url解码，因此需要GET传参时二次编码</p>
+<p>比较大的问题就是admin第一次编码需要对照表来弄（懒惰的我找到直接可以选择全字符编码的网站http://web.chacuo.net/charseturlencode）</p>
+<p>然后编码传参即可。</p>
+<h2 id="3unserialize3">3.unserialize3</h2>
+<p>1.直接给代码</p>
+<p>class xctf{<br>
+public $flag = '111';<br>
+public function __wakeup(){<br>
+exit('bad requests');<br>
+}<br>
+?code=</p>
+<p>发现wakeup()函数，应该就是反序列化漏洞了，搜一下相关资料，当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过wakeup的执行。</p>
+<p>然后写一下代码</p>
+<pre><code class="language-php">&lt;?php
+class xctf
+{
+    public $flag = '111';
+
+    public function __wakeup()
+    {
+        exit('bad requests');
+    }
+}
+$a=new xctf();
+echo serialize($a);
+?&gt;
+</code></pre>
+<p>得到结果，然后改一下传参给code就行了</p>
+<p>O:4:&quot;xctf&quot;:1:{s:4:&quot;flag&quot;;s:3:&quot;111&quot;;}</p>
+<p>flag：cyberpeace{5abd84efc56e6be11290fff81d4ad885}</p>
+<h2 id="4ics-06">4.ics-06</h2>
+<p>1.进入网站只有报表中心有跳转，然后选一个日期提交，发现网址多出一个id，直接burp爆破</p>
+<p>然后id为2333时得到flag：cyberpeace{6e272d0fd0bec41ffd1fd36247613337}</p>
+<h2 id="5view_source">5.view_source</h2>
+<p>1.题目描述鼠标右键不管用，直接F12就行了【滑稽】</p>
+<p>flag：cyberpeace{d5f818b143a5248b897c11381f3d8f6c}</p>
+<h2 id="6get_post">6.get_post</h2>
+<p>1.题目考GET和POST的请求方式</p>
+<p>网址用get传参，hacker用post传参</p>
+<p>flag：cyberpeace{5f4c6882d1150f6ebc0a830fa4240e87}</p>
+<h2 id="7robots">7.robots</h2>
+<p>跟上面的Training-WWW-Robots基本一样，进入robots.txt</p>
+<pre><code class="language-php">User-agent: *
+Disallow: 
+Disallow: f1ag_1s_h3re.php
+</code></pre>
+<p>flag：cyberpeace{c7d1f66c20a45691c9233d20b9cdd6ac}</p>
+<h2 id="8backup">8.backup</h2>
+<p>index的备用文件名，搜一下，直接得到index.php.bak</p>
+<p>下载得到文件，用txt文本打开看一下</p>
+<p>得到flag：Cyberpeace{855A1C4B3401294CB6604CCC98BDE334}</p>
+<h2 id="9cookie">9.cookie</h2>
+<p>1.直接在edge的应用程序的cookie中找到存在cookie.php，进入之后用burp抓包重发得到flag：cyberpeace{95def50def57aa0367e958eb17849e52}</p>
+<h2 id="10disabled_button">10.disabled_button</h2>
+<p>直接在前端吧button中的disabled删除就可以按按钮了</p>
+<p>flag：cyberpeace{2e0c3703da9436d3e49f7162ce0ad484}</p>
+<h2 id="11weak_auth">11.weak_auth</h2>
+<p>简单的密码爆破，直接上burp就行（自带的没有123456，要网上下一个）</p>
+<p>flag：cyberpeace{7639f2981c3cfaafd6a39c4a890f851f}</p>
+<h2 id="12simple_php">12.simple_php</h2>
+<p>简单的php弱比较</p>
+<p>构造/?a=t&amp;b=1111111a即可</p>
+<p>flag：Cyberpeace{647E37C7627CC3E4019EC69324F66C7C}</p>
+<h2 id="13baby_web">13.baby_web</h2>
+<p>一道重定向的题目，可以直接抓包或者看网络流</p>
+<p>flag：flag{very_baby_web}</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1training-www-robots">1.Training-WWW-Robots</a></li>
+<li><a href="#2php2">2.PHP2</a></li>
+<li><a href="#3unserialize3">3.unserialize3</a></li>
+<li><a href="#4ics-06">4.ics-06</a></li>
+<li><a href="#5view_source">5.view_source</a></li>
+<li><a href="#6get_post">6.get_post</a></li>
+<li><a href="#7robots">7.robots</a></li>
+<li><a href="#8backup">8.backup</a></li>
+<li><a href="#9cookie">9.cookie</a></li>
+<li><a href="#10disabled_button">10.disabled_button</a></li>
+<li><a href="#11weak_auth">11.weak_auth</a></li>
+<li><a href="#12simple_php">12.simple_php</a></li>
+<li><a href="#13baby_web">13.baby_web</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gudiffany.github.io/post/ssti-labs/">
+              <h3 class="post-title">
+                ssti-labs
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gudiffany.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
