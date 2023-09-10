@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2023hxpctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023hxpctf复现">
+<meta property="og:url" content="https://gudiffany.github.io/2023/03/13/20-17-27/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="2023hxpctf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/2023-03-13203355.png">
+<meta property="article:published_time" content="2023-03-13T12:17:27.000Z">
+<meta property="article:modified_time" content="2023-03-30T02:49:03.713Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="2023ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/2023-03-13203355.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/03/13/20-17-27/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/03/13/20-17-27/","path":"2023/03/13/20-17-27/","title":"2023hxpctf复现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2023hxpctf复现 | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023hxpctf</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">1.1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#valentine"><span class="nav-number">1.1.1.</span> <span class="nav-text">valentine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#misc"><span class="nav-number">1.2.</span> <span class="nav-text">misc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure-Flag-Dispenser"><span class="nav-number">1.2.1.</span> <span class="nav-text">Secure-Flag-Dispenser</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crypto"><span class="nav-number">1.3.</span> <span class="nav-text">crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yor"><span class="nav-number">1.3.1.</span> <span class="nav-text">yor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re"><span class="nav-number">1.4.</span> <span class="nav-text">re</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#required"><span class="nav-number">1.4.1.</span> <span class="nav-text">required</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/03/13/20-17-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2023hxpctf复现 | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023hxpctf复现<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/2023hxpctf%E5%A4%8D%E7%8E%B0.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-13 20:17:27" itemprop="dateCreated datePublished" datetime="2023-03-13T20:17:27+08:00">2023-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-30 10:49:03" itemprop="dateModified" datetime="2023-03-30T10:49:03+08:00">2023-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/03/13/20-17-27/" class="post-meta-item leancloud_visitors" data-flag-title="2023hxpctf复现" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>2023hxpctf</h1>
+<span id="more"></span>
+<h2 id="web">web</h2>
+<h3 id="valentine">valentine</h3>
+<p>该题是一个ejs模板注入，根据官方wp，灵感来源于<a target="_blank" rel="noopener" href="https://eslam.io/posts/ejs-server-side-template-injection-rce/">https://eslam.io/posts/ejs-server-side-template-injection-rce/</a></p>
+<p>整个链子是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">process.mainModule.require(&#x27;child_process&#x27;).execSync(&#x27;touch /tmp/pwned&#x27;)</span><br></pre></td></tr></table></figure>
+<p>当时chatgpt直接给我了一个链子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;child_process&#x27;).exec(&#x27;ls -la&#x27;, function(error, stdout, stderr) &#123; console.log(stdout) &#125;</span><br></pre></td></tr></table></figure>
+<p>但是我绕不过&lt;%=name %&gt;这个东西，需要使用delimiter更改分隔符</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=diln4KD57xA">https://www.youtube.com/watch?v=diln4KD57xA</a></p>
+<p><img src="/img/2023-03-13203355.png" alt="2023-03-13 203355" /></p>
+<p><a target="_blank" rel="noopener" href="https://hxp.io/blog/101/hxp-CTF-2022-valentine/">https://hxp.io/blog/101/hxp-CTF-2022-valentine/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;.= global.process.mainModule.constructor._load(`child_process`).execSync(`/readflag`).toString() .&gt;</span><br></pre></td></tr></table></figure>
+<p>官方wp中使用-，我不清楚是不是有什么讲究，一般按原理来说是=</p>
+<p>传入的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delimite=.</span><br></pre></td></tr></table></figure>
+<p>原理分析</p>
+<p>根据<a target="_blank" rel="noopener" href="https://eslam.io/posts/ejs-server-side-template-injection-rce/%E4%B8%AD%E7%9A%84">https://eslam.io/posts/ejs-server-side-template-injection-rce/中的</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var _OPTS_PASSABLE_WITH_DATA = [&#x27;delimiter&#x27;, &#x27;scope&#x27;, &#x27;context&#x27;, &#x27;debug&#x27;, &#x27;compileDebug&#x27;,</span><br><span class="line">  &#x27;client&#x27;, &#x27;_with&#x27;, &#x27;rmWhitespace&#x27;, &#x27;strict&#x27;, &#x27;filename&#x27;, &#x27;async&#x27;];</span><br></pre></td></tr></table></figure>
+<p>这段代码定义了一个名为 <code>_OPTS_PASSABLE_WITH_DATA</code> 的变量，它是一个包含多个字符串元素的数组。</p>
+<p>这个数组的元素都是字符串类型的选项名称，用于指定 EJS 模板引擎的渲染选项。这些选项包括：</p>
+<ul>
+<li><code>delimiter</code>: 用于指定 EJS 模板中的分隔符，默认值为 <code>%</code>。</li>
+<li><code>scope</code>: 用于指定模板渲染时的作用域，默认值为 <code>null</code>。</li>
+<li><code>context</code>: 用于指定模板渲染时的上下文对象，默认值为 <code>null</code>。</li>
+<li><code>debug</code>: 用于指定是否启用调试模式，默认值为 <code>false</code>。</li>
+<li><code>compileDebug</code>: 用于指定是否启用编译调试模式，默认值为 <code>undefined</code>。</li>
+<li><code>client</code>: 用于指定是否生成客户端代码，默认值为 <code>false</code>。</li>
+<li><code>_with</code>: 用于指定是否将数据对象添加到作用域链中，默认值为 <code>true</code>。</li>
+<li><code>rmWhitespace</code>: 用于指定是否删除标签间的空格和换行符，默认值为 <code>false</code>。</li>
+<li><code>strict</code>: 用于指定是否启用严格模式，默认值为 <code>false</code>。</li>
+<li><code>filename</code>: 用于指定模板的文件名，默认值为 <code>undefined</code>。</li>
+<li><code>async</code>: 用于指定是否异步执行模板渲染，默认值为 <code>false</code>。</li>
+</ul>
+<p>这些选项可以在调用 EJS 模板引擎的 <code>render</code> 或 <code>compile</code> 方法时进行设置，以便根据需要自定义模板引擎的行为。在get传参中可以直接使用，就像debug=true就会进入ejs的调试</p>
+<p>这题分析过程中，delimiter作为用于指定 EJS 模板中的分隔符的标识，就能够利用将本来无法生成模板的<code>&lt;$ ... $&gt;</code>的$转变为模板，然后使用RCE链子获得注入</p>
+<h2 id="misc">misc</h2>
+<h3 id="Secure-Flag-Dispenser">Secure-Flag-Dispenser</h3>
+<p>只有一道题目的misc，其中涉及了逆向，密码和dns反向查找</p>
+<p>逆向不会，导致算法不知道是个啥，dns查找也是第一次听说，就简单记录一下官方思路：</p>
+<p><a target="_blank" rel="noopener" href="https://hxp.io/blog/106/hxp-CTF-2022-Secure-Flag-Dispenser/">https://hxp.io/blog/106/hxp-CTF-2022-Secure-Flag-Dispenser/</a></p>
+<p>二进制文件逆向出来的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">将标志和预共享密钥读psk入内存</span><br><span class="line">在端口 42424 上设置监听套接字并接受一个连接</span><br><span class="line">检查客户端是否从 🔒.hxp.io 连接</span><br><span class="line">如果是，则使用pskAES 密钥加密标志并将其发送给客户端</span><br><span class="line">如果不是，用教科书RSA包装随机生成的密钥，将包装密钥和AES加密标志发送给客户端</span><br></pre></td></tr></table></figure>
+<p>具体来说，首先将flag，psk读取到内存中</p>
+<p>然后创建了一个套接字（socket），设置了套接字选项，将套接字绑定到一个IP地址和端口号，监听传入的连接请求，接受一个传入的连接请求，并使用getentropy函数生成16个随机字节。</p>
+<p>然后使用getnameinfo函数将网络地址转换为主机名，并将其与字符串“<a target="_blank" rel="noopener" href="http://xn--lv8h.hxp.io">🔒.hxp.io</a>”进行比较。如果比较成功，代码将初始化几个变量，包括AES加密的密钥，并在CBC模式下使用AES加密对硬编码字符串“hxp{n0t_4_fl4g}”进行加密。然后将加密结果打印到套接字。 如果比较失败，代码会为RSA加密初始化几个变量，将十六进制字符串转换为RSA对象，并执行RSA加密。</p>
+<p>使用BN_bin2bn（）将16个随机字节的randbytes数组转换为一个大整数msg。然后它使用BN_mod_exp（）执行模幂运算，用公钥（rsa_e，rsa_n）加密msg。 生成的加密消息enc_msgenc_msg_bs使用BN_bn2hex（）转换为十六进制字符串，并使用dprintf（）打印到控制台。 接下来，使用AES_set_encrypt_key（）从randbytes派生128位AES密钥，并使用带有该密钥的AES-CBC对明文消息“hxp{n0t_4_fl4g}”进行加密，并作为十六进制字符串打印到控制台。 最后，使用OpenSSL函数OPENSSL_free（）和BN_free（）释放所有分配的内存，该函数返回0。它还将一些内存位置设置为零，并在返回之前写入文件描述符。</p>
+<p>二进制文件的行为取决于客户端是从 <a target="_blank" rel="noopener" href="http://xn--lv8h.hxp.io">🔒.hxp.io</a> 还是从其他地方连接。根据<code>getnameinfo(3)</code>函数，它通过执行反向 DNS 查找来实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dig -x 92.243.26.60</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.18.12-1-Debian &lt;&lt;&gt;&gt; -x 92.243.26.60</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 12079</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line">dig: &#x27;xn--ls8haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xn--ls8haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xn--ls8haaaaaaaaaaaaaa.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.xn--a.kirschju.re.&#x27; is not a legal IDNA2008 name (string contains a disallowed character), use +noidnout</span><br></pre></td></tr></table></figure>
+<p>利用 OpenSSL CVE CVE-2022-3602 和 CVE-2022-3786。其中之一允许使用（点）字符溢出 OpenSSL 中的堆栈分配缓冲区<code>.</code>。当将来自反向 DNS 请求的值插入易受攻击的程序时，可以看到<code>randbytes</code>堆栈帧最顶部（1680 字节）的变量<code>.</code>几乎完全被 s 覆盖。这意味着我们知道用于加密发送给客户端的标志的 AES 密钥！</p>
+<p><strong>这里没看懂</strong></p>
+<p>知识点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getnameinfo（3）函数用于以与协议无关的方式将套接字地址转换为相应的主机和服务。它与getaddrinfo（3）函数相反，后者用于执行相反的转换（将主机和服务转换为套接字地址）。</span><br><span class="line"></span><br><span class="line">dig可以用于反向 DNS 查找</span><br></pre></td></tr></table></figure>
+<p>最后的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"></span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line"></span><br><span class="line">enc = bytes.fromhex(&quot;e86ff18a103d528ac01d0fbba5d55491f678ee3a7c6dd53135243ddf2e7852b7daa32347eaad1c6c869d6d569e366578c0a442da2e091a24eed12b1e7772a9fb&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># We need to recover three bytes from the AES key</span><br><span class="line">for i in range(2**24):</span><br><span class="line">    k = b&quot;.&quot; * 13 + int.to_bytes(i, 3, &quot;little&quot;)</span><br><span class="line">    aes = AES.new(k, iv = b&quot;hxp&#123;n0t_4_fl4g&#125;\x00&quot;, mode = AES.MODE_CBC)</span><br><span class="line">    dec = aes.decrypt(enc)</span><br><span class="line">    if b&quot;hxp&quot; in dec:</span><br><span class="line">        print(dec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k = b&quot;.&quot; * 13 + int.to_bytes(i, 3, &quot;little&quot;)</span><br></pre></td></tr></table></figure>
+<p>一个是缓冲区溢出，加上拼接的密钥，暴力破解</p>
+<p>enc通过pcap文件可以在tcp流中找到</p>
+<p>很难啊，二进制太薄弱了。</p>
+<h2 id="crypto">crypto</h2>
+<h3 id="yor">yor</h3>
+<p>一共两种解法</p>
+<p>当然都需要大量的数据，申请得到最长的密文*50</p>
+<p>第一种利用z3约束器，限制明文是0x20到0x70，然后增加用密钥按位或运算与密文得到明文的条件得到明文（麻烦，而且不一定对）</p>
+<p>第二种很简单，本质上密钥和明文进行的是或运算，不是异或运算（看本质）</p>
+<p>所以可以利用只有0|0才会是0的情况，在按或运算中如过明文位上出现1，绝对就是1，0有可能是0或者1</p>
+<p>那么使用与运算只有1&amp;1才会是1的情况，可以利用大量的加密数据爆破出明文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cts = [bytes.fromhex(a.decode()) for a in enc]</span><br><span class="line"></span><br><span class="line">out = [0xFF] * len(cts[0])</span><br><span class="line">print(out)</span><br><span class="line">for i in range(len(cts[0])):</span><br><span class="line">    for ct in cts:</span><br><span class="line">        out[i] &amp;= ct[i]</span><br><span class="line"></span><br><span class="line">print(&quot;&quot;.join([chr(c) for c in out]))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>另外，说一下本地利用pwnlib获取静态的crypto环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line">import pwnlib.tubes.process</span><br><span class="line">import pwnlib.tubes.remote</span><br><span class="line">a=pwnlib.tubes.process.process(&#x27;./vuln.py&#x27;)</span><br><span class="line">print(a.recvline())</span><br></pre></td></tr></table></figure>
+<p>这样就可以相当于开了pwn的本地环境了</p>
+<p>然后还可以利用bash运行存储数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in $(seq 1 50); do python you_exp.py; done &gt; out.txt</span><br></pre></td></tr></table></figure>
+<p>本题需要得到固定长度的密文，这样才能确保用同一个明文加密</p>
+<h2 id="re">re</h2>
+<h3 id="required">required</h3>
+<p>第一次写逆向题目，那么简单学习一下，实际上pwn和re是两个方向，但是很多re题目是二进制的所以导致pwn手也是re手。</p>
+<p>本题就不是c/c++的逆向，而是js逆向</p>
+<p>参考连接：<a target="_blank" rel="noopener" href="https://www.52pojie.cn//thread-1759330-1-1.html">https://www.52pojie.cn//thread-1759330-1-1.html</a></p>
+<p>docker文件如下，<a target="_blank" rel="noopener" href="http://xn--run-u68d63mq92b8iinqv772botmg3f.sh">其中比较重要的是run.sh</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># see docker-compose.yml</span><br><span class="line"></span><br><span class="line">FROM node:19</span><br><span class="line"></span><br><span class="line">RUN useradd --create-home --shell /bin/bash ctf</span><br><span class="line">WORKDIR /home/ctf</span><br><span class="line"></span><br><span class="line">COPY flag files/* /home/ctf/</span><br><span class="line"></span><br><span class="line">USER ctf</span><br><span class="line"></span><br><span class="line">CMD sh run.sh</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://run.sh">run.sh</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">if [ &quot;$(node required.js)&quot; = &quot;0xd19ee193b461fd8d1452e7659acb1f47dc3ed445c8eb4ff191b1abfa7969&quot; ]; then</span><br><span class="line">    echo &quot;:)&quot;</span><br><span class="line">else</span><br><span class="line">    echo &quot;:(&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>也就是说如果运行node requird.js = “0xd1…”就会得到flag</p>
+<p>再看一下js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f=[...require(&#x27;fs&#x27;).readFileSync(&#x27;./flag&#x27;)]</span><br><span class="line">require(&#x27;./28&#x27;)(753,434,790)</span><br><span class="line">require(&#x27;./157&#x27;)(227,950,740)</span><br><span class="line">require(&#x27;./736&#x27;)(722,540,325)</span><br><span class="line">require(&#x27;./555&#x27;)(937,26,229)</span><br><span class="line">require(&#x27;./394&#x27;)(192,733,981)</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<p>从flag文件中读取，运行大量的js文件进行加密，也就是说run.sh判断的是密文</p>
+<p>问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 大量的js文件互相调用，难以判断</span><br><span class="line">2. 如何逆出flag</span><br></pre></td></tr></table></figure>
+<p>那么跟着加密js慢慢看</p>
+<p>28.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module.exports = (i, j, t) =&gt; (</span><br><span class="line">  (i += []),</span><br><span class="line">  j + &quot;&quot;,</span><br><span class="line">  (t = (t + &#123;&#125;).split(&quot;[&quot;)[0]),</span><br><span class="line">  (o = &#123;&#125;),</span><br><span class="line">  Object.entries(require(&quot;./289&quot;)(i, j)).forEach(([K, V]) =&gt;</span><br><span class="line">    Object.entries(V).forEach(([k, v]) =&gt; ((o[K] = o[K] || &#123;&#125;), (o[K][k] = v)))</span><br><span class="line">  ),</span><br><span class="line">  require(`./$&#123;i&#125;`)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>没有存在数据处理，创造了一些对象，调用了289.js，最后返回<code>./$&#123;i&#125;</code></p>
+<p>289.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">module.exports = (i, j, t) =&gt; (</span><br><span class="line">  (i += []),</span><br><span class="line">  j + &quot;&quot;,</span><br><span class="line">  (t = (t + &#123;&#125;).split(&quot;[&quot;)[0]),</span><br><span class="line">  JSON.parse(</span><br><span class="line">    `&#123;&quot;__proto__&quot;:&#123;&quot;data&quot;:&#123;&quot;name&quot;:&quot;./$&#123;i&#125;&quot;,&quot;exports&quot;:&#123;&quot;.&quot;: &quot;./$&#123;j&#125;.js&quot;&#125;&#125;,&quot;path&quot;: &quot;./&quot;&#125;&#125;`</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>json.parse解析了字符串，其实就是调用了变量j的js，name被命名为变量i，不知道干啥用。</p>
+<p>434.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports=(i,j,t)=&gt;(i%=30,j%=30,t%=30,i+=[],j+&quot;&quot;,t=(t+&#123;&#125;).split(&quot;[&quot;)[0],f[j]^=f[i])</span><br></pre></td></tr></table></figure>
+<p>出现了加密计算：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f[j]^=f[i])</span><br></pre></td></tr></table></figure>
+<p>之后再看一些语句，都是一直调用某个js，然后创建对象，嵌套调用js，直到下一个加密</p>
+<p>那么事情就简单很多了，将加密流程输出，写出逆向过程就行了</p>
+<p>那就需要判断出有多少种的加密了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">f[i]*=-1,f[i]&amp;=0xff</span><br><span class="line">f[i]+=f[j],f[i]&amp;=0xff</span><br><span class="line">f[i]*=f[25],f[i]&amp;=0xff</span><br><span class="line">f[i]*=f[30],f[i]&amp;=0xff</span><br><span class="line">f[i]/=f[15],f[i]&amp;=0xff</span><br><span class="line">f[i]*=f[13],f[i]&amp;=0xff</span><br><span class="line">....</span><br><span class="line">似乎手动不太行</span><br></pre></td></tr></table></figure>
+<p>脚本改一下，使用console.log显示出全部的加密过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import glob</span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">js_files = glob.glob(&quot;*.js&quot;)</span><br><span class="line"></span><br><span class="line">for file in js_files:</span><br><span class="line">    if file != &#x27;required.js&#x27;:</span><br><span class="line">        f = open(file, &quot;r&quot;)</span><br><span class="line">        content = f.read()</span><br><span class="line">        if &#x27;i%=30&#x27; in content:</span><br><span class="line">            pattern = r&#x27;f\[.*&#x27;</span><br><span class="line">            match = re.search(pattern, content)</span><br><span class="line">            pattern = re.escape(&#x27;split(&quot;[&quot;)[0],&#x27;)</span><br><span class="line">            match1 = re.search(pattern, content)</span><br><span class="line">            patch = match.group(0).replace(&#x27;i&#x27;, &#x27;\&quot; + i + \&quot;&#x27;).replace(&#x27;j&#x27;, &#x27;\&quot; + j + \&quot;&#x27;).replace(&#x27;t&#x27;, &#x27;\&quot; + t + \&quot;&#x27;)</span><br><span class="line">            p = &#x27;split(&quot;[&quot;)[0],&#x27; + &#x27;console.log(&quot;&#x27; + patch + &#x27;&quot;),&#x27;</span><br><span class="line">            print(p)</span><br><span class="line">            content = content.replace(&#x27;split(&quot;[&quot;)[0],&#x27;,p)</span><br><span class="line">            f = open(file, &quot;w&quot;)</span><br><span class="line">            f.write(content)</span><br></pre></td></tr></table></figure>
+<p>然后写出全部的逆过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">with open(&quot;1.txt&quot;, &quot;r&quot;) as f:</span><br><span class="line">    lines = f.readlines()</span><br><span class="line"></span><br><span class="line"># 交换最后一行和第一行</span><br><span class="line">lines[0], lines[-1] = lines[-1], lines[0]</span><br><span class="line"></span><br><span class="line"># 倒置除第一行和最后一行以外的所有行</span><br><span class="line">lines[1:-1] = reversed(lines[1:-1])</span><br><span class="line"></span><br><span class="line">with open(&quot;filename.txt&quot;, &quot;w&quot;) as f:</span><br><span class="line">    f.writelines(lines)</span><br><span class="line"></span><br><span class="line">parterm1 = r&#x27;f\[\d+\]=~f\[\d+\]&amp;0xff&#x27;</span><br><span class="line"># ma1=re.search(parterm1,&#x27;f[0]=~f[0]&amp;0xff&#x27;)</span><br><span class="line"></span><br><span class="line">parterm4 = r&#x27;f\[\d+\]\^\=f\[\d+\]&#x27;</span><br><span class="line"># ma4= re.search(parterm4,&#x27;f[24]^=f[12]&#x27;)</span><br><span class="line"></span><br><span class="line">parterm5 = r&#x27;f\[\d+\]=\(\(\(f\[\d+\]\*0x0802&amp;0x22110\)\|\(f\[\d+\]\*0x8020\&amp;0&#x27;</span><br><span class="line"># ma5 = re.search(parterm5,&#x27;f[15]=(((f[15]*0x0802&amp;0x22110)|(f[15]*0x8020&amp;0x88440))*0x10101&gt;&gt;&gt;16)&amp;0xff&#x27;)</span><br><span class="line"></span><br><span class="line">parterm2 = r&#x27;f\[\d+\]\-\=f\[\d+\],f\[\d+\]&amp;=0xff&#x27;</span><br><span class="line"># ma2= re.search(parterm2,&#x27;f[15]-=f[17],f[15]&amp;=0xff&#x27;)</span><br><span class="line"></span><br><span class="line">parterm3 = r&#x27;f\[\d+\]\+\=f\[\d+\],f\[\d+\]&amp;=0xff&#x27;</span><br><span class="line"># ma3= re.search(parterm3,&#x27;f[15]+=f[17],f[15]&amp;=0xff&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">parterm6 = r&#x27;f\[\d+\]=f\[\d+\]\&lt;\&lt;1\&amp;0xff\|f\[\d+\]\&gt;\&gt;7&#x27;</span><br><span class="line"># ma6 = re.search(parterm6,&#x27;f[11]=f[11]&lt;&lt;1&amp;0xff|f[11]&gt;&gt;7&#x27;)</span><br><span class="line"></span><br><span class="line">parterm7 = r&#x27;f\[\d+\]=f\[\d+\]\&lt;\&lt;7\&amp;0xff\|f\[\d+\]\&gt;\&gt;1&#x27;</span><br><span class="line"># ma7 = re.search(parterm7,&#x27;f[11]=f[11]&lt;&lt;7&amp;0xff|f[11]&gt;&gt;1&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">parterm8 = r&#x27;f\[\d+\]=f\[\d+\]\^\(f\[\d+\]\&gt;\&gt;1\)&#x27;</span><br><span class="line"># ma8 = re.search(parterm8,&#x27;f[14]=f[14]^(f[14]&gt;&gt;1)&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f = open(&quot;filename.txt&quot;, &quot;r&quot;)</span><br><span class="line">w = open(&quot;2.txt&quot;, &quot;w&quot;)</span><br><span class="line">while True:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    if not line:</span><br><span class="line">        break</span><br><span class="line">    lines = line.replace(&#x27;\n&#x27;, &#x27;&#x27;)</span><br><span class="line">    if re.search(parterm1, lines) or re.search(parterm4, lines) or re.search(parterm5, lines):</span><br><span class="line">        w.write(line)</span><br><span class="line">    elif re.search(parterm3, lines):</span><br><span class="line">        pattern = r&quot;\d+&quot;</span><br><span class="line">        matches = re.findall(pattern, lines)</span><br><span class="line">        num1 = int(matches[0])</span><br><span class="line">        num2 = int(matches[1])</span><br><span class="line">        new_str = re.sub(rf&quot;f\[&#123;num1&#125;\]\+=f\[&#123;num2&#125;\]&quot;, rf&quot;f[&#123;num1&#125;]-=f[&#123;num2&#125;]&quot;, lines)</span><br><span class="line">        w.write(new_str + &quot;\n&quot;)</span><br><span class="line">    elif re.search(parterm2, lines):</span><br><span class="line">        pattern = r&quot;\d+&quot;</span><br><span class="line">        matches = re.findall(pattern, lines)</span><br><span class="line">        num1 = int(matches[0])</span><br><span class="line">        num2 = int(matches[1])</span><br><span class="line">        new_str = re.sub(rf&quot;f\[&#123;num1&#125;\]-=f\[&#123;num2&#125;\]&quot;, rf&quot;f[&#123;num1&#125;]+=f[&#123;num2&#125;]&quot;, lines)</span><br><span class="line">        w.write(new_str + &quot;\n&quot;)</span><br><span class="line">    elif re.search(parterm6, lines):</span><br><span class="line">        pattern = r&quot;\d+&quot;</span><br><span class="line">        matches = re.findall(pattern, lines)</span><br><span class="line">        new_str = re.sub(rf&quot;&lt;&lt;1&quot;, rf&quot;&lt;&lt;7&quot;, lines)</span><br><span class="line">        new_str = re.sub(rf&quot;&gt;&gt;7&quot;, rf&quot;&gt;&gt;1&quot;, new_str)</span><br><span class="line">        w.write(new_str + &quot;\n&quot;)</span><br><span class="line">    elif re.search(parterm7, lines):</span><br><span class="line">        pattern = r&quot;\d+&quot;</span><br><span class="line">        matches = re.findall(pattern, lines)</span><br><span class="line">        new_str = re.sub(rf&quot;&lt;&lt;7&quot;, rf&quot;&lt;&lt;1&quot;, lines)</span><br><span class="line">        new_str = re.sub(rf&quot;&gt;&gt;1&quot;, rf&quot;&gt;&gt;7&quot;, new_str)</span><br><span class="line"></span><br><span class="line">        w.write(new_str + &quot;\n&quot;)</span><br><span class="line">    elif re.search(parterm8, lines):</span><br><span class="line">        pattern = r&quot;\d+&quot;</span><br><span class="line">        matches = re.findall(pattern, lines)</span><br><span class="line">        num = int(matches[0])</span><br><span class="line">        new_str = &#x27;for (var i = 0; i &lt;= 255; i++) &#123;\n&#x27; + &#x27;if ((i^(i&gt;&gt;1)) == f[&#x27; + str(num) + &#x27;]) &#123;\n&#x27; + &#x27;f[&#x27; + str(</span><br><span class="line">            num) + &#x27;]=i\n&#x27;</span><br><span class="line">        new_str = new_str + &#x27;break\n&#x27; + &quot;&#125;&#125;&quot;</span><br><span class="line">        w.write(new_str + &quot;\n&quot;)</span><br></pre></td></tr></table></figure>
+<p>将密文转为整型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s=bytes.fromhex(&quot;d19ee193b461fd8d1452e7659acb1f47dc3ed445c8eb4ff191b1abfa7969&quot;)</span><br><span class="line">for i in s:</span><br><span class="line">    print(int(i),end=&#x27;,&#x27;)</span><br></pre></td></tr></table></figure>
+<p>放入处理好的js文件当中，最后添加console.log(f);</p>
+<p>node exp.js得到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  104, 120, 112, 123,  67,  97, 110,</span><br><span class="line">  110,  48, 116,  95, 102,  49, 110,</span><br><span class="line">  100,  95, 109,  48, 100, 117, 108,</span><br><span class="line">  101,  95,  39, 102, 108,  52, 103,</span><br><span class="line">   39, 125</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>解密可得</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">t=[</span><br><span class="line">  104, 120, 112, 123,  67,  97, 110,</span><br><span class="line">  110,  48, 116,  95, 102,  49, 110,</span><br><span class="line">  100,  95, 109,  48, 100, 117, 108,</span><br><span class="line">  101,  95,  39, 102, 108,  52, 103,</span><br><span class="line">   39, 125</span><br><span class="line">]</span><br><span class="line">for i in t:</span><br><span class="line">    print(chr(i),end=&#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/03/13/20-17-27/" title="2023hxpctf复现">https://gudiffany.github.io/2023/03/13/20-17-27/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/2023ctf/" rel="tag"><i class="fa fa-tag"></i> 2023ctf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/13/11-22-43/" rel="prev" title="tshark">
+                  <i class="fa fa-chevron-left"></i> tshark
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/15/22-20-02/" rel="next" title="2022SEETF">
+                  2022SEETF <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

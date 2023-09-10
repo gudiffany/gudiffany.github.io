@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="tshark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tshark">
+<meta property="og:url" content="https://gudiffany.github.io/2023/03/13/11-22-43/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="tshark">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-13T03:22:43.000Z">
+<meta property="article:modified_time" content="2023-03-13T04:07:53.439Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="misc工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/03/13/11-22-43/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/03/13/11-22-43/","path":"2023/03/13/11-22-43/","title":"tshark"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>tshark | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">tshark</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%93%E5%8F%96%E5%8A%9F%E8%83%BD%E8%A7%A3%E9%87%8A%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">抓取功能解释以及使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7%E5%81%9C%E6%AD%A2%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">捕获停止条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96"><span class="nav-number">1.4.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">1.6.</span> <span class="nav-text">输出</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/03/13/11-22-43/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="tshark | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tshark<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/tshark.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-13 11:22:43 / 修改时间：12:07:53" itemprop="dateCreated datePublished" datetime="2023-03-13T11:22:43+08:00">2023-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/misc/" itemprop="url" rel="index"><span itemprop="name">misc</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/03/13/11-22-43/" class="post-meta-item leancloud_visitors" data-flag-title="tshark" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>tshark</h1>
+<span id="more"></span>
+<h2 id="基本使用">基本使用</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">抓拍界面：</span><br><span class="line">  -i &lt;接口&gt;, --interface &lt;接口&gt;</span><br><span class="line">                           接口的名称或 idx（默认：第一个非环回）</span><br><span class="line">  -f &lt;capture filter&gt; libpcap 过滤器语法中的数据包过滤器</span><br><span class="line">  -s &lt;snaplen&gt;, --snapshot-length &lt;snaplen&gt;</span><br><span class="line">                           数据包快照长度（默认值：适当的最大值）</span><br><span class="line">  -p, --no-promiscuous-mode</span><br><span class="line">                           不要在混杂模式下捕获</span><br><span class="line">  -I, --monitor-mode 在监控模式下捕获，如果可用</span><br><span class="line">  -B &lt;缓冲区大小&gt;, --buffer-size &lt;缓冲区大小&gt;</span><br><span class="line">                           内核缓冲区的大小（默认：2MB）</span><br><span class="line">  -y &lt;链接类型&gt;, --linktype &lt;链接类型&gt;</span><br><span class="line">                           链路层类型（默认：第一个合适的）</span><br><span class="line">  --time-stamp-type &lt;type&gt; 接口的时间戳方法</span><br><span class="line">  -D, --list-interfaces 打印接口列表并退出</span><br><span class="line">  -L, --list-data-link-types</span><br><span class="line">                           打印 iface 的链路层类型列表并退出</span><br><span class="line">  --list-time-stamp-types 打印 iface 的时间戳类型列表并退出</span><br><span class="line"></span><br><span class="line">捕获停止条件：</span><br><span class="line">  -c &lt;packet count&gt; 在 n 个数据包后停止（默认：无限）</span><br><span class="line">  -a &lt;自动停止条件&gt; ..., --autostop &lt;自动停止条件&gt; ...</span><br><span class="line">                           持续时间：NUM - NUM 秒后停止</span><br><span class="line">                           文件大小：NUM - 在 NUM KB 后停止此文件</span><br><span class="line">                              files:NUM - 在 NUM 个文件后停止</span><br><span class="line">                            packets:NUM - 在 NUM 个数据包后停止</span><br><span class="line">捕获输出：</span><br><span class="line">  -b &lt;ringbuffer opt.&gt; ..., --ring-buffer &lt;ringbuffer opt.&gt;</span><br><span class="line">                           duration:NUM - NUM 秒后切换到下一个文件</span><br><span class="line">                           filesize:NUM - 在 NUM KB 之后切换到下一个文件</span><br><span class="line">                              files:NUM - ringbuffer: 在 NUM 个文件之后替换</span><br><span class="line">                            packets:NUM - 在 NUM 个数据包之后切换到下一个文件</span><br><span class="line">                           interval:NUM - 到时切换到下一个文件</span><br><span class="line">                                          NUM 秒的精确倍数</span><br><span class="line">输入文件：</span><br><span class="line">  -r &lt;infile&gt;, --read-file &lt;infile&gt;</span><br><span class="line">                           设置要读取的文件名（或标准输入为“-”）</span><br><span class="line">                           </span><br><span class="line">处理：</span><br><span class="line">  -2 执行两遍分析</span><br><span class="line">  -M &lt;packet count&gt; 执行会话自动重置</span><br><span class="line">  -R &lt;读取过滤器&gt;, --read-filter &lt;读取过滤器&gt;</span><br><span class="line">                           Wireshark 显示过滤器语法中的数据包读取过滤器</span><br><span class="line">                           （需要-2）</span><br><span class="line">  -Y &lt;显示过滤器&gt;, --display-filter &lt;显示过滤器&gt;</span><br><span class="line">                           Wireshark 显示过滤器中的数据包显示过滤器</span><br><span class="line">                           句法</span><br><span class="line">  -n 禁用所有名称解析（def: &quot;mNd&quot; 启用，或</span><br><span class="line">                           在首选项中设置）</span><br><span class="line">  -N &lt;名称解析标志&gt; 启用特定名称解析：“mnNtdv”</span><br><span class="line">  -d &lt;layer_type&gt;==&lt;selector&gt;,&lt;decode_as_protocol&gt; ...</span><br><span class="line">                           “解码为”，详细信息请参见手册页</span><br><span class="line">                           示例：tcp.port==8888,http</span><br><span class="line">  -H &lt;hosts file&gt; 从主机文件中读取条目列表，这将</span><br><span class="line">                           然后写入捕获文件。 （暗示-W n）</span><br><span class="line">  --enable-protocol &lt;proto_name&gt;</span><br><span class="line">                           启用 proto_name 的剖析</span><br><span class="line">  --disable-protocol &lt;proto_name&gt;</span><br><span class="line">                           禁用 proto_name 的剖析</span><br><span class="line">  --enable-heuristic &lt;short_name&gt;</span><br><span class="line">                           启用启发式协议的剖析</span><br><span class="line">  --disable-heuristic &lt;short_name&gt;</span><br><span class="line">                           禁用启发式协议的剖析</span><br><span class="line">  输出：</span><br><span class="line">  -w &lt;outfile|-&gt; 将数据包写入名为“outfile”的 pcapng 格式文件</span><br><span class="line">                           （或“-”用于标准输出）</span><br><span class="line">  --capture-comment &lt;评论&gt;</span><br><span class="line">                           如果支持，添加捕获文件注释</span><br><span class="line">  -C &lt;config profile&gt; 从指定的配置文件开始</span><br><span class="line">  -F &lt;output file type&gt; 设置输出文件类型，默认为pcapng</span><br><span class="line">                           空的“-F”选项将列出文件类型</span><br><span class="line">  -V 添加数据包树的输出（数据包详细信息）</span><br><span class="line">  -O &lt;protocols&gt; 只显示这些协议的数据包详细信息，逗号</span><br><span class="line">                           分离</span><br><span class="line">  -P, --print 打印数据包摘要，即使在写入文件时也是如此</span><br><span class="line">  -S &lt;separator&gt; 在数据包之间打印的行分隔符</span><br><span class="line">  -x 添加十六进制和 ASCII 转储的输出（数据包字节）</span><br><span class="line">  --hexdump &lt;hexoption&gt; 添加 hexdump，设置数据源和 ASCII 转储的选项</span><br><span class="line">     all 转储所有数据源（-x 默认）</span><br><span class="line">     帧仅转储帧数据源</span><br><span class="line">     ascii 包括 ASCII 转储文本（-x 默认值）</span><br><span class="line">     delimit 用 &#x27;|&#x27; 分隔 ASCII 转储文本人物</span><br><span class="line">     noascii 排除 ASCII 转储文本</span><br><span class="line">     help 显示 --hexdump 的帮助并退出</span><br><span class="line">  -T pdml|ps|psml|json|jsonraw|ek|tabs|文本|字段|?</span><br><span class="line">                           文本输出格式（默认：文本）</span><br><span class="line">  -j &lt;protocolfilter&gt; 如果选择了 -T ek|pdml|json，则协议层过滤</span><br><span class="line">                           （例如“ip ip.flags text”，过滤器不展开子</span><br><span class="line">                           节点，除非在过滤器中也指定了子节点）</span><br><span class="line">  -J &lt;protocolfilter&gt; 顶级协议过滤器，如果选择 -T ek|pdml|json</span><br><span class="line">                           （例如“http tcp”，展开所有子节点的过滤器）</span><br><span class="line">  -e &lt;field&gt; 如果选择了 -Tfields 则要打印的字段（例如 tcp.port，</span><br><span class="line">                           _ws.col.Info)</span><br><span class="line">                           可以重复此选项以打印多个字段</span><br><span class="line">  -E&lt;fieldsoption&gt;=&lt;value&gt; 选择 -Tfields 时设置输出选项：</span><br><span class="line">     bom=y|n 打印 UTF-8 BOM</span><br><span class="line">     header=y|n 打开和关闭标题</span><br><span class="line">     separator=/t|/s|&lt;char&gt; 选择制表符、空格、可打印字符作为分隔符</span><br><span class="line">     occurrence=f|l|a 打印每个字段的第一次、最后一次或所有出现</span><br><span class="line">     aggregator=,|/s|&lt;char&gt; 选择逗号、空格、可打印字符作为</span><br><span class="line">                           聚合器</span><br><span class="line">     quote=d|s|n select double, single, no quotes for values</span><br><span class="line">  -t a|ad|adoy|d|dd|e|r|u|ud|udoy</span><br><span class="line">                           时间戳的输出格式（def: r: rel. to first）</span><br><span class="line">  -u s|hms 秒的输出格式（def: s: seconds）</span><br><span class="line">  -l 在每个数据包之后刷新标准输出</span><br><span class="line">  -q 在 stdout 上更安静（例如，在使用统计信息时）</span><br><span class="line">  -Q 仅将真实错误记录到 stderr（比 -q 更安静）</span><br><span class="line">  -g 启用对输出文件的组读访问</span><br><span class="line">  -W n 如果支持，在文件中保存额外信息。</span><br><span class="line">                           n = 写入网络地址解析信息</span><br><span class="line">  -X &lt;key&gt;:&lt;value&gt; 扩展选项，详见手册页</span><br><span class="line">  -U tap_name PDUs 导出模式，详见手册页</span><br><span class="line">  -z &lt;statistics&gt; 各种统计，详见手册页</span><br><span class="line">  --export-objects &lt;协议&gt;,&lt;目标目录&gt;</span><br><span class="line">                           将协议的导出对象保存到目录</span><br><span class="line">                           名为“destdir”</span><br><span class="line">  --export-tls-session-keys &lt;密钥文件&gt;</span><br><span class="line">                           将 TLS 会话密钥导出到名为“keyfile”的文件</span><br><span class="line">  --color 颜色输出文本类似于 Wireshark GUI，</span><br><span class="line">                           需要支持 24 位颜色的终端</span><br><span class="line">                           还为 pdml 和 psml 格式提供颜色属性</span><br><span class="line">                           （注意属性是非标准的）</span><br><span class="line">  --no-duplicate-keys 如果指定-T json，合并对象中的重复键</span><br><span class="line">                           进入一个单一的键，作为价值一个包含所有的json数组</span><br><span class="line">                           价值观</span><br><span class="line">  --elastic-mapping-filter &lt;protocols&gt; 如果指定了-G elastic-mapping，则只放</span><br><span class="line">                           映射文件中指定的协议</span><br><span class="line">  --temp-dir &lt;directory&gt; 将临时文件写入此目录</span><br><span class="line">                           （默认值：/tmp）</span><br><span class="line"></span><br><span class="line">诊断输出：</span><br><span class="line">  --log-level &lt;level&gt; 设置活动日志级别（“严重”、“警告”等）</span><br><span class="line">  --log-fatal &lt;level&gt; 设置中止程序的级别（“严重”或“警告”）</span><br><span class="line">  --log-domains &lt;[!]list&gt; 活动日志域的逗号分隔列表</span><br><span class="line">  --log-debug &lt;[!]list&gt; 以逗号分隔的具有“调试”级别的域列表</span><br><span class="line">  --log-noisy &lt;[!]list&gt; 以逗号分隔的具有“嘈杂”级别的域列表</span><br><span class="line">  --log-file &lt;path&gt; 将消息输出到的文件（除了 stderr）</span><br><span class="line"></span><br><span class="line">各种各样的：</span><br><span class="line">  -h, --help 显示帮助并退出</span><br><span class="line">  -v, --version 显示版本信息并退出</span><br><span class="line">  -o &lt;名称&gt;:&lt;值&gt; ... 覆盖首选项设置</span><br><span class="line">  -K &lt;keytab&gt; 用于 kerberos 解密的密钥表文件</span><br><span class="line">  -G [report] 转储几个可用报告之一并退出</span><br><span class="line">                           默认报告=“字段”</span><br><span class="line">                           使用“-G help”获取更多帮助</span><br><span class="line"></span><br><span class="line">Dumpcap 可以受益于启用的 BPF JIT 编译器（如果可用）。</span><br><span class="line">您可能希望通过执行以下命令来启用它：</span><br><span class="line"> “echo 1 &gt; /proc/sys/net/core/bpf_jit_enable”</span><br><span class="line">请注意，这可能会降低您的系统的安全性！</span><br></pre></td></tr></table></figure>
+<h2 id="抓取功能解释以及使用">抓取功能解释以及使用</h2>
+<ul>
+<li><code>-i &lt;interface&gt;, --interface &lt;interface&gt;</code>：指定要抓取数据包的网络接口的名称或者索引号，例如<code>eth0</code>或<code>1</code>。</li>
+<li><code>-f &lt;capture filter&gt;</code>：使用libpcap过滤器语法来选择要捕获的数据包，例如<code>tcp port 80</code>仅抓取目标端口为80的TCP数据包。</li>
+<li><code>-s &lt;snaplen&gt;, --snapshot-length &lt;snaplen&gt;</code>：设置抓包的数据快照长度，即抓包的数据包中只会抓取前snaplen个字节，默认值为适当的最大值。</li>
+<li><code>-p, --no-promiscuous-mode</code>：关闭混杂模式，即只捕获目标接口上的流量，而非所有流量。</li>
+<li><code>-I, --monitor-mode</code>：在监控模式下捕获数据包，如果可用。监控模式可以通过禁止网卡的MAC地址过滤，并提供接受非管理数据包的能力。</li>
+<li><code>-B &lt;buffer size&gt;, --buffer-size &lt;buffer size&gt;</code>：设置内核缓冲区的大小，可以用于控制捕获的数据包数量和占用内存的量，默认为2MB。</li>
+<li><code>-y &lt;linktype&gt;, --linktype &lt;linktype&gt;</code>：指定要抓取的数据包的链路层类型。如果没有指定，则tshark会尝试找到合适的类型。</li>
+<li><code>--time-stamp-type &lt;type&gt;</code>：设置接口的时间戳方法，例如<code>adapter_unsynced</code>或<code>adapter_fine_tstamp</code>。</li>
+<li><code>-D, --list-interfaces</code>：列出可用的网络接口列表并退出。</li>
+<li><code>-L, --list-data-link-types</code>：列出可用的链路层类型列表并退出。</li>
+<li><code>--list-time-stamp-types</code>：列出可用的时间戳类型列表并退出。</li>
+</ul>
+<h2 id="捕获停止条件">捕获停止条件</h2>
+<p><code>-c &lt;packet count&gt;</code>: 用于在捕获指定数量的数据包后停止抓包。例如，使用-c 100表示在捕获100个数据包后停止。</p>
+<p><code>-a &lt;auto stop condition&gt;</code>: 自动停止抓包的条件。可以使用多个选项组合，例如-a duration:60 -a filesize:1000。一些选项包括： duration:NUM - 在 NUM 秒后停止</p>
+<p>filesize:NUM - 在 NUM KB 后停止此文件</p>
+<p>files:NUM - 在 NUM 个文件后停止</p>
+<p>packets:NUM - 在 NUM 个数据包后停止</p>
+<p><code>-b &lt;ringbuffer opt.&gt;</code>: 用于将抓包的输出写入环形缓冲区。一些选项包括：</p>
+<p>duration:NUM - NUM 秒后切换到下一个文件</p>
+<p>filesize:NUM - 在 NUM KB 之后切换到下一个文件</p>
+<p>files:NUM - 在 NUM 个文件之后替换</p>
+<p>packets:NUM - 在 NUM 个数据包之后切换到下一个文件</p>
+<p>interval:NUM - 到时切换到下一个文件，其中 NUM 是秒的精确倍数。</p>
+<h2 id="读取">读取</h2>
+<p><code>-r &lt;infile&gt;</code>: 用于指定要读取的pcap文件的名称，或使用“-”表示从标准输入读取。</p>
+<h2 id="处理">处理</h2>
+<p><code>-2</code>: 执行两遍分析。第一遍分析确定所有数据包并计算它们的长度和时间戳。第二遍执行进一步的分析，例如读取和应用读取过滤器。</p>
+<p><code>-M &lt;packet count&gt;</code>: 执行会话自动重置。当指定的数据包数量被捕获时，将自动重置捕获的会话。</p>
+<p><code>-R &lt;读取过滤器&gt;, --read-filter &lt;读取过滤器&gt;</code>: Wireshark 显示过滤器语法中的数据包读取过滤器。这个过滤器可以用来限制哪些数据包将被处理和显示。</p>
+<p><code>-Y &lt;显示过滤器&gt;, --display-filter &lt;显示过滤器&gt;</code>: Wireshark 显示过滤器中的数据包显示过滤器语法。这个过滤器可以用来限制哪些数据包将在输出中显示。</p>
+<p><code>-n: 禁用所有名称解析</code>。默认情况下，tshark 将尝试对 IP 地址、端口号和 MAC 地址进行名称解析。使用此选项可以禁用名称解析。</p>
+<p><code>-N &lt;名称解析标志&gt;</code>: 启用特定名称解析。名称解析标志是一个包含以下字符的字符串，其中每个字符代表一个名称解析标志: “m” 表示 MAC 地址解析；“n” 表示网络地址解析；“N” 表示网络和主机名解析；“t” 表示主机名解析；“d” 表示 DNS 解析；“v” 表示 DNS 反向解析。例如，使用选项 “-N nd” 将启用网络地址解析和 DNS 解析。</p>
+<p><code>-d &lt;layer_type&gt;==&lt;selector&gt;,&lt;decode_as_protocol&gt; ...</code>: “解码为”选项允许将一个协议解析为另一个协议。此选项的语法为“&lt;layer_type&gt;=<selector>, &lt;decode_as_protocol&gt;”。例如，使用选项“tcp.port=8888,http”将解析 TCP 端口 8888 的流量为 HTTP 协议。</p>
+<p><code>-H &lt;hosts file&gt;</code>: 从主机文件中读取条目列表，这将然后写入捕获文件。这个选项只在使用 -W n 时才有效。</p>
+<p><code>--enable-protocol &lt;proto_name&gt;</code>: 启用指定协议的剖析。可以使用该选项启用单个协议剖析。</p>
+<p><code>--disable-protocol &lt;proto_name&gt;</code>: 禁用指定协议的剖析。可以使用该选项禁用单个协议剖析。</p>
+<p><code>--enable-heuristic &lt;short_name&gt;</code>: 启用启发式协议的剖析。启发式协议是指在协议头缺失或损坏时，使用其他信息来推断协议类型的技术。</p>
+<p><code>--disable-heuristic &lt;short_name&gt;</code>: 禁用启发式协议的剖析。</p>
+<h2 id="输出">输出</h2>
+<ul>
+<li>
+<p>-w &lt;outfile|-&gt; : 将数据包写入名为“outfile”的pcapng格式文件（或“-”用于标准输出）。</p>
+</li>
+<li>
+<p>–capture-comment <comment> : 如果支持，添加捕获文件注释。</p>
+</li>
+<li>
+<p>-C <config profile> : 从指定的配置文件开始。</p>
+</li>
+<li>
+<p>-F <output file type> : 设置输出文件类型，默认为pcapng。空的“-F”选项将列出文件类型。</p>
+</li>
+<li>
+<p>-V : 添加数据包树的输出（数据包详细信息）。</p>
+</li>
+<li>
+<p>-O <protocols> : 只显示这些协议的数据包详细信息，逗号分离。</p>
+</li>
+<li>
+<p>-P, --print : 打印数据包摘要，即使在写入文件时也是如此。</p>
+</li>
+<li>
+<p>-S <separator> : 在数据包之间打印的行分隔符。</p>
+</li>
+<li>
+<p>-x : 添加十六进制和ASCII转储的输出（数据包字节）。</p>
+</li>
+<li>
+<p>–hexdump <hexoption> : 添加hexdump，设置数据源和ASCII转储的选项。可选的值包括：</p>
+<ul>
+<li>all : 转储所有数据源（-x 默认）。</li>
+<li>frame : 仅转储帧数据源。</li>
+<li>ascii : 包括ASCII转储文本（-x 默认值）。</li>
+<li>delimit : 用 ‘|’ 分隔 ASCII 转储文本人物。</li>
+<li>noascii : 排除ASCII转储文本。</li>
+<li>help : 显示–hexdump的帮助并退出。</li>
+</ul>
+</li>
+<li>
+<p>-T pdml|ps|psml|json|jsonraw|ek|tabs|text|fields|? : 文本输出格式（默认：text）。可选的值包括：</p>
+<ul>
+<li>pdml : Packet Details Markup Language (PDML) 格式。</li>
+<li>ps : PostScript格式。</li>
+<li>psml : Packet Summary Markup Language (PSML) 格式。</li>
+<li>json : JSON格式。</li>
+<li>jsonraw : 未格式化的JSON格式。</li>
+<li>ek : ElasticSearch格式。</li>
+<li>tabs : Tab分隔符格式。</li>
+<li>text : 文本格式。</li>
+<li>fields : 指定的字段格式。</li>
+<li>? : 列出所有可用的输出格式。</li>
+</ul>
+</li>
+<li>
+<p>-j <protocolfilter> : 如果选择了-T ek|pdml|json，则协议层过滤（例如“ip ip.flags text”，过滤器不展开子节点，除非在过滤器中也指定了子节点）。</p>
+</li>
+<li>
+<p>-J <protocolfilter> : 顶级协议过滤器，如果选择了-T ek|pdml|json（例如“http tcp”，展开所有子节点的过滤器）。</p>
+</li>
+<li>
+<p>-e <field> : 如果选择了-T fields，则要打印的字段（例如tcp.port，_ws.col.Info）。可以重复此选项以打印多个字段。</p>
+</li>
+<li>
+<p>-E<fieldsoption>=<value>是一个用于awk命令的选项，用于在执行文本处理时设置输出选项。其中，<fieldsoption>可以是以下值之一：</p>
+<ul>
+<li>FS：设置输入字段分隔符，类似于awk命令中的-F选项。</li>
+<li>OFS：设置输出字段分隔符，类似于awk命令中的-F选项。</li>
+<li>RS：设置输入记录分隔符，类似于awk命令中的-R选项。</li>
+<li>ORS：设置输出记录分隔符，类似于awk命令中的-R选项。</li>
+<li>NF：设置每个记录的字段数，类似于awk命令中的-F选项。</li>
+<li>FILENAME：设置当前输入文件的文件名，类似于awk命令中的FILENAME变量。</li>
+<li>FNR：设置当前记录号（在当前文件中的记录数），类似于awk命令中的FNR变量。</li>
+</ul>
+<p>而<value>则是选项的具体值，可以是任何有效的文本字符串。</p>
+<p>举个例子，使用-EFS=','选项可以将输入字段分隔符设置为逗号，而使用-ENF=4选项则可以强制要求每个记录都必须有4个字段。</p>
+</li>
+<li>
+<p><code>-z &lt;statistics&gt;</code> 是用于捕获统计信息的选项。使用此选项可以捕获各种有关流量的信息，例如每个协议的数量、每个 IP 地址的数量等等。以下是一些可用的统计信息选项：</p>
+<ul>
+<li>
+<p><code>icmp</code>：捕获 ICMP 包的统计信息</p>
+</li>
+<li>
+<p><code>tcp</code>：捕获 TCP 包的统计信息</p>
+</li>
+<li>
+<p><code>udp</code>：捕获 UDP 包的统计信息</p>
+</li>
+<li>
+<p><code>http</code>：捕获 HTTP 流量的统计信息</p>
+</li>
+<li>
+<p><code>dns</code>：捕获 DNS 流量的统计信息</p>
+</li>
+<li>
+<p><code>smb</code>：捕获 SMB 流量的统计信息</p>
+</li>
+<li>
+<p><code>radius</code>：捕获 RADIUS 流量的统计信息</p>
+</li>
+<li>
+<p><code>radius_acct</code>：捕获 RADIUS 计费流量的统计信息</p>
+</li>
+<li>
+<p><code>radius_auth</code>：捕获 RADIUS 认证流量的统计信息</p>
+</li>
+<li>
+<p><code>radius_coa</code>：捕获 RADIUS COA 流量的统计信息</p>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/03/13/11-22-43/" title="tshark">https://gudiffany.github.io/2023/03/13/11-22-43/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/misc%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> misc工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/09/11-43-09/" rel="prev" title="rust_learn">
+                  <i class="fa fa-chevron-left"></i> rust_learn
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/13/20-17-27/" rel="next" title="2023hxpctf复现">
+                  2023hxpctf复现 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

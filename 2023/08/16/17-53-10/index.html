@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="spring boot learning note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-boot">
+<meta property="og:url" content="https://gudiffany.github.io/2023/08/16/17-53-10/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="spring boot learning note">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230713132824655.png">
+<meta property="article:published_time" content="2023-08-16T09:53:10.000Z">
+<meta property="article:modified_time" content="2023-08-16T09:56:39.281Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230713132824655.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/08/16/17-53-10/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/08/16/17-53-10/","path":"2023/08/16/17-53-10/","title":"spring-boot"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>spring-boot | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">spring boot learning note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#idea%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">idea的配置以及问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%B7%AF%E7%94%B1%E5%BB%BA%E7%AB%8B%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">基本路由建立以及用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">类的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.2.</span> <span class="nav-text">方法的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">变量的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.4.</span> <span class="nav-text">静态文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-number">1.3.</span> <span class="nav-text">文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MultipartFile%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">MultipartFile方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HttpServletRequest%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">HttpServletRequest内置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">客户机信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%BA%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">客户机请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E8%8E%B7%E5%8F%96"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">绝对路径获取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql"><span class="nav-number">1.5.</span> <span class="nav-text">sql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.1.</span> <span class="nav-text">单表查询与条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.2.</span> <span class="nav-text">多表查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.3.</span> <span class="nav-text">分页查询</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/16/17-53-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="spring-boot | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spring-boot<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/spring-boot.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-16 17:53:10 / 修改时间：17:56:39" itemprop="dateCreated datePublished" datetime="2023-08-16T17:53:10+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/08/16/17-53-10/" class="post-meta-item leancloud_visitors" data-flag-title="spring-boot" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>spring boot learning note</h1>
+<span id="more"></span>
+<h2 id="idea的配置以及问题">idea的配置以及问题</h2>
+<p>开启自动热部署，但是要手动进行处理（暂时没有解决，或者降级到2021版本进行处理）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.devtools.restart.enabled=<span class="literal">true</span></span><br><span class="line">spring.mvc.<span class="keyword">static</span>-path-pattern=/<span class="keyword">static</span><span class="comment">/**</span></span><br><span class="line"><span class="comment">spring.web.resources.static-locations=classpath:/static</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本路由建立以及用法">基本路由建立以及用法</h2>
+<h3 id="类的注解">类的注解</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span> <span class="comment">//只是请求数据</span></span><br><span class="line"><span class="meta">@Controller</span> <span class="comment">//请求页面和数据</span></span><br></pre></td></tr></table></figure>
+<p>//上述两种注解是用于标识类的用法是用于处理http请求的</p>
+<h3 id="方法的注解">方法的注解</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/&quot;)</span> <span class="comment">//用于get请求跳转</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/&quot;)</span> <span class="comment">//用于post请求跳转</span></span><br><span class="line"><span class="comment">//具有各种请求方式，但是可以直接在@RequestMapping地方直接改变</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/post&quot;, method = RequestMethod.POST)</span> <span class="comment">//可以使用value决定路由，method决定请求方式</span></span><br><span class="line"><span class="meta">@Override</span> <span class="comment">//重写方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量的注解">变量的注解</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestBody</span> <span class="comment">//限制使用json格式传参</span></span><br><span class="line"><span class="meta">@RequestParam</span> <span class="comment">//用于变量的绑定，常用于变量出现冲突的情况</span></span><br><span class="line"><span class="comment">//@RequestParam(required = false, value = &quot;file2&quot;)，false表示不一定需要该变量，value是形参</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PathVariable</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用方式：</span></span><br><span class="line"><span class="meta">@RequestMapping(value=&quot;/demo2/&#123;name&#125;/&#123;id&#125;&quot;)</span>   </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demo2</span><span class="params">(<span class="meta">@PathVariable</span> String name, <span class="meta">@PathVaribale</span> <span class="type">int</span> id)</span></span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;get name is : &quot;</span> + name + <span class="string">&quot;, id: &quot;</span> + id);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PathParam</span>同上</span><br></pre></td></tr></table></figure>
+<h3 id="静态文件">静态文件</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.mvc.static-path-pattern=/image/**</span><br><span class="line">//用于配置静态文件访问的url，只有在出现这样的http://localhost:8080/image/1.txt这样的路径才会对静态文件进行搜索，相当于路径上的映射，真正的资源加载是在spring.resources.static-locations中决定的</span><br><span class="line"></span><br><span class="line">spring.resources.static-locations=classpath:/static,classpath:/public,classpath:/resources,classpath:/META-INF/resources</span><br><span class="line">使用“http://localhost:8080/image/1.txt”就会在上述的四个路径中依次查找是否存在“1.txt”文件，如果找到了，则返回此文件，否则返回404错误。</span><br></pre></td></tr></table></figure>
+<h2 id="文件上传">文件上传</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MultipartFile file //接受文件的对象</span><br><span class="line">HttpServletRequest //HttpServletRequest对象代表客户端的请求，封装了基本的Http请求所需要的信息</span><br></pre></td></tr></table></figure>
+<h3 id="MultipartFile方法">MultipartFile方法</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">getName(); </span><br><span class="line"><span class="comment">// 获取表单中文件组件的名字</span></span><br><span class="line"></span><br><span class="line">getOriginalFilename();</span><br><span class="line"><span class="comment">//获取源文件的昵称</span></span><br><span class="line"></span><br><span class="line">getContentType() </span><br><span class="line"><span class="comment">//返回文件的内容类型</span></span><br><span class="line"></span><br><span class="line">isEmpty() </span><br><span class="line">判断是否为空，或者上传的文件是否有内容</span><br><span class="line"></span><br><span class="line">getSize() </span><br><span class="line">返回文件大小 以字节为单位</span><br><span class="line"></span><br><span class="line">getBytes() </span><br><span class="line"><span class="comment">//将文件内容转化成一个byte[] 返回</span></span><br><span class="line"></span><br><span class="line">getInputStream()</span><br><span class="line"><span class="comment">//返回InputStream读取文件的内容</span></span><br><span class="line"></span><br><span class="line">getResource()</span><br><span class="line"><span class="comment">//返回Resource类型，需要的话方便后续操作</span></span><br><span class="line"></span><br><span class="line">transferTo(File var1)</span><br><span class="line"><span class="comment">//transferTo是复制file文件到指定位置(比如D盘下的某个位置),不然程序执行完,文件就会消失,程序运行时,临时存储在temp这个文件夹中</span></span><br></pre></td></tr></table></figure>
+<h3 id="HttpServletRequest内置方法">HttpServletRequest内置方法</h3>
+<h4 id="客户机信息">客户机信息</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">getRequestURL()</span><br><span class="line"><span class="comment">//返回客户端发出请求时的完整URL。</span></span><br><span class="line"></span><br><span class="line">getRequestURI()</span><br><span class="line"><span class="comment">//返回请求行中的资源名部分。</span></span><br><span class="line"></span><br><span class="line">getQueryString ()</span><br><span class="line"><span class="comment">//返回请求行中的参数部分。</span></span><br><span class="line"></span><br><span class="line">getRemoteAddr()</span><br><span class="line"><span class="comment">//返回发出请求的客户机的IP地址。</span></span><br><span class="line"></span><br><span class="line">getPathInfo()</span><br><span class="line"><span class="comment">//返回请求URL中的额外路径信息。额外路径信息是请求URL中的位于Servlet的路径之后和查询参数之前的内容，它以&quot;/&quot;开头。</span></span><br><span class="line"></span><br><span class="line">getRemoteHost()</span><br><span class="line"><span class="comment">//返回发出请求的客户机的完整主机名。</span></span><br><span class="line"></span><br><span class="line">getRemotePort()</span><br><span class="line"><span class="comment">//返回客户机所使用的网络端口号。</span></span><br><span class="line"></span><br><span class="line">getLocalAddr()</span><br><span class="line"><span class="comment">//返回WEB服务器的IP地址。</span></span><br><span class="line"></span><br><span class="line">getLocalName()</span><br><span class="line"><span class="comment">//返回WEB服务器的主机名。</span></span><br></pre></td></tr></table></figure>
+<h4 id="客户机请求头">客户机请求头</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getHeader(string name)方法:String</span><br><span class="line"></span><br><span class="line"><span class="title function_">getHeaders</span><span class="params">(String name)</span>方法:Enumeration</span><br><span class="line"></span><br><span class="line"><span class="title function_">getHeaderNames</span><span class="params">()</span>方法</span><br></pre></td></tr></table></figure>
+<h4 id="绝对路径获取">绝对路径获取</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getServletContext().getRealPath(path)</span><br></pre></td></tr></table></figure>
+<h2 id="拦截器">拦截器</h2>
+<p><img src="/img/image-20230713132824655.png" alt="image-20230713132824655" /></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">login</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response,Object handler)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;login sucess &quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继承HandlerInterceptor（拦截器类），重写preHandle，在内部可以添加条件以此判断是否给予权限，相当于一个身份判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span>&#123;</span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">login</span>()).addPathPatterns();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Configuration注解（自动读取，表明当前类是一个配置类），继承WebMvcConfigurer（配置类），重写addInterceptors，使用addInterceptor表明拦截逻辑的调用，addPathPatterns表明了是拦截访问的路径（权限分级和区分）</p>
+<h2 id="sql">sql</h2>
+<h3 id="单表查询与条件查询">单表查询与条件查询</h3>
+<p>引入配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--        MyBatisP1us依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        -mysql驱动依赖一&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        数据连接池druid--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@MapperScan  //当Mapper过多的时候，为了方便，给主程序添加MapperScan，作用就是会自动扫描并且给指定路径下的所有文件自动添加Mapper注解</span><br></pre></td></tr></table></figure>
+<p>UserMap.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserMap</span> &#123;</span><br><span class="line">    <span class="meta">@Select(&quot;select * from user&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;User&gt; <span class="title function_">find</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert(&quot;INSERT INTO user VALUES (#&#123;username&#125;,#&#123;password&#125;)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(User user)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//写map（即定义sql语句文件下），使用interface实现多重继承，以便完成更多操作，可以对接下来的sql语句进行修改</span></span><br></pre></td></tr></table></figure>
+<p>在另外专门控制sql的地方进行处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserContrllor</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserMap userMap;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/user&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> List <span class="title function_">query</span><span class="params">()</span>&#123;</span><br><span class="line">        List&lt;User&gt; list = userMap.find();</span><br><span class="line"><span class="comment">//        System.out.println(list);</span></span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/user&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">save</span><span class="params">(User user)</span>&#123;</span><br><span class="line">        userMap.insert(user);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;sucess&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中@Autowired可以自动将语句进行注入，然后实例化usermap进行调用对应函数即可，对于变量只需要使用**#{value}**进行放置，然后引入的包就会自动将变量对应注入（注意变量名需要和数据库的名称相同）</p>
+<p>除此之外还可以使用其他的方法进行实现sql</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface UserMap  extends BaseMapper&lt;User&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接继承BaseMapper类对其进行使用，但是从灵活性来说可以自定义出一个类对其进行处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查询操作</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        QueryWrapper&lt;User&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;&gt;();</span><br><span class="line">        queryWrapper.eq(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        <span class="keyword">return</span> userMapper.selectOne(queryWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 插入操作</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">        userMapper.insert(user);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 更新操作</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">        UpdateWrapper&lt;User&gt; updateWrapper = <span class="keyword">new</span> <span class="title class_">UpdateWrapper</span>&lt;&gt;();</span><br><span class="line">        updateWrapper.eq(<span class="string">&quot;id&quot;</span>, user.getId())</span><br><span class="line">                .set(<span class="string">&quot;name&quot;</span>, user.getName())</span><br><span class="line">                .set(<span class="string">&quot;age&quot;</span>, user.getAge());</span><br><span class="line">        userMapper.update(<span class="literal">null</span>, updateWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 删除操作</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        QueryWrapper&lt;User&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;&gt;();</span><br><span class="line">        queryWrapper.eq(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        userMapper.delete(queryWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">where		WHERE 语句，拼接 + WHERE 条件</span><br><span class="line">and			AND 语句，拼接 + AND 字段=值</span><br><span class="line">andNew		AND 语句，拼接 + AND (字段=值)</span><br><span class="line">or			OR 语句，拼接 + OR 字段=值</span><br><span class="line">orNew		OR 语句，拼接 + OR (字段=值)</span><br><span class="line">eq			等于=</span><br><span class="line">allEq		基于 map 内容等于=</span><br><span class="line">ne			不等于&lt;&gt;</span><br><span class="line">gt			大于&gt;</span><br><span class="line">ge			大于等于&gt;=</span><br><span class="line">lt			小于&lt;</span><br><span class="line">le			小于等于&lt;=</span><br><span class="line">like		模糊查询 LIKE</span><br><span class="line">notLike		模糊查询 NOT LIKE</span><br><span class="line">in	IN 		查询</span><br><span class="line">notIn		NOT IN 查询</span><br><span class="line">isNull		NULL 值查询</span><br><span class="line">isNotNull	IS NOT NULL</span><br><span class="line">groupBy		分组 GROUP BY</span><br><span class="line">having		HAVING 关键词</span><br><span class="line">orderBy		排序 ORDER BY</span><br><span class="line">orderAsc	ASC 排序 ORDER BY</span><br><span class="line">orderDesc	DESC 排序 ORDER BY</span><br><span class="line">exists		EXISTS 条件语句</span><br><span class="line">notExists	NOT EXISTS 条件语句</span><br><span class="line">between		BETWEEN 条件语句</span><br><span class="line">notBetween	NOT BETWEEN 条件语句</span><br><span class="line">addFilter	自由拼接 SQL</span><br><span class="line">last		拼接在最后，例如：last(&quot;LIMIT 1&quot;)</span><br></pre></td></tr></table></figure>
+<p>以及会出现需要操作的类和sql中的表明不一样的情况，那么就可以对需要操作的类进行注解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@TableName(&quot;user&quot;)</span><br><span class="line">@TableId(type = IdType.AUTO) //定义自增的id值</span><br><span class="line">@TableField(value = &quot;username&quot;,exist = true) //定义字段名（两者冲突）以及是否存在</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://baomidou.com/pages/49cc81/#delete">CRUD 接口 | MyBatis-Plus (baomidou.com)</a></p>
+<h3 id="多表查询">多表查询</h3>
+<p>新建一个OrderMap.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface OrderMap  extends BaseMapper&lt;User&gt; &#123;</span><br><span class="line">    @Select(&quot;select * from t_order where userid = #&#123;userid&#125;&quot;)</span><br><span class="line">    int selectOrder(int userid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>里面写入查询语句和条件</p>
+<p>在UserMap中写入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface UserMap  extends BaseMapper&lt;User&gt; &#123;</span><br><span class="line">    @Select(&quot;select * from user&quot;)</span><br><span class="line">    @Results(&#123;</span><br><span class="line">        @Result(column = &quot;username&quot;,property = &quot;username&quot;),</span><br><span class="line">//            @Result(column = &quot;password&quot;,property = &quot;password&quot;),</span><br><span class="line">            @Result(column = &quot;userid&quot;,property = &quot;userid&quot;,javaType = User.class,many = @Many(select = &quot;com.example.demo.entity.OrderMap.selectOrder&quot;))</span><br><span class="line">    &#125;)</span><br><span class="line">    List&lt;User&gt; selectAll();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用Result来对其进行处理，column是sql表的列名，property是类的变量名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">column = &quot;userid&quot;,property = &quot;userid&quot;,javaType = User.class,many = @Many(select = &quot;com.example.demo.entity.OrderMap.selectOrder&quot;)</span><br></pre></td></tr></table></figure>
+<p>这句话javaType使用的是将关联查询的结果返回为User对象，当然实际上也可以使用List，int，String等</p>
+<p>many则防止使用关联查询的第二条语句的方法</p>
+<p>另外sql和类变量如果名字一致则不需要设置映射关系，Mybatis-Plus 默认会按照列名和属性名的对应关系进行自动映射，无需额外的映射配置。</p>
+<h3 id="分页查询">分页查询</h3>
+<p>需要写一个配置文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SqlConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">paginationlnterceptor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line">        <span class="type">PaginationInnerInterceptor</span> <span class="variable">paginationInnerInterceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL);</span><br><span class="line">        interceptor.addInnerInterceptor(paginationInnerInterceptor);</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后进行查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/page&quot;)</span></span><br><span class="line"><span class="keyword">public</span> IPage <span class="title function_">page</span><span class="params">()</span>&#123;</span><br><span class="line">        Page&lt;User&gt; page = <span class="keyword">new</span> <span class="title class_">Page</span>&lt;&gt;(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="type">IPage</span> <span class="variable">iPage</span> <span class="operator">=</span> userMap.selectPage(page,<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">return</span> iPage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数从哪里开始，查询几条</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/08/16/17-53-10/" title="spring-boot">https://gudiffany.github.io/2023/08/16/17-53-10/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/16/17-48-33/" rel="prev" title="java基础">
+                  <i class="fa fa-chevron-left"></i> java基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/16/17-56-07/" rel="next" title="java-Servlet">
+                  java-Servlet <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

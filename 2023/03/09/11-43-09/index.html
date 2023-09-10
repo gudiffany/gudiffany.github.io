@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="rust学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rust_learn">
+<meta property="og:url" content="https://gudiffany.github.io/2023/03/09/11-43-09/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="rust学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-09T03:43:09.000Z">
+<meta property="article:modified_time" content="2023-03-09T13:46:01.571Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="rust">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/03/09/11-43-09/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/03/09/11-43-09/","path":"2023/03/09/11-43-09/","title":"rust_learn"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>rust_learn | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">rust学习笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">第一章：安装，基本命令和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">vscode安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">2.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">第二章 基础学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">1. 变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.2.</span> <span class="nav-text">2.关键字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">res: 16</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/03/09/11-43-09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="rust_learn | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          rust_learn<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/rust-learn.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-09 11:43:09 / 修改时间：21:46:01" itemprop="dateCreated datePublished" datetime="2023-03-09T11:43:09+08:00">2023-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/03/09/11-43-09/" class="post-meta-item leancloud_visitors" data-flag-title="rust_learn" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>rust学习笔记</h1>
+<span id="more"></span>
+<p>学习网站：</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://kaisery.github.io/trpl-zh-cn/">Rust 程序设计语言 - Rust 程序设计语言 简体中文版 (kaisery.github.io)</a>，不是很推荐新手看，整个开头就直接写函数了，很多基础还要自己查。</p>
+<p>rust圣经：<a target="_blank" rel="noopener" href="https://course.rs/appendix/keywords.html">关键字 - Rust语言圣经(Rust Course)</a>，推荐，讲得很不错</p>
+<h1>第一章：安装，基本命令和配置</h1>
+<h2 id="vscode安装">vscode安装</h2>
+<p>安装基本工具：</p>
+<p><a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/tools/install">安装 Rust - Rust 程序设计语言 (rust-lang.org)</a></p>
+<p>选择1即可，按流程安装</p>
+<p>ps：如果命令行 cargo 没有办法识别，配置系统的环境变量（不是用户环境变量），在path中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[username].cargo\bin</span><br></pre></td></tr></table></figure>
+<p>插件推荐：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rust-analyzer</span><br><span class="line">Rust Syntax</span><br><span class="line">crates</span><br><span class="line">Rust Test Lens</span><br><span class="line">Better TOML</span><br></pre></td></tr></table></figure>
+<h2 id="编译">编译</h2>
+<p>单个文件编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rustc [filename]</span><br></pre></td></tr></table></figure>
+<p>项目建立</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo new [projectname]</span><br></pre></td></tr></table></figure>
+<p>项目中src中的main.rs作为第一个运行的文件，其中的main函数作为第一个运行的函数</p>
+<p>项目编译</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cargo check #速度更快，检查是否可以编译</span><br><span class="line">cargo build #编译</span><br><span class="line">cargo run #编译并且运行</span><br><span class="line">cargo bulid --release #会在target∕release下生成可执行文件，运行速度更快</span><br></pre></td></tr></table></figure>
+<h2 id="配置">配置</h2>
+<p>项目的根目录下面存在有cargo.toml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[package]</span><br><span class="line">name = &quot;cargo_one&quot;</span><br><span class="line">version = &quot;0.1.0&quot;</span><br><span class="line">edition = &quot;2021&quot;</span><br><span class="line"></span><br><span class="line"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span><br><span class="line"></span><br><span class="line">[dependencies]</span><br><span class="line">rand = &quot;0.8.5&quot;</span><br></pre></td></tr></table></figure>
+<p>package是基本信息</p>
+<p>dependencies是扩展包的信息</p>
+<p>一般不含有扩展包，国内需要进行换源</p>
+<p>window下路径为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[username]\.cargo</span><br></pre></td></tr></table></figure>
+<p>修改config，如果没有就建立一个，复制以下内容，更改为清华源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[source.crates-io]</span><br><span class="line">replace-with = &#x27;tuna&#x27;</span><br><span class="line"></span><br><span class="line">[source.tuna]</span><br><span class="line">registry = &quot;https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git&quot;</span><br></pre></td></tr></table></figure>
+<h1>第二章 基础学习</h1>
+<h2 id="1-变量">1. 变量</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a; #不可变变量</span><br><span class="line">let mut a; #可变变量</span><br><span class="line">let _a; #取消未使用变量警告，包括方法等</span><br></pre></td></tr></table></figure>
+<h2 id="2-关键字">2.关键字</h2>
+<p>不能够作为变量命名的关键字如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">如下关键字目前有对应其描述的功能。</span><br><span class="line"></span><br><span class="line">as - 强制类型转换，或use 和 extern crate包和模块引入语句中的重命名</span><br><span class="line">break - 立刻退出循环</span><br><span class="line">const - 定义常量或原生常量指针（constant raw pointer）</span><br><span class="line">continue - 继续进入下一次循环迭代</span><br><span class="line">crate - 链接外部包</span><br><span class="line">dyn - 动态分发特征对象</span><br><span class="line">else - 作为 if 和 if let 控制流结构的 fallback</span><br><span class="line">enum - 定义一个枚举类型</span><br><span class="line">extern - 链接一个外部包,或者一个宏变量(该变量定义在另外一个包中)</span><br><span class="line">false - 布尔值 false</span><br><span class="line">fn - 定义一个函数或 函数指针类型 (function pointer type)</span><br><span class="line">for - 遍历一个迭代器或实现一个 trait 或者指定一个更高级的生命周期</span><br><span class="line">if - 基于条件表达式的结果来执行相应的分支</span><br><span class="line">impl - 为结构体或者特征实现具体功能</span><br><span class="line">in - for 循环语法的一部分</span><br><span class="line">let - 绑定一个变量</span><br><span class="line">loop - 无条件循环</span><br><span class="line">match - 模式匹配</span><br><span class="line">mod - 定义一个模块</span><br><span class="line">move - 使闭包获取其所捕获项的所有权</span><br><span class="line">mut - 在引用、裸指针或模式绑定中使用，表明变量是可变的</span><br><span class="line">pub - 表示结构体字段、impl 块或模块的公共可见性</span><br><span class="line">ref - 通过引用绑定</span><br><span class="line">return - 从函数中返回</span><br><span class="line">Self - 实现特征类型的类型别名</span><br><span class="line">self - 表示方法本身或当前模块</span><br><span class="line">static - 表示全局变量或在整个程序执行期间保持其生命周期</span><br><span class="line">struct - 定义一个结构体</span><br><span class="line">super - 表示当前模块的父模块</span><br><span class="line">trait - 定义一个特征</span><br><span class="line">true - 布尔值 true</span><br><span class="line">type - 定义一个类型别名或关联类型</span><br><span class="line">unsafe - 表示不安全的代码、函数、特征或实现</span><br><span class="line">use - 在当前代码范围内(模块或者花括号对)引入外部的包、模块等</span><br><span class="line">where - 表示一个约束类型的从句</span><br><span class="line">while - 基于一个表达式的结果判断是否继续循环</span><br></pre></td></tr></table></figure>
+<p>保留变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">如下关键字没有任何功能，不过由 Rust 保留以备将来的应用。</span><br><span class="line"></span><br><span class="line">abstract</span><br><span class="line">async</span><br><span class="line">await</span><br><span class="line">become</span><br><span class="line">box</span><br><span class="line">do</span><br><span class="line">final</span><br><span class="line">macro</span><br><span class="line">override</span><br><span class="line">priv</span><br><span class="line">try</span><br><span class="line">typeof</span><br><span class="line">unsized</span><br><span class="line">virtual</span><br><span class="line">yield</span><br></pre></td></tr></table></figure>
+<p>但是可以通过前缀标识符来处理</p>
+<ul>
+<li>
+<pre><code>Rust 中常用的标识符前缀：
+
+1. r#：用于在标识符名称中使用保留关键字。例如，r#type 表示名称为 type 的标识符。
+2. b：用于表示字节字符串（byte string）字面量，例如，b&quot;hello&quot; 表示字节字符串 hello。
+3. r：用于表示 raw 字符串字面量，例如，r#&quot;hello \n world&quot;# 表示一个包含转义字符的 raw 字符串。
+4. 0b、0o、0x：用于表示二进制、八进制和十六进制整数字面量，例如，0b101 表示二进制数 101。
+
+除了以上常用的标识符前缀之外，Rust 还支持一些其他的标识符前缀，例如：
+
+- crate：用于表示当前 crate 的根模块，例如，crate::foo 表示当前 crate 中名为 foo 的模块。
+- self：用于表示当前模块，例如，self::foo 表示当前模块中名为 foo 的标识符。
+- super：用于表示当前模块的父模块，例如，super::foo 表示当前模块的父模块中名为 foo 的标识符。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">## 3.变量类型以及绑定，解绑定义</span><br><span class="line"></span><br><span class="line">### 整型</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p>有符号类型：<br />
+i8, i16, i32, i64, i128<br />
+无符号类型：<br />
+u8, u16, u32, u64, u128</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">i8和u8只有一个字节，以此翻倍，i32有4个字节</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 字符型（char）</span><br><span class="line"></span><br><span class="line">字符中不只是存有utf-8，还有其他的字符集，一个字符大小有4个字节</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 字符串型（&amp;str）</span><br><span class="line"></span><br><span class="line">大小是16个字节</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>use std::mem::size_of_val;<br />
+fn main() {<br />
+let s:&amp;str = “1”;<br />
+println!(“{}”, size_of_val(&amp;s))<br />
+}</p>
+<h1>res: 16</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 单位类型（）</span><br><span class="line"></span><br><span class="line">在 Rust 中，单位类型（unit type）表示为 `()`，它只有一个值，也就是空值，类似于其他编程语言中的 `void` 类型。</span><br><span class="line"></span><br><span class="line">单位类型 `()` 可以用于表示没有返回值的函数，例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>rustCopy codefn print_hello() -&gt; () {<br />
+println!(“Hello, world!”);<br />
+}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个函数没有返回值，因此返回类型为 `()`。另外，在 Rust 中，函数的返回值类型可以省略，编译器会自动推导出返回值类型为 `()`。</span><br><span class="line"></span><br><span class="line">`()` 也可以作为函数参数类型，用于表示不需要参数的函数，例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>rustCopy codefn do_something(_: ()) {<br />
+println!(“I’m doing something!”);<br />
+}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个函数的参数类型为 `()`，表示它不需要任何参数。在函数体中，参数名被写作 `_`，这是一种占位符，表示这个参数不会被使用。</span><br><span class="line"></span><br><span class="line">`()` 还可以用于元组类型中，作为元组中没有元素的占位符，例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>let empty_tuple: () = ();</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个代码定义了一个空元组，它只包含一个值 `()`。空元组在 Rust 中也被称为“单元素元组”。</span><br><span class="line"></span><br><span class="line">除此之外，`()` 还可以用于表达式中，例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>rustCopy code<br />
+let x = 1 + (2 * ());</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个表达式中使用了空元组 `()`，它在这里充当了一个占位符的作用，表示这里的乘法操作不需要任何值参与，因此得到的结果仍然是 1。</span><br><span class="line"></span><br><span class="line">总的来说，`()` 在 Rust 中有多重作用，它可以表示空值、没有返回值的函数、不需要参数的函数、空元组等等。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 变量解构</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>struct Struct {<br />
+e: i32<br />
+}</p>
+<p>fn main() {<br />
+let (a, b, c, d, e);</p>
+<pre><code>(a, b) = (1, 2);
+// _ 代表匹配一个值，但是我们不关心具体的值是什么，因此没有使用一个变量名而是使用了 _
+[c, .., d, _] = [1, 2, 3, 4, 5];
+Struct &#123; e &#125; = Struct &#123; e: 5 &#125;;
+
+assert_eq!([1, 2, 1, 4, 5], [a, b, c, d, e]);
+</code></pre>
+<p>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>… 表示匹配一个序列中的所有剩余元素，例如 let [a, b, …] = [1, 2, 3, 4, 5] 将会把 a 和 b 分别赋值为 1 和 2，而剩余的元素 [3, 4, 5] 则会被忽略。<br />
+_ 被称为通配符（wildcard），它可以匹配任何类型的值，并且不会将匹配到的值绑定到任何变量上。因此，通配符 _ 可以用于丢弃不需要的值。<br />
+name @ pattern 表示将匹配到的值绑定到一个变量上，并且同时匹配一个模式。例如，match Some(42) { Some(n @ 1…=100) =&gt; println!(“Got a number between 1 and 100: {}”, n), _ =&gt; () } 表示如果匹配到的是 Some 枚举的值，并且这个值在 1 到 100 的范围内，则将其赋值给变量 n，并打印一条信息。在一个 match 表达式中，_ 可以被用作最后一个分支的模式，它可以匹配所有未被之前分支匹配到的情况。这个分支通常被称为“捕获所有”分支（catch-all branch）或者“默认”分支（default branch）。通常，当我们不需要对某个分支进行处理时，可以使用“捕获所有”分支来忽略它。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">其中</span><br><span class="line"></span><br><span class="line">在 Rust 中，`let (a, b, c, d, e);` 和 `let [a, b, c, d, e];` 的区别在于：</span><br><span class="line"></span><br><span class="line">- `let (a, b, c, d, e);` 是解构元组的语法</span><br><span class="line">- `let [a, b, c, d, e];` 是解构数组的语法</span><br><span class="line"></span><br><span class="line">### 变量遮蔽</span><br><span class="line"></span><br><span class="line">允许重复定义，相同的变量名字，不同的内存</span><br><span class="line"></span><br><span class="line">&#123;&#125;会划分层次，不同层次按照就近原则在本身的层次中使用变量</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>fn main() {<br />
+let x = 5;<br />
+// 在main函数的作用域内对之前的x进行遮蔽<br />
+let x = x + 1;</p>
+<pre><code>&#123;
+    // 在当前的花括号作用域内，对之前的x进行遮蔽
+    let x = x * 2;
+    println!(&quot;The value of x in the inner scope is: &#123;&#125;&quot;, x);
+&#125;
+
+println!(&quot;The value of x is: &#123;&#125;&quot;, x);
+</code></pre>
+<p>}</p>
+<pre><code>
+
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/03/09/11-43-09/" title="rust_learn">https://gudiffany.github.io/2023/03/09/11-43-09/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/rust/" rel="tag"><i class="fa fa-tag"></i> rust</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/06/13-29-58/" rel="prev" title="2023kalmarctf复现">
+                  <i class="fa fa-chevron-left"></i> 2023kalmarctf复现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/13/11-22-43/" rel="next" title="tshark">
+                  tshark <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

