@@ -3359,11 +3359,11 @@ $$<br />
 <p><a href="https://github.com/xryuseix/CTF_Writeups/tree/master/SECCON2023">https://github.com/xryuseix/CTF_Writeups/tree/master/SECCON2023</a></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">createSignature</span> = (<span class="params">header, payload, secret</span>) =&gt; &#123;</span><br><span class="line">	<span class="keyword">const</span> data = <span class="string">`<span class="subst">$&#123;stringifyPart(header)&#125;</span>.<span class="subst">$&#123;stringifyPart(payload)&#125;</span>`</span>;</span><br><span class="line">	<span class="keyword">const</span> signature = algorithms[header.<span class="property">alg</span>.<span class="title function_">toLowerCase</span>()](data, secret);</span><br><span class="line">	<span class="keyword">return</span> signature;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>algorithms[]</code>这里直接使用的是对algorithms属性的调用</p>
-<p><img src="C:%5CUsers%5Calex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20230918165615331.png" alt="image-20230918165615331" /></p>
+<p><img src="/img/image-20230918165615331.png" alt="image-20230918165615331" /></p>
 <p>在这里存在一个<code>constructor</code>属性，这个属性调用之后回直接返回一个Function，实际上就是这个具体对象的构造函数，然后对其调用，实际上只会返回第一个参数(原理上就是获得了原型，然后进行了初始化，返回对象，参考java反射，类似，但是还是有一点不一样)</p>
-<p><img src="C:%5CUsers%5Calex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20230918165017214.png" alt="image-20230918165017214" /></p>
+<p><img src="/img/image-20230918165017214.png" alt="image-20230918165017214" /></p>
 <p>然后参考wp调试一下，实际上得到的是一个String对象</p>
-<p><img src="C:%5CUsers%5Calex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20230918172944995.png" alt="image-20230918172944995" /></p>
+<p><img src="/img/image-20230918172944995.png" alt="image-20230918172944995" /></p>
 <p>然后对于对比<code>compare</code>来说，字符串和字符串对象是相同的</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> txt = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaaaaaaaaaaaaaaa&quot;</span>);</span><br><span class="line"><span class="title class_">Buffer</span>.<span class="title function_">compare</span>(<span class="title class_">Buffer</span>.<span class="title function_">from</span>(txt, <span class="string">&quot;base64&quot;</span>), <span class="title class_">Buffer</span>.<span class="title function_">from</span>(<span class="string">&quot;aaaaaaaaaaaaaaaa&quot;</span>, <span class="string">&quot;base64&quot;</span>));</span><br></pre></td></tr></table></figure>
 <p>所以直接把调试的字符串拼接到后面</p>
