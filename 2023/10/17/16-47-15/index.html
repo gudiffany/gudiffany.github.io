@@ -28,7 +28,7 @@
 <meta property="og:description" content="2023hackluCTF">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-17T08:47:15.000Z">
-<meta property="article:modified_time" content="2023-10-17T10:05:31.216Z">
+<meta property="article:modified_time" content="2023-10-23T16:39:34.470Z">
 <meta property="article:author" content="diffany">
 <meta property="article:tag" content="2023ctf">
 <meta name="twitter:card" content="summary">
@@ -141,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023hackluCTF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">1.1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Based-Encoding"><span class="nav-number">1.1.1.</span> <span class="nav-text">Based Encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Awesomenotes-I"><span class="nav-number">1.1.2.</span> <span class="nav-text">Awesomenotes I</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crypto"><span class="nav-number">1.2.</span> <span class="nav-text">crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucky-Numbers"><span class="nav-number">1.2.1.</span> <span class="nav-text">Lucky Numbers</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">2023hackluCTF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">1.1.</span> <span class="nav-text">web</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Based-Encoding"><span class="nav-number">1.1.1.</span> <span class="nav-text">Based Encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Awesomenotes-I"><span class="nav-number">1.1.2.</span> <span class="nav-text">Awesomenotes I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Awesomenotes-II"><span class="nav-number">1.1.3.</span> <span class="nav-text">Awesomenotes II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crypto"><span class="nav-number">1.2.</span> <span class="nav-text">crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucky-Numbers"><span class="nav-number">1.2.1.</span> <span class="nav-text">Lucky Numbers</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -154,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -225,9 +225,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-10-17 16:47:15 / 修改时间：18:05:31" itemprop="dateCreated datePublished" datetime="2023-10-17T16:47:15+08:00">2023-10-17</time>
+      <time title="创建时间：2023-10-17 16:47:15" itemprop="dateCreated datePublished" datetime="2023-10-17T16:47:15+08:00">2023-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-24 00:39:34" itemprop="dateModified" datetime="2023-10-24T00:39:34+08:00">2023-10-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -312,6 +318,18 @@
 <p><a target="_blank" rel="noopener" href="https://awesomenotes.online/api/note/flag">https://awesomenotes.online/api/note/flag</a></p>
 <p>另外一个思路看</p>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=XNTX_wvltcU">https://www.youtube.com/watch?v=XNTX_wvltcU</a></p>
+<h3 id="Awesomenotes-II">Awesomenotes II</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">safe</span> = ammonia::Builder::<span class="title function_ invoke__">new</span>()</span><br><span class="line">        .<span class="title function_ invoke__">add_tags</span>(TAGS)</span><br><span class="line">        .<span class="title function_ invoke__">add_tags</span>(&amp;[<span class="string">&quot;style&quot;</span>])</span><br><span class="line">        .<span class="title function_ invoke__">rm_clean_content_tags</span>(&amp;[<span class="string">&quot;style&quot;</span>])</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            Thank god we don&#x27;t have any more XSS vulnerabilities now 🙏</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">// .add_generic_attribute_prefixes(&amp;[&quot;hx-&quot;])</span></span><br><span class="line">        .<span class="title function_ invoke__">clean</span>(&amp;body)</span><br><span class="line">        .<span class="title function_ invoke__">to_string</span>();</span><br></pre></td></tr></table></figure>
+<p>代码意思是允许style标签，以及TAGS的标签，但是会将style标签进行过滤</p>
+<p>通过自带的example，可以允许一些html原生标签，如<code>&lt;br&gt;</code>,<code>&lt;img&gt;</code>等等</p>
+<p>一种做法是通过<code>&lt;annotation-xml&gt;</code>标签,可以使用<code>encoding</code>属性，表示注释中语义信息的编码</p>
+<p>然后翻一下文档</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/MathML3/chapter5.html#mixing.semantic.annotations">https://www.w3.org/TR/MathML3/chapter5.html#mixing.semantic.annotations</a></p>
+<p>可以找到example</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">math</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">semantics</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mi</span>&gt;</span>a<span class="tag">&lt;/<span class="name">mi</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">annotation-xml</span> <span class="attr">encoding</span>=<span class="string">&quot;text/html&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">span</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">annotation-xml</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">semantics</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mo</span>&gt;</span>+<span class="tag">&lt;/<span class="name">mo</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">mi</span>&gt;</span>b<span class="tag">&lt;/<span class="name">mi</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">math</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个就是其中一种做法的雏形，真正起到作用的只有math和annotation-xml</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">math</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">annotation-xml</span> <span class="attr">encoding</span>=<span class="string">&quot;text/html&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">x</span> <span class="attr">onerror</span>=<span class="string">&quot;alert(1)&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">annotation-xml</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">math</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>encoding=&quot;text/html&quot;</code>将<code>style</code>标签视为 html 命名空间中的标签，因此，其中的内容被视为纯文本，并且不会对其进行任何过滤，但是当删除该属性时，<code>style</code>标签现在位于<code>math</code>命名空间中，其中标签内的标签<code>style</code>被视为 html 标签。然后就会成功执行xss</p>
 <h2 id="crypto">crypto</h2>
 <h3 id="Lucky-Numbers">Lucky Numbers</h3>
 <p>没什么意思的一道题目</p>
@@ -361,6 +379,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/10/22/21-54-45/" rel="next" title="2023Balsn">
+                  2023Balsn <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
