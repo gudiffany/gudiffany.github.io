@@ -3584,6 +3584,7 @@ $$<br />
     <title>2023Balsn</title>
     <url>/2023/10/22/21-54-45/</url>
     <content><![CDATA[<h1>2023Balsn</h1>
+<span id="more"></span>
 <h2 id="web">web</h2>
 <h3 id="0FA2">0FA2</h3>
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&quot;FINGERPRINT&quot;</span>, <span class="string">&quot;771,4866-4865-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,23-65281-10-11-35-16-5-13-18-51-45-43-27-17513,29-23-24,0&quot;</span>);</span><br><span class="line"><span class="variable">$flag</span> = <span class="string">&#x27;BALSN&#123;fake_flag&#125;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fingerprint_check</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_SSL_JA3&#x27;</span>] !== FINGERPRINT) </span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;Login Failed!&quot;</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
