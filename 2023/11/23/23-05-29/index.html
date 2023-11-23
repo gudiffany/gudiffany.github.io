@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Docker(更新中) 先说说为什么要写这篇文章，大概只是记录一下两天啥也没搞出来的痛苦，总不能啥也没学会吧 php7.3以上 + MariaDB 这个版本下面的MariaDB，不会自启动，需要进行初始化处理，同时，安装插件的过程比较抽象，某些部分也是需要看chatgpt以及文档慢慢调试 Dockerfile 1234567891011121314151617181920212223242526">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="https://gudiffany.github.io/2023/11/23/23-05-29/index.html">
+<meta property="og:site_name" content="diffany">
+<meta property="og:description" content="Docker(更新中) 先说说为什么要写这篇文章，大概只是记录一下两天啥也没搞出来的痛苦，总不能啥也没学会吧 php7.3以上 + MariaDB 这个版本下面的MariaDB，不会自启动，需要进行初始化处理，同时，安装插件的过程比较抽象，某些部分也是需要看chatgpt以及文档慢慢调试 Dockerfile 1234567891011121314151617181920212223242526">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-23T15:05:29.000Z">
+<meta property="article:modified_time" content="2023-11-23T15:30:04.690Z">
+<meta property="article:author" content="diffany">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gudiffany.github.io/2023/11/23/23-05-29/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gudiffany.github.io/2023/11/23/23-05-29/","path":"2023/11/23/23-05-29/","title":"Docker"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker | diffany</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">diffany</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="diffany">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-友情链接"><a href="/friend/" rel="section"><i class="fa fa-sitemap fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Docker(更新中)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#php7-3%E4%BB%A5%E4%B8%8A-MariaDB"><span class="nav-number">1.1.</span> <span class="nav-text">php7.3以上 + MariaDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php7-2%E4%BB%A5%E4%B8%8B-MariaDB"><span class="nav-number">1.2.</span> <span class="nav-text">php7.2以下 + MariaDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-mysql"><span class="nav-number">1.3.</span> <span class="nav-text">php + mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%AE%B9%E5%99%A8%E6%89%8B%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">多容器手法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">diffany</p>
+  <div class="site-description" itemprop="description">一个努力学习的菜鸟</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://unpkg.com/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/11/23/23-05-29/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker<a href="https://github.com/user-name/repo-name/tree/branch-name/subdirectory-name/_posts/Docker.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-23 23:05:29 / 修改时间：23:30:04" itemprop="dateCreated datePublished" datetime="2023-11-23T23:05:29+08:00">2023-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">开发</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/11/23/23-05-29/" class="post-meta-item leancloud_visitors" data-flag-title="Docker" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <span id="more"></span>
+<h1>Docker(更新中)</h1>
+<p>先说说为什么要写这篇文章，大概只是记录一下两天啥也没搞出来的痛苦，总不能啥也没学会吧</p>
+<h2 id="php7-3以上-MariaDB">php7.3以上 + MariaDB</h2>
+<p>这个版本下面的MariaDB，不会自启动，需要进行初始化处理，同时，安装插件的过程比较抽象，某些部分也是需要看chatgpt以及文档慢慢调试</p>
+<p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> php:<span class="number">7.4</span>-apache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mv</span> <span class="string">&quot;<span class="variable">$PHP_INI_DIR</span>/php.ini-production&quot;</span> <span class="string">&quot;<span class="variable">$PHP_INI_DIR</span>/php.ini&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Update apt and install GD extension dependencies</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    <span class="comment"># Install GD extension</span></span></span><br><span class="line">    docker-php-ext-configure gd --with-freetype --with-jpeg &amp;&amp; \</span><br><span class="line">    docker-php-ext-install -j$(nproc) gd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install PDO MySQL extension</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> docker-php-ext-install pdo_mysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install MySQLi extension</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> docker-php-ext-install mysqli</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install MariaDB 10.5</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y mariadb-server-core-10.5 mariadb-server-10.5 supervisor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> /etc/init.d/mariadb start &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;CREATE USER &#x27;test&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;test&#x27;;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;GRANT ALL PRIVILEGES ON *.* TO &#x27;test&#x27;@&#x27;%&#x27; WITH GRANT OPTION;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;FLUSH PRIVILEGES;&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . /var/www/html</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> supervisord.conf /etc/supervisor/conf.d/supervisord.conf</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /var/www/html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose ports</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the container&#x27;s startup command to apache2-foreground and start MariaDB service</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/usr/bin/supervisord&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;/etc/supervisor/conf.d/supervisord.conf&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后可以进行多线程操作</p>
+<p>supervisord.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[supervisord]</span><br><span class="line">nodaemon=true</span><br><span class="line"></span><br><span class="line">[program:apache2]</span><br><span class="line">command=apache2-foreground</span><br><span class="line"></span><br><span class="line">[program:mariadb]</span><br><span class="line">command=/etc/init.d/mariadb start</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="php7-2以下-MariaDB">php7.2以下 + MariaDB</h2>
+<p>在较低版本下面的MariaDB，会直接自启动，所以并不需要多线程操作</p>
+<p>较为粗糙来写的话，用下面的这个即可</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> php:<span class="number">7.2</span>-apache</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将php.ini-production重命名为php.ini</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mv</span> <span class="string">&quot;<span class="variable">$PHP_INI_DIR</span>/php.ini-production&quot;</span> <span class="string">&quot;<span class="variable">$PHP_INI_DIR</span>/php.ini&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新apt并安装GD扩展的依赖项</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    <span class="comment"># 配置GD扩展</span></span></span><br><span class="line">    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ &amp;&amp; \</span><br><span class="line">    <span class="comment"># 安装GD扩展</span></span><br><span class="line">    docker-php-ext-install -j$(nproc) gd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装PDO MySQL扩展</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> docker-php-ext-install pdo_mysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装MySQLi扩展</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> docker-php-ext-install mysqli</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装MariaDB 10.3</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y mariadb-server-10.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置MySQL root 用户密码和创建新用户</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> service mysql start &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;UPDATE mysql.user SET Password = PASSWORD(&#x27;your_root_password&#x27;) WHERE User = &#x27;root&#x27;;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;CREATE USER &#x27;your_user&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;your_password&#x27;;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;GRANT ALL PRIVILEGES ON *.* TO &#x27;your_user&#x27;@&#x27;%&#x27; WITH GRANT OPTION;&quot;</span> &amp;&amp; \</span></span><br><span class="line"><span class="language-bash">    mysql -e <span class="string">&quot;FLUSH PRIVILEGES;&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Expose ports</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置容器的启动命令为apache2-foreground和启动MariaDB服务</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;apache2-foreground &amp; service mysql start &amp;&amp; tail -f /dev/null&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="php-mysql">php + mysql</h2>
+<p>对于不是在线进行安装的，不需要过多进行操作的，可以直接写docker-compose.yml + Dockerfile 进行处理</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">&#x27;3.0&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  webserver:</span><br><span class="line">    build: .</span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">&quot;8081:80&quot;</span></span><br><span class="line">    links:</span><br><span class="line">      - db</span><br><span class="line">    volumes:</span><br><span class="line">      - ./:/var/www/html </span><br><span class="line">  db:</span><br><span class="line">    image: mysql:<span class="number">5.6</span></span><br><span class="line">    command: --default-authentication-plugin=mysql_native_password</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_DATABASE: aaa</span><br><span class="line">      MYSQL_USER: aaa</span><br><span class="line">      MYSQL_PASSWORD: aaa</span><br><span class="line">      MYSQL_ROOT_PASSWORD: rootroot</span><br><span class="line">    volumes:</span><br><span class="line">      - ./mysql-init-files:/docker-<span class="keyword">entrypoint</span><span class="language-bash">-initdb.d  <span class="comment"># 放置sql文件</span></span></span><br><span class="line">    networks:</span><br><span class="line">      - default</span><br></pre></td></tr></table></figure>
+<p>设置好文件以及sql文件就可以了</p>
+<h2 id="多容器手法">多容器手法</h2>
+<p>使用links或者depends_on，就可以将多个镜像和容器进行连接，然后进行处理（超过2个可以考虑depends_on，2个只要links）</p>
+<p>类似于这样，如此就不太需要怎么样进行配置，至于前面的Dockerfile写得如此复杂，是因为在本地调试的时候放在一起更加方便一些(有时间我会写成yml)</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  nginx:</span><br><span class="line">    image: nginx:<span class="number">1.25</span>.<span class="number">2</span>-alpine</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    volumes:</span><br><span class="line">      - ./front:/front</span><br><span class="line">      - ./conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf</span><br><span class="line">    mem_limit: <span class="number">256</span>m</span><br><span class="line">    pids_limit: <span class="number">1024</span></span><br><span class="line">    cpus: <span class="number">1</span></span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">&quot;5000:80&quot;</span></span><br><span class="line">  waf:</span><br><span class="line">    build:</span><br><span class="line">      dockerfile: waf.Dockerfile</span><br><span class="line">      context: .</span><br><span class="line">    mem_limit: <span class="number">256</span>m</span><br><span class="line">    pids_limit: <span class="number">1024</span></span><br><span class="line">    cpus: <span class="number">1</span></span><br><span class="line">    environment:</span><br><span class="line">      - PROXY_HOST=http://api:<span class="number">5000</span></span><br><span class="line">    depends_on:</span><br><span class="line">      - api</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">  api:</span><br><span class="line">    build:</span><br><span class="line">      dockerfile: app.Dockerfile</span><br><span class="line">      context: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_PASSWORD: password</span><br><span class="line">    mem_limit: <span class="number">256</span>m</span><br><span class="line">    pids_limit: <span class="number">1024</span></span><br><span class="line">    cpus: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line">    image: mariadb:latest</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    volumes:</span><br><span class="line">      - ./conf/db_init:/docker-<span class="keyword">entrypoint</span><span class="language-bash">-initdb.d</span></span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_USER: app</span><br><span class="line">      MYSQL_DATABASE: app</span><br><span class="line">      MYSQL_PASSWORD: password</span><br><span class="line">      MYSQL_ROOT_PASSWORD: root_password</span><br><span class="line">    cpus: <span class="number">1</span></span><br><span class="line">    pids_limit: <span class="number">256</span></span><br><span class="line">    mem_limit: <span class="number">512</span>m</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>diffany
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gudiffany.github.io/2023/11/23/23-05-29/" title="Docker">https://gudiffany.github.io/2023/11/23/23-05-29/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/02/23-58-04/" rel="prev" title="红日靶场">
+                  <i class="fa fa-chevron-left"></i> 红日靶场
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">diffany</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+
+
+  <script src="[object Object]"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://unpkg.com/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ImshWy4c6kiRqFukNXuAeVYt-gzGzoHsz","app_key":"I15dpBmlxhPPxNgS0pn9Fer5","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
