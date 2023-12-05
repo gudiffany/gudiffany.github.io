@@ -3802,4 +3802,23 @@ $$<br />
         <tag>内网</tag>
       </tags>
   </entry>
+  <entry>
+    <title>如何制作一个爬虫</title>
+    <url>/2023/12/05/15-24-52/</url>
+    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=" "></a> </h1><h1 id="如何制作一个爬虫"><a href="#如何制作一个爬虫" class="headerlink" title="如何制作一个爬虫"></a>如何制作一个爬虫</h1><span id="more"></span>
+<h2 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h2><p>对于爬取blog，最大的问题是什么？</p>
+<ol>
+<li>对于各种框架主题的blog，出现的url会多种多样，一部分是使用时间进行命名，一部分是使用文章题目进行命名，那么久需要分情况进行处理，初步解决办法只能根据框架和具体爬取的站点进行处理和选择模式，本质上还是逃不过这个问题，也有的使用title进行命名，但是对于复杂状态的命名方式，也不能保证爬取下来的文件符合使用者的预期</li>
+<li>html转md，对于这个问题，很头痛，因为对于防御xss的编码，使用者对于原本字符的转化以及框架对于blog的生成方式的处理也是不相同，对于不同的作用域是否需要进行解码，可能解码之后会导致原本就应该是&amp;gt的字符变成解码之后的情况，也可能出现xss防御转码的字符留下，给使用者一脸疑惑（尚未解决）</li>
+<li>嵌套格式以及code，对于喜欢使用md写blog的，不可避免是需要使用```进行代码处理，以及着重号，但是一个是单符号，一个是三符号，对于这种情况的处理也是问题，暂时我也是直接暴力处理，依旧存在bug，对于被code格式包含的情况下再写那三个符号的话，会出现一些不可避免的格式错乱的情况，例如遇到python的多行字符串，或者在绕waf的情况使用了这些符号，也会在处理的时候出现问题（暂时在普通情况下不会出现，但是极端情况下依旧存在问题，可以修）</li>
+</ol>
+<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;</span><br><span class="line">&gt;</span><br><span class="line"></span><br><span class="line">&amp;lt;</span><br><span class="line">&amp;gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
 </search>
