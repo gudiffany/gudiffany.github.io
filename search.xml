@@ -3811,18 +3811,82 @@ $$<br />
 <h2 id="blog">blog</h2>
 <p>对于爬取blog，最大的问题是什么？</p>
 <ol>
-<li>对于各种框架主题的blog，出现的url会多种多样，一部分是使用时间进行命名，一部分是使用文章题目进行命名，那么久需要分情况进行处理，初步解决办法只能根据框架和具体爬取的站点进行处理和选择模式，本质上还是逃不过这个问题，也有的使用title进行命名，但是对于复杂状态的命名方式，也不能保证爬取下来的文件符合使用者的预期</li>
-<li>html转md，对于这个问题，很头痛，因为对于防御xss的编码，使用者对于原本字符的转化以及框架对于blog的生成方式的处理也是不相同，对于不同的作用域是否需要进行解码，可能解码之后会导致原本就应该是&amp;gt的字符变成解码之后的情况，也可能出现xss防御转码的字符留下，给使用者一脸疑惑（尚未解决）</li>
-<li>嵌套格式以及code，对于喜欢使用md写blog的，不可避免是需要使用```进行代码处理，以及着重号，但是一个是单符号，一个是三符号，对于这种情况的处理也是问题，暂时我也是直接暴力处理，依旧存在bug，对于被code格式包含的情况下再写那三个符号的话，会出现一些不可避免的格式错乱的情况，例如遇到python的多行字符串，或者在绕waf的情况使用了这些符号，也会在处理的时候出现问题（暂时在普通情况下不会出现，但是极端情况下依旧存在问题，可以修）</li>
+<li>
+<p>对于各种框架主题的blog，出现的url会多种多样，一部分是使用时间进行命名，一部分是使用文章题目进行命名，那么久需要分情况进行处理，初步解决办法只能根据框架和具体爬取的站点进行处理和选择模式，本质上还是逃不过这个问题，也有的使用title进行命名，但是对于复杂状态的命名方式，也不能保证爬取下来的文件符合使用者的预期</p>
+</li>
+<li>
+<p>html转md，对于这个问题，很头痛，因为对于防御xss的编码，使用者对于原本字符的转化以及框架对于blog的生成方式的处理也是不相同，对于不同的作用域是否需要进行解码，可能解码之后会导致原本就应该是&amp;gt的字符变成解码之后的情况，也可能出现xss防御转码的字符留下，给使用者一脸疑惑（已经解决）</p>
+</li>
+<li>
+<p>嵌套格式以及code，对于喜欢使用md写blog的，不可避免是需要使用```进行代码处理，以及着重号，但是一个是单符号，一个是三符号，对于这种情况的处理也是问题，暂时我也是直接暴力处理，依旧存在bug，对于被code格式包含的情况下再写那三个符号的话，会出现一些不可避免的格式错乱的情况，例如遇到python的多行字符串，或者在绕waf的情况使用了这些符号，也会在处理的时候出现问题（暂时在普通情况下不会出现，但是极端情况下依旧存在问题，可以修）</p>
+<p>用四个字符再md语法中也是可以的</p>
+</li>
 </ol>
 <h2 id="test">test</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;</span><br><span class="line">&gt;</span><br><span class="line">```</span><br><span class="line">&amp;lt;</span><br><span class="line">&amp;gt;</span><br><span class="line"></span><br><span class="line">&amp;amp;gt;</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;</span><br><span class="line">&gt;</span><br><span class="line">```</span><br><span class="line">&amp;lt;</span><br><span class="line">&amp;gt;</span><br><span class="line"></span><br><span class="line">```</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>开发</category>
       </categories>
       <tags>
         <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023年终总结</title>
+    <url>/2023/12/31/17-40-40/</url>
+    <content><![CDATA[<h1>2023年终总结</h1>
+<h2 id="一些碎碎念">一些碎碎念</h2>
+<p>首先说说为什么写这篇总结，大概是pyq和空间一堆人在发，那我也就随便写写好了（从大流），今年的一些经历算是我人生的第一次体验，也是值得我写上一篇博客记录一下的</p>
+<h2 id="毫无波澜的开局">毫无波澜的开局</h2>
+<p>今年的开局就是线上考试结束，过了一个好年，很舒服，之后就是平平淡淡的打打比赛什么的，之后开学上课摆烂然后期末冲刺，这大概就是课内的状态了吧，不过比较不幸的一件事情就是期末缓考了一科（国赛打着打着就🐏了，我也没办法，还有复习的压力），也是大概这段时间开始接触一些java，但是基本上比较熟练的时候已经到了大三上的时候了</p>
+<p>上半年比较重要的就是打了个国赛，不过还是没打进去决赛就是了，有点可惜（当时出java题目，我直接不会做），搞得我血压炸了，最终止步于复赛</p>
+<h2 id="难忘的一次旅行">难忘的一次旅行</h2>
+<p>至于到了暑假，有机会跑到了青岛去参加xman，实际上还没去的时候我本身对于这次没有抱有太大的期待（大概也是我对于陌生环境的一种不适应），到了那边，一共一周的时间，我过得还是比较轻轻松松的 :)，除了作息时间和我平时不太一样，需要倒倒时差，以及过去之后发生的一些意外我的键盘和鼠标双双去世让我很难受之外。还有为什么我刚上飞机，就有发消息说我的电动车就被锁住了（烦死了）:(</p>
+<p>不过这些事情倒是小问题，让我收获最大的就是认识到了挚友evo1ution以及最好的梦姐，当然具体事件我不便多说，但是与他们接触的过程倒是改变我不少的观点以及处事方式了（有些东西也放下了不少），曾经的我向来是沉浸于过去的一些阴影之中，畏惧于某些未来的到来。</p>
+<p>实际上我大概不会再去一次那里，但是我所珍视的回忆却永刻于心。</p>
+<h2 id="回归学校生活">回归学校生活</h2>
+<p>回来学校之后，让我血压升高的事情我终归要处理一下，就是我的电动车问题(完美解决)</p>
+<p>之后我还要一个科目需要考，原本以为我还是轻轻松松有时间的，但是临近开学突然有个活，结果导致我要一边干活一边复习，我大概花了2天时间(或许没有2天)，然后把概率论考过了。</p>
+<p>大三上的课程还是很对我的口味的，但是由于比赛的原因，我的状态还是偏重于比赛，忽视课内(毕竟课内大部分没啥意思，hhh)</p>
+<p>之后就是打比赛，学习，打比赛什么的</p>
+<p>不过感觉今年我的一血要被拿下了，操作系统两天加上感冒debuff感觉会挂科，文行于此，成绩还没出，危！</p>
+<p>倒是在不断的积累过程之后，我对于一些比赛还是开始得心应手了，虽然感觉打起来还是吃力得要死，比如去上海打TCTF被虐杀来着</p>
+<p>不过比较欣慰的一件事情就是qwb拿到了属于我自己的第一个一血，虽然是一题speedrun，还是misc，不过我还是比较满意的，不枉我打到半夜3点多，差点给我打吐了…</p>
+<p><img src="/img/qwb.png" alt="qwb" /></p>
+<p>整体来说还是比较不错的一年</p>
+<h2 id="未来">未来</h2>
+<p>之后就是需要开始烦恼于找工作的问题，希望顺利！（flag立下了）</p>
+<p>还有就是希望能够平平淡淡度过考试，每次到考试周都搞得我紧张兮兮的</p>
+<p>既然都看到这里了，我就给xdm拜个早年吧，hhh</p>
+]]></content>
+      <categories>
+        <category>总结</category>
+      </categories>
+      <tags>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>fastjson反序列化</title>
+    <url>/2023/12/30/20-56-55/</url>
+    <content><![CDATA[<h1>fastjson反序列化</h1>
+<span id="more"></span>
+<p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.24<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Person</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Map map; <span class="comment">//只有get方法，使得getonly参数为true，这样就可以调试反序列化</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;constructor&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getAge&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;setAge&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getName&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;setName&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Map <span class="title function_">getMap</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getMap&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>test</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.example.fast.Person\&quot;,\&quot;age\&quot;:18,\&quot;name\&quot;:\&quot;ttt\&quot;&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> JSON.parseObject(s, Person.class);</span><br><span class="line">        System.out.println(person.getName());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="漏洞原理解析">漏洞原理解析</h2>
+<p>fastjson功能上为了能够适应更多的拓展功能，使用了存在能够识别关键字以及历遍类方法等功能对其json字段进行生成反序列化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//序列化</span></span><br><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> JSON.toJSONString(obj); </span><br><span class="line"><span class="comment">//反序列化</span></span><br><span class="line"><span class="type">VO</span> <span class="variable">vo</span> <span class="operator">=</span> JSON.parse(); <span class="comment">//解析为JSONObject类型或者JSONArray类型</span></span><br><span class="line"><span class="type">VO</span> <span class="variable">vo</span> <span class="operator">=</span> JSON.parseObject(<span class="string">&quot;&#123;...&#125;&quot;</span>); <span class="comment">//JSON文本解析成JSONObject类型</span></span><br><span class="line"><span class="type">VO</span> <span class="variable">vo</span> <span class="operator">=</span> JSON.parseObject(<span class="string">&quot;&#123;...&#125;&quot;</span>, VO.class); <span class="comment">//JSON文本解析成VO.class类</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
 </search>
