@@ -150,7 +150,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -228,7 +228,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-07 11:30:03" itemprop="dateModified" datetime="2024-03-07T11:30:03+08:00">2024-03-07</time>
+      <time title="修改时间：2024-04-10 11:43:16" itemprop="dateModified" datetime="2024-04-10T11:43:16+08:00">2024-04-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -258,123 +258,9 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1>溯源与反溯源</h1>
-<h2 id="基本概念">基本概念</h2>
-<p>攻防演练过程中，攻击者千方百计使用各种方法渗透目标。一般情况下攻击链包括：侦察、武器化、交付、利用、安装、命令和控制、窃取目标数据。在溯源中，安全人员对攻击者某个阶段的攻击特点进行分析，再结合已掌握的威胁情报数据将攻击特点和数据聚类，能够有效掌握攻击者的攻击手法和 IP 、域名资产等。</p>
-<h2 id="反溯源的手段以及方式">反溯源的手段以及方式</h2>
-<h3 id="藏匿ip">藏匿ip</h3>
-<h4 id="1-物联网卡-移动WIFI设备"><strong>1. 物联网卡+移动WIFI设备</strong></h4>
-<p>在手工测试场景中，使用物联网卡并将其安装在USB移动WiFi设备上，是一种用于红队测试的常见方法。当进行攻击测试时，如果安全设备检测到了攻击性payload并封禁了相关测试IP，红队成员可以通过简单地插拔USB设备来重启，从而切换到新的IP地址。</p>
-<p>这种方法的优势在于，通过物联网卡和USB移动WiFi设备，红队成员可以维护匿名性。此外，当IP被封禁时，可以通过重新启动来迅速更换IP地址，以继续测试工作，而无需等待封禁解除。</p>
-<p><img src="https://image.3001.net/images/20231204/1701656276_656d36d4afd0135eb3976.png!small" alt="img" /></p>
-<h4 id="2-云函数"><strong>2. 云函数</strong></h4>
-<p><img src="https://image.3001.net/images/20231204/1701656309_656d36f55157a1196b05c.png!small" alt="img" /><img src="https://image.3001.net/images/20231204/1701656319_656d36ff6e0b67310bfb3.png!small" alt="img" /></p>
-<p>云函数（SCF）是云服务供应商提供的无服务器执行环境，能对外发送数据包。它可通过 API 网关触发器进行触发，先接受来自客户端的数据，再利用其多IP出口的特性将请求随机转发出去，这样一来就达到了代理的效果。</p>
-<p>实战中可利用云服务供应商如阿里云、腾讯云和AWS等提供的云函数服务，通过在线编辑服务器端的代码以及配置API网关触发器，从而轻松地在一台虚拟专用服务器（VPS）上启动HTTP[S]或SOCKS代理服务。这个代理服务的出口在云服务提供商的多个地区，因此可以实现请求一次就切换IP地址的效果。</p>
-<p>这种方式的优势在于无需复杂的手动配置和部署流程即可实现IP一次一换的代理效果，且这样配置更换IP有助于维护匿名性或绕过封锁场景。</p>
-<h4 id="3-自建代理池-隧道代理"><strong>3. 自建代理池+隧道代理</strong></h4>
-<p><img src="https://image.3001.net/images/20231204/1701656331_656d370b70f46aa9f5f72.png!small" alt="img" /></p>
-<p>借助数据库，如Redis等，我们可以存储从各大代理网站爬取到的免费http[s]/socks代理IP:Prot。随后，通过自定义的质检程序，我们可以对这些代理进行可用性及网速判断。最后，我们构建隧道代理，通过转发服务实现对扫描IP的一次一换，以确保高效的扫描操作。</p>
-<p>这个流程包括以下步骤：</p>
-<ol>
-<li>代理抓取： 我们从多个网站爬取免费代理IP，并将其存储在数据库中，以便后续使用。</li>
-<li>质检程序： 我们开发了自定义的质检程序，用于验证代理的可用性。这包括检查代理的连通性、响应时间、成功率以及其他相关参数。</li>
-<li>代理评分和删除： 初次存储和使用过的代理IP经过我们自定义的质检程序进行评分。如果代理的分数低于设定的阈值，它将被自动删除，以确保只有高质量的代理被保留在数据库中。</li>
-<li>转发服务：配置隧道代理，请求入口统一，出口IP根据自定义规则随机从代理池中取出作为代理被使用。</li>
-</ol>
-<p>这套方案可以帮助安全人员轻松地获取可用的代理IP，同时通过质检和评分机制，确保只有高性能和稳定的代理被提供给用户。而且所用代理爬取自各大代理服务商所公示的免费代理，这样不仅保障了匿名性也提高了扫描效率。</p>
-<h4 id="4-机场节点-clash-meta-隧道代理"><strong>4. 机场节点+clash.meta+隧道代理</strong></h4>
-<p><img src="https://image.3001.net/images/20231204/1701656373_656d37352a34f30bd051e.png!small" alt="img" /></p>
-<p>机场作为翻墙常用的节点，不仅能帮助用户绕过网络的封锁（GFW）来访问国外资源，还在安全工作中提供了代理服务，帮助用户绕过目标网络的限制。然而，常用节点订阅工具v2rayN的默认设置是一个本地入口（通常使用端口10808）仅对应一个VMess或其他加密协议节点出口，这可能带来一定的限制。</p>
-<p>尽管v2rayN内核本身支持多入口和多出口，但需要手动编写繁琐的配置文件，这对于用户而言可能不够便捷。此时，我们可引入了clash.meta，这是原版clash的一个分支，它提供了一种简单的解决方案，能够轻松实现v2rayN多入口多出口的配置需求。使用clash.meta，我们可以将机场中的各种协议节点转换为本地的socks节点。这使得每个本地端口都可以对应一个外部机场节点，从而实现多入口对应多出口的配置。而且，不同于上一种方案中爬取免费代理自建代理池，这里花费极少代价使用机场节点构建的socks代理池更加的稳定可靠。</p>
-<p><img src="https://image.3001.net/images/20231204/1701656392_656d3748ecb1d4b0075d0.png!small" alt="img" /></p>
-<p>最后，我们可以配置隧道代理服务，使内部工具或环境只需配置一个简单的ip:port，就能够随时在多个机场节点之间切换出口IP。这样不仅确保了用户的匿名性，还能够帮助用户绕过目标网络的限制策略。</p>
-<h4 id="5-TOR服务"><strong>5. TOR服务</strong></h4>
-<p><img src="https://image.3001.net/images/20231204/1701656405_656d37553a0204e34dcf4.png!small" alt="img" /></p>
-<p>Tor 是一个虚拟隧道网络，用于提高互联网用户的隐私和安全。其原理在于通过 Tor 网络内的三个随机服务器（也称节点）发送用户流量。线路中的最后一个中继（即“出口节点”）将流量发送到公共互联网。</p>
-<p>Windows上使用的Tor浏览器即采用上述网络结构，可以使通信数据通过多个中继节点传递，且Tor会对通信来源进行加密，在这个过程中保障了用户的隐私和匿名性，最终绕过目标限制策略。</p>
-<p>Linux上 proxychains 搭配 tor服务，也可配置socks5代理，同样可以绕过目标限制策略。</p>
-<p><img src="https://image.3001.net/images/20231204/1701656417_656d3761892b8a16cf1cc.png!small" alt="img" /></p>
-<h4 id="6-在线网站端口扫描"><strong>6. 在线网站端口扫描</strong></h4>
-<p>在红队打点过程中，通常需要执行端口扫描操作，然后是指纹识别等。然而，如果甲方运维人员正在进行监测，可能会导致IP地址被发现进而通过一些方式被溯源到个人账号ID、身份信息或手机号等。在这种情况下，通过在线网站进行端口扫描可以避免被追溯，实现匿名的端口扫描操作。</p>
-<h4 id="7-代理服务供应商"><strong>7. 代理服务供应商</strong></h4>
-<p>使用借助代理服务供应商提供的HTTP[S]和SOCKS动态代理服务，不仅有助于在手工渗透测试过程中保持匿名性和绕过防火墙设备，还能够在配置适当的扫描器并发量时，实现高效的批量检测。</p>
-<h2 id="溯源">溯源</h2>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2024/02/29/13-58-25/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="diffany">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="diffany">
-      <meta itemprop="description" content="一个努力学习的菜鸟">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | diffany">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/29/13-58-25/" class="post-title-link" itemprop="url">python-ast</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-02-29 13:58:25" itemprop="dateCreated datePublished" datetime="2024-02-29T13:58:25+08:00">2024-02-29</time>
-    </span>
-
-  
-    <span id="/2024/02/29/13-58-25/" class="post-meta-item leancloud_visitors" data-flag-title="python-ast" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1112,6 +998,100 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1>2023ACTF</h1>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gudiffany.github.io/2023/10/22/21-54-45/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="diffany">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="diffany">
+      <meta itemprop="description" content="一个努力学习的菜鸟">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | diffany">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/22/21-54-45/" class="post-title-link" itemprop="url">2023Balsn</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-22 21:54:45" itemprop="dateCreated datePublished" datetime="2023-10-22T21:54:45+08:00">2023-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-24 14:38:04" itemprop="dateModified" datetime="2023-10-24T14:38:04+08:00">2023-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/2023wp/" itemprop="url" rel="index"><span itemprop="name">2023wp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/10/22/21-54-45/" class="post-meta-item leancloud_visitors" data-flag-title="2023Balsn" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1>2023Balsn</h1>
           <!--noindex-->
           <!--/noindex-->
         
