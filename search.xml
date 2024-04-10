@@ -3805,25 +3805,137 @@ $$<br />
   <entry>
     <title>如何制作一个爬虫</title>
     <url>/2023/12/05/15-24-52/</url>
-    <content><![CDATA[<h1></h1>
-<h1>如何制作一个爬虫</h1>
+    <content><![CDATA[<h1>如何制作一个爬虫</h1>
 <span id="more"></span>
-<h2 id="blog">blog</h2>
-<p>对于爬取blog，最大的问题是什么？</p>
-<ol>
-<li>
-<p>对于各种框架主题的blog，出现的url会多种多样，一部分是使用时间进行命名，一部分是使用文章题目进行命名，那么久需要分情况进行处理，初步解决办法只能根据框架和具体爬取的站点进行处理和选择模式，本质上还是逃不过这个问题，也有的使用title进行命名，但是对于复杂状态的命名方式，也不能保证爬取下来的文件符合使用者的预期</p>
-</li>
-<li>
-<p>html转md，对于这个问题，很头痛，因为对于防御xss的编码，使用者对于原本字符的转化以及框架对于blog的生成方式的处理也是不相同，对于不同的作用域是否需要进行解码，可能解码之后会导致原本就应该是&amp;gt的字符变成解码之后的情况，也可能出现xss防御转码的字符留下，给使用者一脸疑惑（已经解决）</p>
-</li>
-<li>
-<p>嵌套格式以及code，对于喜欢使用md写blog的，不可避免是需要使用```进行代码处理，以及着重号，但是一个是单符号，一个是三符号，对于这种情况的处理也是问题，暂时我也是直接暴力处理，依旧存在bug，对于被code格式包含的情况下再写那三个符号的话，会出现一些不可避免的格式错乱的情况，例如遇到python的多行字符串，或者在绕waf的情况使用了这些符号，也会在处理的时候出现问题（暂时在普通情况下不会出现，但是极端情况下依旧存在问题，可以修）</p>
-<p>用四个字符再md语法中也是可以的</p>
-</li>
-</ol>
-<h2 id="test">test</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;</span><br><span class="line">&gt;</span><br><span class="line">```</span><br><span class="line">&amp;lt;</span><br><span class="line">&amp;gt;</span><br><span class="line"></span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+<p>参考链接：</p>
+<p><a href="https://cuiqingcai.com/5052.html">https://cuiqingcai.com/5052.html</a></p>
+<h2 id="环境与库">环境与库</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请求库</span><br><span class="line">Requests </span><br><span class="line">Selenium </span><br><span class="line">ChromeDriver </span><br><span class="line">GeckoDriver </span><br><span class="line">PhantomJS </span><br><span class="line">aiohttp </span><br><span class="line"></span><br><span class="line">解析库</span><br><span class="line">lxml </span><br><span class="line">Beautiful Soup </span><br><span class="line">pyquery </span><br><span class="line">tesserocr </span><br><span class="line"></span><br><span class="line">数据库</span><br><span class="line">MySQL </span><br><span class="line">MongoDB</span><br><span class="line">Redis </span><br><span class="line"></span><br><span class="line">存储库</span><br><span class="line">PyMySQL </span><br><span class="line">PyMongo </span><br><span class="line">redis-py </span><br><span class="line">RedisDump </span><br><span class="line"></span><br><span class="line">Web 库</span><br><span class="line">Flask </span><br><span class="line">Tornado </span><br><span class="line"></span><br><span class="line">App 爬取相关库</span><br><span class="line">Charles </span><br><span class="line">mitmproxy </span><br><span class="line">Appium </span><br><span class="line"></span><br><span class="line">爬虫框架</span><br><span class="line">pyspider </span><br><span class="line">Scrapy </span><br><span class="line">Scrapy-Splash </span><br><span class="line">Scrapy-Redis</span><br><span class="line"></span><br><span class="line">部署相关库</span><br><span class="line">Docker </span><br><span class="line">Scrapyd </span><br><span class="line">Scrapyd-Client </span><br><span class="line">Scrapyd API </span><br><span class="line">Scrapyrt </span><br><span class="line">Gerapy </span><br></pre></td></tr></table></figure>
+<p>其中我这边使用的库是：Beautiful Soup ，Requests ，Selenium ，ChromeDriver 等</p>
+<p>其他的库根据不同场景的需要进行处理即可</p>
+<h2 id="Robots-协议">Robots 协议</h2>
+<p>参考链接：</p>
+<p><a href="https://developers.google.cn/search/docs/crawling-indexing/robots/create-robots-txt?hl=zh-cn">创建并提交 robots.txt 文件 | Google 搜索中心  | 文档  | Google for Developers</a></p>
+<p>Robots 协议也称作爬虫协议、机器人协议，它的全名叫作网络爬虫排除标准（Robots Exclusion Protocol），用来告诉爬虫和搜索引擎哪些页面可以抓取，哪些不可以抓取</p>
+<p>对于该协议，如果存在，搜索爬虫会根据其中定义的爬取范围来爬取。如果没有找到这个文件，搜索爬虫便会访问所有可直接访问的页面。（当然，也有很多人不会管这些）</p>
+<p>example</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /</span><br><span class="line">Allow: /public/</span><br></pre></td></tr></table></figure>
+<h3 id="实用的-robots-txt-规则">实用的 robots.txt 规则</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">实用规则</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">禁止抓取整个网站</td>
+<td>请注意，在某些情况下，Google 即使未抓取网站中的网址，仍可能将其编入索引。<strong>注意</strong>：这不适用于<a href="https://developers.google.cn/search/docs/crawling-indexing/overview-google-crawlers?hl=zh-cn">各种 AdsBot 抓取工具</a>，此类抓取工具必须明确指定。<code>User-agent: * Disallow: /</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止抓取某一目录及其内容</td>
+<td>在目录名后添加一道正斜线，即可禁止抓取整个目录。<strong>注意</strong>：请勿使用 robots.txt 禁止访问私密内容；请改用正确的身份验证机制。对于 robots.txt 文件所禁止抓取的网址，Google 仍可能会在不进行抓取的情况下将其编入索引；另外，由于 robots.txt 文件可供任何人随意查看，因此可能会泄露您的私密内容的位置。<code>User-agent: * Disallow: /calendar/ Disallow: /junk/ Disallow: /books/fiction/contemporary/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">仅允许某一抓取工具访问网站内容</td>
+<td>只有 <code>googlebot-news</code> 可以抓取整个网站。<code>User-agent: Googlebot-news Allow: / User-agent: * Disallow: /</code></td>
+</tr>
+<tr>
+<td style="text-align:left">允许除某一抓取工具以外的其他所有抓取工具访问网站内容</td>
+<td><code>Unnecessarybot</code> 不能抓取相应网站，所有其他漫游器都可以。<code>User-agent: Unnecessarybot Disallow: / User-agent: * Allow: /</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止抓取某一网页</td>
+<td>例如，禁止抓取位于 <code>https://example.com/useless_file.html</code> 的 <code>useless_file.html</code> 页面和 <code>junk</code> 目录中的 <code>other_useless_file.html</code>。<code>User-agent: * Disallow: /useless_file.html Disallow: /junk/other_useless_file.html</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止抓取除子目录以外的整个网站</td>
+<td>抓取工具只能访问 <code>public</code> 子目录。<code>User-agent: * Disallow: / Allow: /public/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止 Google 图片访问某一特定图片</td>
+<td>例如，禁止访问 <code>dogs.jpg</code> 图片。<code>User-agent: Googlebot-Image Disallow: /images/dogs.jpg</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止 Google 图片访问您网站上的所有图片</td>
+<td>如果无法抓取图片和视频，则 Google 无法将其编入索引。<code>User-agent: Googlebot-Image Disallow: /</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止抓取某一特定文件类型的文件</td>
+<td>例如，禁止抓取所有 <code>.gif</code> 文件。<code>User-agent: Googlebot Disallow: /*.gif$</code></td>
+</tr>
+<tr>
+<td style="text-align:left">禁止抓取整个网站，但允许 <code>Mediapartners-Google</code> 访问内容</td>
+<td>实施此规则会阻止您的网页显示在搜索结果中，但 <code>Mediapartners-Google</code> 网页抓取工具仍能分析这些网页，以确定要向访问您网站的用户显示哪些广告。<code>User-agent: * Disallow: / User-agent: Mediapartners-Google Allow: /</code></td>
+</tr>
+<tr>
+<td style="text-align:left">使用 <code>*</code> 和 <code>$</code> 通配符匹配以特定字符串结尾的网址</td>
+<td>例如，禁止抓取所有 <code>.xls</code> 文件。<code>User-agent: Googlebot Disallow: /*.xls$</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="robotparser">robotparser</h3>
+<p>用于自动分析路径是否可以爬取</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.robotparser <span class="keyword">import</span> RobotFileParser</span><br><span class="line"></span><br><span class="line">rp = RobotFileParser()</span><br><span class="line">rp.set_url(<span class="string">&#x27;http://www.jianshu.com/robots.txt&#x27;</span>)</span><br><span class="line">rp.read()</span><br><span class="line"><span class="built_in">print</span>(rp.can_fetch(<span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;http://www.jianshu.com/p/b67554025d7d&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(rp.can_fetch(<span class="string">&#x27;*&#x27;</span>, <span class="string">&quot;http://www.jianshu.com/search?q=python&amp;page=1&amp;type=collections&quot;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="requests">requests</h2>
+<p>对于一些基础的用法不再介绍，例如get，post请求，cookie设置，header的设置，状态码的判断等都自行学习，主要聊一下高级用法，对于爬虫的一些各种场景的绕过</p>
+<h3 id="文件上传">文件上传</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">files = &#123;<span class="string">&#x27;file&#x27;</span>: <span class="built_in">open</span>(<span class="string">&#x27;favicon.ico&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>)&#125;</span><br><span class="line">r = requests.post(<span class="string">&quot;http://httpbin.org/post&quot;</span>, files=files)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<h3 id="Cookie以及会话">Cookie以及会话</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(r.cookies)</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> r.cookies.items():</span><br><span class="line">    <span class="built_in">print</span>(key + <span class="string">&#x27;=&#x27;</span> + value)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">s = requests.Session()</span><br><span class="line">s.get(<span class="string">&#x27;http://httpbin.org/cookies/set/number/123456789&#x27;</span>)</span><br><span class="line">r = s.get(<span class="string">&#x27;http://httpbin.org/cookies&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<p>采用session的时候，相当于我们维持在一个网页上面</p>
+<h3 id="SSL证书验证">SSL证书验证</h3>
+<p>如果请求一个 HTTPS 站点，但是证书验证错误的页面时，就会报这样的错误，那么如何避免这个错误呢？很简单，把 <code>verify</code> 参数设置为 <code>False</code> 即可。相关代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">&#x27;https://test.cn&#x27;</span>, verify=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>不过我们发现报了一个警告，它建议我们给它指定证书。我们可以通过设置忽略警告的方式来屏蔽这个警告：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.packages <span class="keyword">import</span> urllib3</span><br><span class="line"></span><br><span class="line">urllib3.disable_warnings()</span><br><span class="line">response = requests.get(<span class="string">&#x27;https://test.cn&#x27;</span>, verify=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>或者通过捕获警告到日志的方式忽略警告：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">logging.captureWarnings(<span class="literal">True</span>)</span><br><span class="line">response = requests.get(<span class="string">&#x27;https://test.cn&#x27;</span>, verify=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br></pre></td></tr></table></figure>
+<p>当然，我们也可以指定一个本地证书用作客户端证书，这可以是单个文件（包含密钥和证书）或一个包含两个文件路径的元组：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">&#x27;https://www.12306.cn&#x27;</span>, cert=(<span class="string">&#x27;/path/server.crt&#x27;</span>, <span class="string">&#x27;/path/key&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br></pre></td></tr></table></figure>
+<h3 id="代理设置">代理设置</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">proxies = &#123;</span><br><span class="line">    <span class="string">&quot;http&quot;</span>: <span class="string">&quot;http://user:password@10.10.1.10:3128/&quot;</span>,</span><br><span class="line">    <span class="string">&#x27;http&#x27;</span>: <span class="string">&#x27;socks5://user:password@host:port&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;https&#x27;</span>: <span class="string">&#x27;socks5://user:password@host:port&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">requests.get(<span class="string">&quot;https://www.taobao.com&quot;</span>, proxies=proxies)</span><br></pre></td></tr></table></figure>
+<h3 id="身份认证">身份认证</h3>
+<p>在访问网站时，我们可能会遇到这样的认证页面</p>
+<p>此时可以使用 requests 自带的身份认证功能</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">&#x27;http://localhost:5000&#x27;</span>, auth=(<span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;password&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(r.status_code)</span><br></pre></td></tr></table></figure>
+<p>如果需要OA认证</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install requests_oauthlib</span><br></pre></td></tr></table></figure>
+<p>使用 OAuth1 认证的方法如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests_oauthlib <span class="keyword">import</span> OAuth1</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://api.twitter.com/1.1/account/verify_credentials.json&#x27;</span></span><br><span class="line">auth = OAuth1(<span class="string">&#x27;YOUR_APP_KEY&#x27;</span>, <span class="string">&#x27;YOUR_APP_SECRET&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;USER_OAUTH_TOKEN&#x27;</span>, <span class="string">&#x27;USER_OAUTH_TOKEN_SECRET&#x27;</span>)</span><br><span class="line">requests.get(url, auth=auth)</span><br></pre></td></tr></table></figure>
+<h3 id="Prepared-Request">Prepared Request</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> Request, Session</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://httpbin.org/post&#x27;</span></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;germey&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">s = Session()</span><br><span class="line">req = Request(<span class="string">&#x27;POST&#x27;</span>, url, data=data, headers=headers)</span><br><span class="line">prepped = s.prepare_request(req)</span><br><span class="line">r = s.send(prepped)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<p>这里我们引入了 <code>Request</code>，然后用 <code>url</code>、<code>data</code> 和 <code>headers</code> 参数构造了一个 <code>Request</code> 对象，这时需要再调用 <code>Session</code> 的 <code>prepare_request()</code> 方法将其转换为一个 Prepared Request 对象，然后调用 <code>send()</code> 方法发送即可，运行结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;args&quot;: &#123;&#125;, </span><br><span class="line">  &quot;data&quot;: &quot;&quot;, </span><br><span class="line">  &quot;files&quot;: &#123;&#125;, </span><br><span class="line">  &quot;form&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &quot;germey&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;headers&quot;: &#123;</span><br><span class="line">    &quot;Accept&quot;: &quot;*/*&quot;, </span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, </span><br><span class="line">    &quot;Connection&quot;: &quot;close&quot;, </span><br><span class="line">    &quot;Content-Length&quot;: &quot;11&quot;, </span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, </span><br><span class="line">    &quot;Host&quot;: &quot;httpbin.org&quot;, </span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36&quot;</span><br><span class="line">  &#125;, </span><br><span class="line">  &quot;json&quot;: null, </span><br><span class="line">  &quot;origin&quot;: &quot;182.32.203.166&quot;, </span><br><span class="line">  &quot;url&quot;: &quot;http://httpbin.org/post&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们达到了同样的 POST 请求效果。</p>
+<p>有了 <code>Request</code> 这个对象，就可以将请求当作独立的对象来看待，这样在进行队列调度时会非常方便。后面我们会用它来构造一个 <code>Request</code> 队列。</p>
+<h2 id="解析html">解析html</h2>
+<p>任选一个就行</p>
+<h3 id="lxml">lxml</h3>
+<p>xpath语法</p>
+<p>用法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">text = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">         &lt;li class=&quot;item-0&quot;&gt;&lt;a href=&quot;link1.html&quot;&gt;first item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class=&quot;item-1&quot;&gt;&lt;a href=&quot;link2.html&quot;&gt;second item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class=&quot;item-inactive&quot;&gt;&lt;a href=&quot;link3.html&quot;&gt;third item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class=&quot;item-1&quot;&gt;&lt;a href=&quot;link4.html&quot;&gt;fourth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class=&quot;item-0&quot;&gt;&lt;a href=&quot;link5.html&quot;&gt;fifth item&lt;/a&gt;</span></span><br><span class="line"><span class="string">     &lt;/ul&gt;</span></span><br><span class="line"><span class="string"> &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 lxml 解析 HTML 文本</span></span><br><span class="line">html = etree.HTML(text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 XPath 表达式获取所有 &lt;li&gt; 元素</span></span><br><span class="line">li_elements = html.xpath(<span class="string">&quot;//li&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印所有 &lt;li&gt; 元素</span></span><br><span class="line"><span class="keyword">for</span> li <span class="keyword">in</span> li_elements:</span><br><span class="line">    <span class="built_in">print</span>(etree.tostring(li, encoding=<span class="string">&#x27;unicode&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">html = etree.parse(<span class="string">&#x27;./test.html&#x27;</span>, etree.HTMLParser())</span><br><span class="line">result = etree.tostring(html)</span><br><span class="line"><span class="built_in">print</span>(result.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = html.xpath(<span class="string">&#x27;//*&#x27;</span>) <span class="comment"># 所有节点</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//li/a&#x27;</span>) <span class="comment"># 选取li节点的所有直接a子结点</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//ul//a&#x27;</span>) <span class="comment"># 选取li节点的所有a子孙结点</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//a[@href=&quot;test&quot;]/../@class&#x27;</span>) <span class="comment"># 选取href 属性为 test 的 a 节点，然后再获取其父节点，然后再获取其 class 属性</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//a[@href=&quot;test&quot;]/parent::*/@class&#x27;</span>) <span class="comment"># 选取href 属性为 test 的 a 节点，然后再获取其父节点，然后再获取其 class 属性</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//li/a/test()&#x27;</span>) <span class="comment"># 用 XPath 中的 text() 方法获取节点中的文本</span></span><br><span class="line">result = html.xpath(<span class="string">&#x27;//li[contains(@class, &quot;li&quot;)]/a/text()&#x27;</span>) <span class="comment"># 多值匹配，多个class的时候，需要使用contains函数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Beautiful-Soup">Beautiful Soup</h3>
+<p>基础解析</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">soup = BeautifulSoup(<span class="string">&#x27;&lt;p&gt;Hello&lt;/p&gt;&#x27;</span>, <span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line">soup = BeautifulSoup(<span class="string">&#x27;&lt;p&gt;Hello&lt;/p&gt;&#x27;</span>, <span class="string">&#x27;html.parser&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>之前我是一直使用的是html.parser，来学一下lxml</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">soup = BeautifulSoup(html, <span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(soup.prettify()) <span class="comment"># 打印出html缩进之后的全部html，并且完成补全</span></span><br><span class="line"><span class="built_in">print</span>(soup.p.string) <span class="comment"># 打印出第一个匹配的节点的内容</span></span><br><span class="line"><span class="built_in">print</span>(soup.p.attrs) <span class="comment"># 获取全部属性，字典形式</span></span><br><span class="line"><span class="built_in">print</span>(soup.p[<span class="string">&#x27;name&#x27;</span>]) <span class="comment"># 直接得到p节点的name</span></span><br><span class="line"><span class="built_in">print</span>(soup.p.children) <span class="comment"># 子节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.p.descendants) <span class="comment"># 全部子孙节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.a.parent) <span class="comment"># 父节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.a.parents) <span class="comment"># 祖先节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.a.next_sibling) <span class="comment"># 上一个兄弟节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.a.previous_sibling) <span class="comment"># 下一个兄弟节点</span></span><br><span class="line"><span class="keyword">for</span> i, child <span class="keyword">in</span> <span class="built_in">enumerate</span>(soup.p.children):</span><br><span class="line">    <span class="built_in">print</span>(i, child)</span><br></pre></td></tr></table></figure>
+<p>方法选择器，直接得到特定条件的节点</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(soup.find_all(name=<span class="string">&#x27;ul&#x27;</span>))</span><br><span class="line">find_parents() 和 find_parent()：前者返回所有祖先节点，后者返回直接父节点。</span><br><span class="line">find_next_siblings() 和 find_next_sibling()：前者返回后面所有的兄弟节点，后者返回后面第一个兄弟节点。</span><br><span class="line">find_previous_siblings() 和 find_previous_sibling()：前者返回前面所有的兄弟节点，后者返回前面第一个兄弟节点。</span><br><span class="line">find_all_next() 和 find_next()：前者返回节点后所有符合条件的节点，后者返回第一个符合条件的节点。</span><br><span class="line">find_all_previous() 和 find_previous()：前者返回节点后所有符合条件的节点，后者返回第一个符合条件的节点。</span><br></pre></td></tr></table></figure>
+<p>css 选择器，获取div标签下面的节点</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(soup.select(<span class="string">&#x27;.panel .panel-heading&#x27;</span>)) <span class="comment"># class为panel下的class为panel-heading的节点</span></span><br><span class="line"><span class="built_in">print</span>(soup.select(<span class="string">&#x27;ul li&#x27;</span>)) <span class="comment"># ul标签下面的li标签</span></span><br><span class="line"><span class="built_in">print</span>(soup.select(<span class="string">&#x27;#list-2 .element&#x27;</span>)) <span class="comment"># ID为list-2的元素下所有类为element的子元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="实战">实战</h2>
+<h3 id="Ajax">Ajax</h3>
+<p>对于前后端进行数据交互之后在进行渲染的情况，存在下面的方法对数据进行爬取</p>
+<p>首先Ajax的交互方式，前端发包情况隶属于XHR的发包，可以在F12之后看到，具体方法可以查看下面的文章：</p>
+<p><a href="https://cuiqingcai.com/5597.html">https://cuiqingcai.com/5597.html</a></p>
+<p>实战可以查看：</p>
+<p><a href="https://cuiqingcai.com/5609.html">https://cuiqingcai.com/5609.html</a></p>
+<p>但是对于这样的实战手法，仅仅考虑明文传输，假设出现密文传输的方式，在安全的领域下面需要进行前端的逆向操作，</p>
 ]]></content>
       <categories>
         <category>开发</category>
@@ -4290,6 +4402,64 @@ $$<br />
       </categories>
       <tags>
         <tag>blue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python-ast</title>
+    <url>/2024/02/29/13-58-25/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>溯源与反溯源</title>
+    <url>/2024/03/06/18-32-35/</url>
+    <content><![CDATA[<h1>溯源与反溯源</h1>
+<h2 id="基本概念">基本概念</h2>
+<p>攻防演练过程中，攻击者千方百计使用各种方法渗透目标。一般情况下攻击链包括：侦察、武器化、交付、利用、安装、命令和控制、窃取目标数据。在溯源中，安全人员对攻击者某个阶段的攻击特点进行分析，再结合已掌握的威胁情报数据将攻击特点和数据聚类，能够有效掌握攻击者的攻击手法和 IP 、域名资产等。</p>
+<h2 id="反溯源的手段以及方式">反溯源的手段以及方式</h2>
+<h3 id="藏匿ip">藏匿ip</h3>
+<h4 id="1-物联网卡-移动WIFI设备"><strong>1. 物联网卡+移动WIFI设备</strong></h4>
+<p>在手工测试场景中，使用物联网卡并将其安装在USB移动WiFi设备上，是一种用于红队测试的常见方法。当进行攻击测试时，如果安全设备检测到了攻击性payload并封禁了相关测试IP，红队成员可以通过简单地插拔USB设备来重启，从而切换到新的IP地址。</p>
+<p>这种方法的优势在于，通过物联网卡和USB移动WiFi设备，红队成员可以维护匿名性。此外，当IP被封禁时，可以通过重新启动来迅速更换IP地址，以继续测试工作，而无需等待封禁解除。</p>
+<p><img src="https://image.3001.net/images/20231204/1701656276_656d36d4afd0135eb3976.png!small" alt="img" /></p>
+<h4 id="2-云函数"><strong>2. 云函数</strong></h4>
+<p><img src="https://image.3001.net/images/20231204/1701656309_656d36f55157a1196b05c.png!small" alt="img" /><img src="https://image.3001.net/images/20231204/1701656319_656d36ff6e0b67310bfb3.png!small" alt="img" /></p>
+<p>云函数（SCF）是云服务供应商提供的无服务器执行环境，能对外发送数据包。它可通过 API 网关触发器进行触发，先接受来自客户端的数据，再利用其多IP出口的特性将请求随机转发出去，这样一来就达到了代理的效果。</p>
+<p>实战中可利用云服务供应商如阿里云、腾讯云和AWS等提供的云函数服务，通过在线编辑服务器端的代码以及配置API网关触发器，从而轻松地在一台虚拟专用服务器（VPS）上启动HTTP[S]或SOCKS代理服务。这个代理服务的出口在云服务提供商的多个地区，因此可以实现请求一次就切换IP地址的效果。</p>
+<p>这种方式的优势在于无需复杂的手动配置和部署流程即可实现IP一次一换的代理效果，且这样配置更换IP有助于维护匿名性或绕过封锁场景。</p>
+<h4 id="3-自建代理池-隧道代理"><strong>3. 自建代理池+隧道代理</strong></h4>
+<p><img src="https://image.3001.net/images/20231204/1701656331_656d370b70f46aa9f5f72.png!small" alt="img" /></p>
+<p>借助数据库，如Redis等，我们可以存储从各大代理网站爬取到的免费http[s]/socks代理IP:Prot。随后，通过自定义的质检程序，我们可以对这些代理进行可用性及网速判断。最后，我们构建隧道代理，通过转发服务实现对扫描IP的一次一换，以确保高效的扫描操作。</p>
+<p>这个流程包括以下步骤：</p>
+<ol>
+<li>代理抓取： 我们从多个网站爬取免费代理IP，并将其存储在数据库中，以便后续使用。</li>
+<li>质检程序： 我们开发了自定义的质检程序，用于验证代理的可用性。这包括检查代理的连通性、响应时间、成功率以及其他相关参数。</li>
+<li>代理评分和删除： 初次存储和使用过的代理IP经过我们自定义的质检程序进行评分。如果代理的分数低于设定的阈值，它将被自动删除，以确保只有高质量的代理被保留在数据库中。</li>
+<li>转发服务：配置隧道代理，请求入口统一，出口IP根据自定义规则随机从代理池中取出作为代理被使用。</li>
+</ol>
+<p>这套方案可以帮助安全人员轻松地获取可用的代理IP，同时通过质检和评分机制，确保只有高性能和稳定的代理被提供给用户。而且所用代理爬取自各大代理服务商所公示的免费代理，这样不仅保障了匿名性也提高了扫描效率。</p>
+<h4 id="4-机场节点-clash-meta-隧道代理"><strong>4. 机场节点+clash.meta+隧道代理</strong></h4>
+<p><img src="https://image.3001.net/images/20231204/1701656373_656d37352a34f30bd051e.png!small" alt="img" /></p>
+<p>机场作为翻墙常用的节点，不仅能帮助用户绕过网络的封锁（GFW）来访问国外资源，还在安全工作中提供了代理服务，帮助用户绕过目标网络的限制。然而，常用节点订阅工具v2rayN的默认设置是一个本地入口（通常使用端口10808）仅对应一个VMess或其他加密协议节点出口，这可能带来一定的限制。</p>
+<p>尽管v2rayN内核本身支持多入口和多出口，但需要手动编写繁琐的配置文件，这对于用户而言可能不够便捷。此时，我们可引入了clash.meta，这是原版clash的一个分支，它提供了一种简单的解决方案，能够轻松实现v2rayN多入口多出口的配置需求。使用clash.meta，我们可以将机场中的各种协议节点转换为本地的socks节点。这使得每个本地端口都可以对应一个外部机场节点，从而实现多入口对应多出口的配置。而且，不同于上一种方案中爬取免费代理自建代理池，这里花费极少代价使用机场节点构建的socks代理池更加的稳定可靠。</p>
+<p><img src="https://image.3001.net/images/20231204/1701656392_656d3748ecb1d4b0075d0.png!small" alt="img" /></p>
+<p>最后，我们可以配置隧道代理服务，使内部工具或环境只需配置一个简单的ip:port，就能够随时在多个机场节点之间切换出口IP。这样不仅确保了用户的匿名性，还能够帮助用户绕过目标网络的限制策略。</p>
+<h4 id="5-TOR服务"><strong>5. TOR服务</strong></h4>
+<p><img src="https://image.3001.net/images/20231204/1701656405_656d37553a0204e34dcf4.png!small" alt="img" /></p>
+<p>Tor 是一个虚拟隧道网络，用于提高互联网用户的隐私和安全。其原理在于通过 Tor 网络内的三个随机服务器（也称节点）发送用户流量。线路中的最后一个中继（即“出口节点”）将流量发送到公共互联网。</p>
+<p>Windows上使用的Tor浏览器即采用上述网络结构，可以使通信数据通过多个中继节点传递，且Tor会对通信来源进行加密，在这个过程中保障了用户的隐私和匿名性，最终绕过目标限制策略。</p>
+<p>Linux上 proxychains 搭配 tor服务，也可配置socks5代理，同样可以绕过目标限制策略。</p>
+<p><img src="https://image.3001.net/images/20231204/1701656417_656d3761892b8a16cf1cc.png!small" alt="img" /></p>
+<h4 id="6-在线网站端口扫描"><strong>6. 在线网站端口扫描</strong></h4>
+<p>在红队打点过程中，通常需要执行端口扫描操作，然后是指纹识别等。然而，如果甲方运维人员正在进行监测，可能会导致IP地址被发现进而通过一些方式被溯源到个人账号ID、身份信息或手机号等。在这种情况下，通过在线网站进行端口扫描可以避免被追溯，实现匿名的端口扫描操作。</p>
+<h4 id="7-代理服务供应商"><strong>7. 代理服务供应商</strong></h4>
+<p>使用借助代理服务供应商提供的HTTP[S]和SOCKS动态代理服务，不仅有助于在手工渗透测试过程中保持匿名性和绕过防火墙设备，还能够在配置适当的扫描器并发量时，实现高效的批量检测。</p>
+<h2 id="溯源">溯源</h2>
+]]></content>
+      <categories>
+        <category>red</category>
+      </categories>
+      <tags>
+        <tag>red</tag>
       </tags>
   </entry>
 </search>
