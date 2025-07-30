@@ -20,25 +20,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gudiffany.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="tabby安装与使用 安装 环境如下： ​	windows10 ​	wsl2+ubuntu（jdk17） 下载与编译 有现成的jar https:&#x2F;&#x2F;github.com&#x2F;wh1t3p1g&#x2F;tabby-path-finder&#x2F;releases 核心文件 https:&#x2F;&#x2F;github.com&#x2F;wh1t3p1g&#x2F;tabby&#x2F;releases&#x2F; 直接可以得到编译好的tabby.jar https:&#x2F;&#x2F;n">
+    <meta name="description" content="tabby安装与使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tabby安装与使用">
 <meta property="og:url" content="https://gudiffany.github.io/2025/03/06/19-40-14/index.html">
 <meta property="og:site_name" content="diffany">
-<meta property="og:description" content="tabby安装与使用 安装 环境如下： ​	windows10 ​	wsl2+ubuntu（jdk17） 下载与编译 有现成的jar https:&#x2F;&#x2F;github.com&#x2F;wh1t3p1g&#x2F;tabby-path-finder&#x2F;releases 核心文件 https:&#x2F;&#x2F;github.com&#x2F;wh1t3p1g&#x2F;tabby&#x2F;releases&#x2F; 直接可以得到编译好的tabby.jar https:&#x2F;&#x2F;n">
+<meta property="og:description" content="tabby安装与使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306195016488.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306200617732.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306201319846.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306201721237.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306201841220.png">
-<meta property="og:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306202018937.png">
 <meta property="article:published_time" content="2025-03-06T11:40:14.000Z">
-<meta property="article:modified_time" content="2025-03-06T16:49:02.967Z">
+<meta property="article:modified_time" content="2025-07-30T13:42:16.792Z">
 <meta property="article:author" content="diffany">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gudiffany.github.io/AppData/Roaming/Typora/typora-user-images/image-20250306195016488.png">
 
 
 <link rel="canonical" href="https://gudiffany.github.io/2025/03/06/19-40-14/">
@@ -148,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">tabby安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="nav-number">1.1.1.</span> <span class="nav-text">下载与编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tabby%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">tabby安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%8E%E7%BC%96%E8%AF%91"><span class="nav-number">1.1.1.</span> <span class="nav-text">下载与编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,18 +154,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -240,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-07 00:49:02" itemprop="dateModified" datetime="2025-03-07T00:49:02+08:00">2025-03-07</time>
+      <time title="修改时间：2025-07-30 21:42:16" itemprop="dateModified" datetime="2025-07-30T21:42:16+08:00">2025-07-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,47 +269,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1>tabby安装与使用</h1>
-<h2 id="安装">安装</h2>
-<p>环境如下：</p>
-<p>​	windows10</p>
-<p>​	wsl2+ubuntu（jdk17）</p>
-<h3 id="下载与编译">下载与编译</h3>
-<p>有现成的jar</p>
+        <h1 id="tabby安装与使用"><a href="#tabby安装与使用" class="headerlink" title="tabby安装与使用"></a>tabby安装与使用</h1><span id="more"></span>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>环境如下：</p>
+<p>​    windows10</p>
+<p>​    wsl2+ubuntu（jdk17）</p>
+<h3 id="下载与编译"><a href="#下载与编译" class="headerlink" title="下载与编译"></a>下载与编译</h3><p>有现成的jar</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/wh1t3p1g/tabby-path-finder/releases">https://github.com/wh1t3p1g/tabby-path-finder/releases</a></p>
 <p>核心文件</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/wh1t3p1g/tabby/releases/">https://github.com/wh1t3p1g/tabby/releases/</a></p>
 <p>直接可以得到编译好的tabby.jar</p>
 <p><a target="_blank" rel="noopener" href="https://neo4j.com/deployment-center/#enterprise">https://neo4j.com/deployment-center/#enterprise</a></p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306195016488.png" alt="image-20250306195016488" /></p>
 <p>下载的是neo4j 5.26.3，因为文档是要5.x</p>
 <p>开wsl安装<code>sudo dpkg -i neo4j_5.26.3_all.deb</code></p>
 <p>可能会出现一些依赖的报错，自行下载引擎等进行解决</p>
 <p>我这边只遇到了cypher-shell的缺失，直接官网下载就行</p>
 <p><a target="_blank" rel="noopener" href="https://neo4j.com/deployment-center/#tools-tab">https://neo4j.com/deployment-center/#tools-tab</a></p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306200617732.png" alt="image-20250306200617732" /></p>
 <p>安装好之后，启动neo4j</p>
 <p>可以看到</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306201319846.png" alt="image-20250306201319846" /></p>
 <p>此时是修改了配置之后的，可以更改一下<code>/etc/neo4j</code>下面的neo4j.conf</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.directories.import=import</span><br><span class="line">dbms.connector.bolt.listen_address=0.0.0.0:7687</span><br><span class="line">dbms.connector.http.listen_address=0.0.0.0:7474</span><br><span class="line">dbms.connector.http.advertised_address=127.0.0.1:7474</span><br><span class="line">dbms.security.procedures.unrestricted=jwt.security.*,apoc.*,tabby.*</span><br></pre></td></tr></table></figure>
 <p>更改上面的配置即可，然后启动neo4j服务确保可以访问（第一次需要修改密码）</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306201721237.png" alt="image-20250306201721237" /></p>
 <p>根据readme下载编译即可（需要jar）</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/wh1t3p1g/tabby-vul-finder">https://github.com/wh1t3p1g/tabby-vul-finder</a></p>
 <p>完成上面的neo4j配置之后，更改config下面的db.propreties的password</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306201841220.png" alt="image-20250306201841220" /></p>
 <p>然后进行编译得到<code>tabby-vul-finder.jar</code>，然后去</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases">https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases</a></p>
 <p>和</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/neo4j/apoc/releases">https://github.com/neo4j/apoc/releases</a></p>
 <p>下载相关的插件</p>
-<p><img src="/../../../AppData/Roaming/Typora/typora-user-images/image-20250306202018937.png" alt="image-20250306202018937" /></p>
 <p>然后将插件以及<code>tabby-vul-finder.jar</code>全部放到/var/lib/neo4j/plugins下面，然后重启neo4j</p>
 <p>访问运行CALL tabby.help(‘tabby’)和CALL apoc.help(‘all’)可以正常即可</p>
 <p>以上就是tabby的安装过程</p>
-<h2 id="使用">使用</h2>
-<p>根据官方文档，将jar作为项目进行处理</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>根据官方文档，将jar作为项目进行处理</p>
 
     </div>
 
@@ -350,8 +334,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/03/06/18-32-35/" rel="prev" title="溯源与反溯源">
-                  <i class="fa fa-chevron-left"></i> 溯源与反溯源
+                <a href="/2024/01/25/23-11-28/" rel="prev" title="HTB Sherlocks">
+                  <i class="fa fa-chevron-left"></i> HTB Sherlocks
                 </a>
             </div>
             <div class="post-nav-item">
